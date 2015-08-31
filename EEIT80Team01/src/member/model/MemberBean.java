@@ -6,7 +6,7 @@ public class MemberBean {
 	
 	private String userName;
 	private String password;
-	private String id;
+	private String id;//身分證字號
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -14,6 +14,7 @@ public class MemberBean {
 	private Date birthDay;
 	private int access;
 	private int certified;
+	
 	public String getUserName() {
 		return userName;
 	}
