@@ -88,24 +88,76 @@ public class FindPwDAOjdbc implements FindPwDAO {
 		return beans;
 	}
 	
-	
+	private static final String INSERT =
+			"insert into findpw (username, REQUEST_TIME) values (?, ?)";
+
 
 	@Override
 	public FindPwBean insert(FindPwBean bean) {
-		
-		
-		return null;
+		FindPwBean result = null;
+		try(Connection conn = ds.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(INSERT);){
+					if(bean!=null) {
+						stmt.setString(1, bean.getUserName());
+						java.util.Date requestTime = bean.getRequestTime();
+						if(requestTime!=null) {
+							long time = requestTime.getTime();
+							stmt.setDate(2, new java.sql.Date(time));
+						} else {
+							stmt.setDate(2, null);				
+						}		
+						int i = stmt.executeUpdate();
+						if(i==1) {
+							result = bean;
+						}
+					}				
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		return result;
 	}
-
+	private static final String UPDATE =
+			"update findpw set REQUEST_TIME=? where username=?";
+	
 	@Override
 	public FindPwBean update(FindPwBean bean) {
+		FindPwBean result = null;
+		try(Connection conn = ds.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(UPDATE);) {
 
-		return null;
+			java.util.Date requestTime = bean.getRequestTime();
+			if(requestTime!=null) {
+				long time = requestTime.getTime();
+				stmt.setDate(2, new java.sql.Date(time));
+			} else {
+				stmt.setDate(2, null);				
+			}	
+	
+				stmt.setString(2, bean.getUserName());
+				int i = stmt.executeUpdate();
+				if(i==1) {
+					result = bean;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}				
+				
+		return result;
 	}
-
+	private static final String DELETE =
+			"delete from findpw where username=?";
 	@Override
 	public boolean delete(String userName) {
-
+		try(Connection conn = ds.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(DELETE);) {			
+				stmt.setString(1, userName);
+				int i = stmt.executeUpdate();
+				if(i==1) {
+					return true;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		return false;
 	}
 
