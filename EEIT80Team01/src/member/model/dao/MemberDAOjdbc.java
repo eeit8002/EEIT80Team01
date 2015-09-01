@@ -18,13 +18,14 @@ import member.model.MemberDAO;
 public class MemberDAOjdbc implements MemberDAO {
 	private DataSource ds = null;
 	public MemberDAOjdbc() {
-
+		
         Context ctx;
 		try {
 			ctx = new InitialContext();
 			ds = (DataSource) ctx.lookup(GlobalService.JNDI_DB_NAME);
-	
+		
 		} catch (NamingException e) {
+			e.printStackTrace();
 		}		
     }
 	
