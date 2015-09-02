@@ -35,7 +35,7 @@ public class CheckAccount extends HttpServlet {
 		PrintWriter out =response.getWriter();
 		request.setCharacterEncoding("UTF-8");
 		MemberService service = new MemberService();
-		boolean result = service.accountCheck(request.getParameter("userName"));
+		boolean result = service.accountCheck(request.getParameter("userName").toUpperCase());
 		
 		out.println(result);
 	}

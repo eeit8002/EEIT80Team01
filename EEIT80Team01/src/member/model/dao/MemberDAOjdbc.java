@@ -45,7 +45,7 @@ public class MemberDAOjdbc implements MemberDAO {
 			if(rset.next()) {
 				result = new MemberBean();
 				result.setUserName(rset.getString("username"));
-				result.setPassword(rset.getString("password"));
+				result.setPassword(rset.getString("passwd"));
 				result.setId(rset.getString("id"));
 				result.setFirstName(rset.getString("fname"));
 				result.setLastName(rset.getString("lname"));
@@ -83,7 +83,7 @@ public class MemberDAOjdbc implements MemberDAO {
 			while(rset.next()){
 				MemberBean bean = new MemberBean();
 				bean.setUserName(rset.getString("username"));
-				bean.setPassword(rset.getString("password"));
+				bean.setPassword(rset.getString("passwd"));
 				bean.setId(rset.getString("id"));
 				bean.setFirstName(rset.getString("fname"));
 				bean.setLastName(rset.getString("lname"));
