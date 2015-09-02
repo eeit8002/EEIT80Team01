@@ -25,12 +25,6 @@
     <servlet-name>CheckAccount</servlet-name>
     <url-pattern>/register/checkAccount</url-pattern>
   </servlet-mapping>
-  
-  
-  
-  
-  
-  
   <resource-ref>
     <description>JNDI DataSource</description>
     <res-ref-name>jdbc/eeit80team01</res-ref-name>
