@@ -103,7 +103,7 @@ public class MemberDAOjdbc implements MemberDAO {
 		return beans;
 	}
 	private static final String INSERT =
-			"insert into member (username, password, id, fname, lname, email, gender, birthday, access, certified) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			"insert into member (username, passwd, id, fname, lname, email, gender, birthday, access, certified) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	@Override
 	public MemberBean insert(MemberBean bean) {
 		MemberBean result = null;
@@ -143,7 +143,7 @@ public class MemberDAOjdbc implements MemberDAO {
 
 	
 	private static final String UPDATE =
-			"update member set password=?, id=?, fname=?, lname=?, email=?, gender=?, birthday=?, access=?, certified=? where username=?";
+			"update member set passwd=?, id=?, fname=?, lname=?, email=?, gender=?, birthday=?, access=?, certified=? where username=?";
 	@Override
 	public MemberBean update(MemberBean bean) {
 		MemberBean result = null;
