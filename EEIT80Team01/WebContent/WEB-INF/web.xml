@@ -17,14 +17,6 @@
     <servlet-name>LoginServlet</servlet-name>
     <url-pattern>/login/login.do</url-pattern>
   </servlet-mapping>
-  <servlet>
-    <servlet-name>CheckAccount</servlet-name>
-    <servlet-class>member.register.controller.CheckAccount</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>CheckAccount</servlet-name>
-    <url-pattern>/register/checkAccount</url-pattern>
-  </servlet-mapping>
   <resource-ref>
     <description>JNDI DataSource</description>
     <res-ref-name>jdbc/eeit80team01</res-ref-name>

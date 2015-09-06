@@ -1,5 +1,6 @@
 package member.model.dao;
 import global.GlobalService;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,10 +8,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+
 import member.model.MemberBean;
 import member.model.MemberDAO;
 
@@ -190,6 +193,46 @@ public class MemberDAOjdbc implements MemberDAO {
 			e.printStackTrace();
 		}
 		return false;
+	}
+	
+	private static final String SELECT_BY_ID =
+			"select * from member where id=?";
+	
+	@Override
+	public MemberBean selectById(String userName) {
+
+		MemberBean result = null;
+		ResultSet rset = null;
+		
+		try (Connection conn = ds.getConnection();
+			PreparedStatement stmt = conn.prepareStatement(SELECT_BY_ID);){
+			stmt.setString(1, userName);
+			rset = stmt.executeQuery();
+			if(rset.next()) {
+				result = new MemberBean();
+				result.setUserName(rset.getString("username"));
+				result.setPassword(rset.getString("passwd"));
+				result.setId(rset.getString("id"));
+				result.setFirstName(rset.getString("fname"));
+				result.setLastName(rset.getString("lname"));
+				result.setEmail(rset.getString("email"));
+				result.setGender(rset.getInt("gender"));
+				result.setBirthDay(new Date(rset.getDate("birthday").getTime()));
+				result.setAccess(rset.getInt("access"));
+				result.setCertified(rset.getInt("certified"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rset!=null) {
+				try {
+					rset.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return result;
 	}
 
 }
