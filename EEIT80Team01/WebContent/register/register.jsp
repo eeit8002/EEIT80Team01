@@ -26,6 +26,7 @@
 <div id="main">
 	<form method="post" class="cmxform" id="form" action="register.do">
 		<fieldset>
+			<legend>註冊</legend>
 			<p>
 				<label class="tag" for="user">帳號：</label>
 				<input type="text" id="username" name="username" title="請輸入帳號">
