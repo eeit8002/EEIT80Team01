@@ -160,11 +160,6 @@ public class IDChecker {
 		return iDString;
 	}
 	
-		
-	public void ChangeID(String s){
-		this.str=s;
-	}
-	
 	public IDChecker(String s){
 		this.str=s;
 	}

@@ -11,10 +11,14 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/scripts/jquery.validate.min.js"></script>
 <title>註冊</title>
 	<style>
+		fieldset{
+			width: 500px;
+		}
 		.tag{ 
 			display: inline-block;
 		 	width: 100px;
-		 	text-align: right;}
+		 	text-align: right;
+		 	}
 	</style>
 
 </head>
@@ -62,7 +66,7 @@
 				<option value="1">女</option>
 			</select>
 			</p>
-			<label class="tag"	></label>
+			<label class="tag"></label>
 			<input type="submit" id="submit" value="送出">
 			<input type="reset" id="reset" value="清除">
 		</fieldset>	

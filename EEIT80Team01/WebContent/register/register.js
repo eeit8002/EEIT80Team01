@@ -1,6 +1,15 @@
 		$().ready(function(){
 			
-			$("#birthDay").datepicker(); 
+			$("#birthDay").datepicker({
+			      changeMonth: true,
+			      changeYear: true,
+			      onClose: function () {
+			          $(this).focusout();
+			      }
+			    });
+		    $("#reset").click(function() {
+		    	$("#form").validate().resetForm();
+		    });
 			
 			$.validator.addMethod("ID_regex",
 				      function(citizenid, element) {
