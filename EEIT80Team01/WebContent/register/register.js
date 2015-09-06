@@ -3,6 +3,10 @@
 			$("#birthDay").datepicker({
 			      changeMonth: true,
 			      changeYear: true,
+			      defaultDate : (new Date(new Date().getFullYear() - 60
+                          + "/01/01") - new Date())
+                          / (1000 * 60 * 60 * 24),
+			      yearRange : "1900:",
 			      onClose: function () {
 			          $(this).focusout();
 			      }
