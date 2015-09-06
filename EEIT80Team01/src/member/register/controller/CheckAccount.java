@@ -15,7 +15,7 @@ import com.sun.xml.internal.fastinfoset.tools.PrintTable;
 
 import member.model.MemberService;
 
-
+//@WebServlet("/register/checkAccount")
 public class CheckAccount extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -35,8 +35,7 @@ public class CheckAccount extends HttpServlet {
 		PrintWriter out =response.getWriter();
 		request.setCharacterEncoding("UTF-8");
 		MemberService service = new MemberService();
-		boolean result = service.accountCheck(request.getParameter("userName").toUpperCase());
-		
+		boolean result = service.accountCheck(request.getParameter("username").toUpperCase());		
 		out.println(result);
 	}
 
