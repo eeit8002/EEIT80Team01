@@ -9,9 +9,9 @@
 </head>
 <body>
 	等人放東西的首頁<br>
-	<a href="${pageContext.request.contextPath}/register/register.jsp">註冊</a><br>
+	<a href="${pageContext.request.contextPath}/register/register.jsp"  value="${sessionScope.password}">註冊</a><br>
 	<c:if test="${empty LoginOK }">
-		<a href="${pageContext.request.contextPath}/login/login.jsp">登入</a>
+		<a href="${pageContext.request.contextPath}/login/login.jsp"  value="${sessionScope.password}">登入</a>
     </c:if>	
 	<c:if test="${ ! empty LoginOK }">
 		<a href="${pageContext.request.contextPath}/login/logout.jsp">登出</a>
