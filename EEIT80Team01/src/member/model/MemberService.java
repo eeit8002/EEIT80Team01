@@ -33,5 +33,18 @@ public class MemberService {
 		return result;
 	}
 	
+	public MemberBean checkIDPassword(String username, String password){
+		MemberBean bean = new MemberBean();
+		MemberDAO dao = new MemberDAOjdbc();
+		bean = dao.select(username);
+		if( bean!=null && bean.getUserName().toUpperCase().equals(username) 
+				&& bean.getPassword().equals(GlobalService.getMD5Endocing(password))){
+			return bean;
+		} else {
+			return null;
+		}
+			
+	}
+	
 	
 }

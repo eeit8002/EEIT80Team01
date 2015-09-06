@@ -63,8 +63,8 @@
 			<label class="tag" for="gender">姓別：</label>
 			<select id="gender" name="gender">
 				<option value="">請選擇姓別：</option>
-				<option value="0">男</option>
-				<option value="1">女</option>
+				<option value="1">男</option>
+				<option value="0">女</option>
 			</select>
 			</p>
 			<label class="tag"></label>

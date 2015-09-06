@@ -10,6 +10,8 @@
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/scripts/jquery.form.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/scripts/jquery.validate.min.js"></script>
+
 	<style>
 		fieldset{
 			width: 500px;
@@ -30,20 +32,25 @@
 			<p>
 				<label class="tag" for="user">帳號：</label>
 				<input type="text" id="username" name="username" title="請輸入帳號">
-				<small><Font color='red' size="-3">${ErrorMsgKey.AccountEmptyError}</Font></small>
 			</p>
 			<p>
 				<label class="tag" for="password">密碼：</label>
 				<input type="password" id="password" name="password" title="請輸入密碼">
-				<small><Font color='red'  size="-3">${ErrorMsgKey.PasswordEmptyError}</Font></small>
 			</p>
-			<label class="tag"></label>
+			<p>
+			<label class="tag"><small>記住密碼</small>
+			</label><input type="checkbox" name="rememberMe" 
+               <c:if test='${sessionScope.rememberMe==true}'>
+                  checked='checked'
+               </c:if> 
+             value="true"></p>
+             <label class="tag"></label>
 			<input type="submit" id="submit" value="送出">
 			<input type="reset" id="reset" value="清除">
 		</fieldset>	
 	</form>
-	
+	<Font color='red' size="-1">${ErrorMsgKey.LoginError}&nbsp;</Font>	
 </div>
-	
+	<script type="text/javascript" src="login.js"></script>
 </body>
 </html>
