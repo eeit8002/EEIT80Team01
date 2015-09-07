@@ -33,7 +33,7 @@ public class MemberService {
 		return result;
 	}
 	
-	public MemberBean checkIDPassword(String username, String password){
+	public MemberBean checkPasswordWithUsername(String username, String password){
 		MemberBean bean = new MemberBean();
 		MemberDAO dao = new MemberDAOjdbc();
 		bean = dao.select(username);

@@ -33,7 +33,7 @@ fieldset {
 <body>
 	<c:set var="funcName" value="LOG" scope="session" />
 	<div id="main">
-		<form method="post" class="cmxform" id="form" action="login.do">
+		<form method="post" class="cmxform" id="form" action="adminlogin.do">
 			<fieldset>
 				<legend>登入</legend>
 				<p>

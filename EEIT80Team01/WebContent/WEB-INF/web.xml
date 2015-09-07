@@ -20,7 +20,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>AdminLoginServlet</servlet-name>
-		<url-pattern>/admin/login/login.do</url-pattern>
+		<url-pattern>/admin/login/adminlogin.do</url-pattern>
 	</servlet-mapping>
 	<!-- Admin Area -->
 	
