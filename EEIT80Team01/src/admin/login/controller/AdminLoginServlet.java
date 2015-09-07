@@ -1,74 +1,91 @@
 package admin.login.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.xml.bind.DatatypeConverter;
 
-import admin.model.AdminBean;
-import admin.model.AdminDAO;
-import admin.model.dao.AdminDAOJdbc;
-
-/**
- * Servlet implementation class AdminLoginServlet
- */
-@WebServlet("/AdminLoginServlet")
+//@WebServlet("/AdminLoginServlet")
 public class AdminLoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public AdminLoginServlet() {
 		super();
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
+		// response.getWriter().append("Served at:
+		// ").append(request.getContextPath());
 		response.getWriter().append("Don't try attack this server !!");
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// doGet(request, response);
-		response.setContentType("text/html");
-		String userName = request.getParameter("UserName");
-		String passwd = request.getParameter("Password");
+		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
+		Map<String, String> errorMsgMap = new HashMap<String, String>();
+		request.setAttribute("ErrorMsgKey", errorMsgMap);
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		String rm = request.getParameter("rememberMe");
+		String requestURI = (String) session.getAttribute("requestURI");
 
-		AdminDAO adminDAO = new AdminDAOJdbc();
-		AdminBean bean = adminDAO.select(userName);
-		String userNameFromSQL = bean.getUserName();
-		String passwdFromSQL = bean.getPasswd();
-		if (userName.equals(userNameFromSQL) && passwd.equals(passwdFromSQL)) {
-			int permission = bean.getPermission();
-			if (permission == 1) {
-				Cookie adminCookie = new Cookie("adminCookie", userName);
-				adminCookie.setMaxAge(60 * 60 * 24);
-				response.addCookie(adminCookie);
-				response.sendRedirect("input a jsp page here"); // <-- admin login success, redirect to system manage page.
-			} else if (permission == 0) {
-				Cookie supportCookie = new Cookie("supportCookie",userName);
-				supportCookie.setMaxAge(60 * 60 * 24);
-				response.addCookie(supportCookie);
-				response.sendRedirect("input a jsp page here"); // <-- supporter login success, redirect to memeber manage page.
-			}
+		if (username == null || username.trim().length() == 0) {
+			errorMsgMap.put("AccountEmptyError", "帳號為必填欄位");
 		}
+		if (password == null || password.trim().length() == 0) {
+			errorMsgMap.put("PasswordEmptyError", "密碼為必填欄位");
+		}
+
+		Cookie cookieAdminUser = null;
+		Cookie cookieAdminPassword = null;
+		Cookie cookieAdminRememberMe = null;
+
+		if (rm != null) {
+			cookieAdminUser = new Cookie("username", username);
+			cookieAdminUser.setMaxAge(60 * 60 * 24);
+			cookieAdminUser.setPath(request.getContextPath());
+
+			String encodePassword = DatatypeConverter.printBase64Binary(password.getBytes());
+			cookieAdminPassword = new Cookie("password", encodePassword);
+			cookieAdminPassword.setMaxAge(60 * 60 * 24);
+			cookieAdminPassword.setPath(request.getContextPath());
+
+			cookieAdminRememberMe = new Cookie("rm", "true");
+			cookieAdminRememberMe.setMaxAge(60 * 60 * 24);
+			cookieAdminRememberMe.setPath(request.getContextPath());
+		} else {
+			cookieAdminUser = new Cookie("username", username);
+			cookieAdminUser.setMaxAge(60 * 60 * 24);
+			cookieAdminUser.setPath(request.getContextPath());
+
+			String encodePassword = DatatypeConverter.printBase64Binary(password.getBytes());
+			cookieAdminPassword = new Cookie("password", encodePassword);
+			cookieAdminPassword.setMaxAge(60 * 60 * 24);
+			cookieAdminPassword.setPath(request.getContextPath());
+
+			cookieAdminRememberMe = new Cookie("rm", "false");
+			cookieAdminRememberMe.setMaxAge(60 * 60 * 24);
+			cookieAdminRememberMe.setPath(request.getContextPath());
+		}
+		response.addCookie(cookieAdminUser);
+		response.addCookie(cookieAdminPassword);
+		response.addCookie(cookieAdminRememberMe);
+		
+		if(!errorMsgMap.isEmpty()){
+			RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+			rd.forward(request, response);
+			return;
+		}
+		// add filter here
 	}
 }
-/*
- * http://www.java2s.com/Tutorial/Java/0400__Servlet/ServletLogin.htm
- * http://crunchify.com/how-to-do-java-servlet-session-management-using-cookies/
- */
