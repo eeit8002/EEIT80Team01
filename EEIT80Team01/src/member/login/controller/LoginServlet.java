@@ -51,7 +51,6 @@ public class LoginServlet extends HttpServlet {
 		// 1. 讀取使用者輸入資料
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		String rm = request.getParameter("rememberMe");
 		String requestURI = (String) session.getAttribute("requestURI");
 		// 2. 進行必要的資料轉換
 		// 無

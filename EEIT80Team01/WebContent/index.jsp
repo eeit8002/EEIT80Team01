@@ -13,7 +13,7 @@
 		<a href="${pageContext.request.contextPath}/register/register.jsp">註冊</a><br>
 	</c:if>
 	<c:if test="${ ! empty LoginOK }">
-			<a href="${pageContext.request.contextPath}/member/changeMemberData.jsp">修改資料</a>
+			<a href="${pageContext.request.contextPath}/member/changeMemberData.jsp">修改資料</a><br>
 	</c:if>
 	<c:if test="${empty LoginOK }">
 		<a href="${pageContext.request.contextPath}/login/login.jsp">登入</a>
