@@ -10,13 +10,6 @@
 						form.submit();
 					},
 					rules:{						
-						password:{
-							minlength: 5
-						},
-						passwordCheck:{
-							minlength: 5,
-							equalTo:"#password"
-						},
 						firstName:{
 							required:true
 						},
@@ -29,13 +22,7 @@
 						}
 					},//end of rules
 					messages: {
-						password:{
-							minlength:"密碼至少五個字"
-						},
-						passwordCheck:{
-							minlength: "密碼至少五個字",
-							equalTo:"兩次密碼不相同，請確認密碼"
-						},
+
 						firstName:{
 							required: "名字未輸入"
 						},

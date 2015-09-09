@@ -1,6 +1,5 @@
 package member.changedata.controller;
 
-import global.GlobalService;
 
 import java.io.IOException;
 
@@ -18,11 +17,11 @@ import member.register.EmailValidator;
 
 
 @WebServlet("/member/changeData")
-public class changeData extends HttpServlet {
+public class changeDataServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 
-    public changeData() {
+    public changeDataServlet() {
         super();
     }
 
@@ -38,10 +37,6 @@ public class changeData extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		MemberBean bean = (MemberBean) session.getAttribute("LoginOK");
-		String password = request.getParameter("password");
-		if(password!=null && password.length()>=5){
-			bean.setPassword(GlobalService.getMD5Endocing(password));
-		}
 		String firstName = request.getParameter("fistName");
 		if(firstName!=null){
 			bean.setFirstName(firstName);
