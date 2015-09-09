@@ -53,7 +53,7 @@
 			<input type="reset" id="reset" value="還原">
 		</fieldset>	
 	</form>
-	
+	<a href="${pageContext.request.contextPath}/index.jsp">回首頁</a>
 </div>
 
 	<script src="changeData.js"></script>
