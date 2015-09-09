@@ -4,7 +4,11 @@ import global.GlobalService;
 import member.model.dao.MemberDAOjdbc;
 
 public class MemberService {
-
+	
+	public MemberService(){
+		
+	}
+	
 	public boolean accountCheck(String username){
 		MemberDAO dao = new MemberDAOjdbc();
 		MemberBean bean = dao.select(username);
@@ -44,6 +48,13 @@ public class MemberService {
 			return null;
 		}
 			
+	}
+	
+	public MemberBean changeMemberData(MemberBean bean){
+		MemberDAO dao = new MemberDAOjdbc();
+		bean = dao.update(bean);
+			
+		return bean;
 	}
 	
 	
