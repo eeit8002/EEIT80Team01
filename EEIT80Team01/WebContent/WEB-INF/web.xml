@@ -9,15 +9,37 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
+<!-- Admin Area Start -->
+
+<!-- Login Function Start -->
+<!-- Filter -->
+  <filter>
+      <filter-name>AdminLoginFilter</filter-name>
+      <filter-class>admin.login.filter.AdminLoginFilter</filter-class>
+      <init-param>
+          <param-name>AdminLoginFilter</param-name>
+          <param-value></param-value>
+      </init-param>
+  </filter>
+  <filter-mapping>
+      <filter-name>AdminLoginFilter</filter-name>
+      <url-pattern>/admin/manage/*</url-pattern>
+  </filter-mapping>
+<!-- Servlet -->
   <servlet>
     <servlet-name>AdminLoginServlet</servlet-name>
     <servlet-class>admin.login.controller.AdminLoginServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>AdminLoginServlet</servlet-name>
-    <url-pattern>/admin/login/adminlogin.do</url-pattern>
+    <url-pattern>/admin/login/login.do</url-pattern>
   </servlet-mapping>
   <servlet>
+<!-- Login Function End -->
+
+<!-- Admin Area End -->
+
     <servlet-name>LoginServlet</servlet-name>
     <servlet-class>member.login.controller.LoginServlet</servlet-class>
   </servlet>
