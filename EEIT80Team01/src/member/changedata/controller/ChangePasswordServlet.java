@@ -15,11 +15,11 @@ import member.model.MemberService;
 
 
 @WebServlet("/member/changePassword")
-public class ChangePasswordSevlet extends HttpServlet {
+public class ChangePasswordServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 
-    public ChangePasswordSevlet() {
+    public ChangePasswordServlet() {
         super();
 
     }
@@ -54,7 +54,7 @@ public class ChangePasswordSevlet extends HttpServlet {
 			}
 		}
 		String password = request.getParameter("password");
-		if(password!=null){
+		if(password!=null && password.length() >= 5){
 			bean.setPassword(password);
 		}
 		
