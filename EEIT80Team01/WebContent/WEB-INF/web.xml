@@ -35,11 +35,11 @@
     <servlet-name>AdminLoginServlet</servlet-name>
     <url-pattern>/admin/login/login.do</url-pattern>
   </servlet-mapping>
-  <servlet>
+
 <!-- Login Function End -->
 
 <!-- Admin Area End -->
-
+ <servlet>
     <servlet-name>LoginServlet</servlet-name>
     <servlet-class>member.login.controller.LoginServlet</servlet-class>
   </servlet>
