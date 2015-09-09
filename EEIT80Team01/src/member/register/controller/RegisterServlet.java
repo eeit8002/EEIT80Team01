@@ -46,7 +46,7 @@ public class RegisterServlet extends HttpServlet {
 		MemberService service = new MemberService();
 		String username = request.getParameter("username");
 		if(username!=null && service.accountCheck(username)){
-			bean.setUserName(username.toUpperCase());
+			bean.setUserName(username.toLowerCase());
 			String password = request.getParameter("password");
 			if(password!=null && password.length()>=5){
 				bean.setPassword(password);

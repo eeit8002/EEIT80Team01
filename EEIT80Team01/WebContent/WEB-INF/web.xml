@@ -17,6 +17,10 @@
       <param-value></param-value>
     </init-param>
   </filter>
+  <filter-mapping>
+    <filter-name>AdminLoginFilter</filter-name>
+    <url-pattern>/admin/manage/*</url-pattern>
+  </filter-mapping>
   <servlet>
     <servlet-name>AdminLoginServlet</servlet-name>
     <servlet-class>admin.login.controller.AdminLoginServlet</servlet-class>

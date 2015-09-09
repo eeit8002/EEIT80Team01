@@ -28,14 +28,6 @@
 				<input type="text" id="username" name="username" value="${LoginOK.userName}" readonly="readonly">
 			</p>
 			<p>
-				<label class="tag" for="password">修改密碼：</label>
-				<input type="password" id="password" name="password" title="請輸入密碼">
-			</p>
-			<p>
-				<label class="tag" for="password">確認密碼：</label>
-				<input type="password" id="passwordCheck" name="passwordCheck" title="請再次輸入密碼">
-			</p>
-			<p>
 				<label class="tag" for="lastName">姓：</label>
 				<input type="text" id="lastName" name="lastName" title="請輸入姓" value="${LoginOK.lastName}">
 			</p>

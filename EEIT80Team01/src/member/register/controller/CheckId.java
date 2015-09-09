@@ -41,7 +41,7 @@ public class CheckId extends HttpServlet {
 		PrintWriter out =response.getWriter();
 		request.setCharacterEncoding("UTF-8");
 		MemberService service = new MemberService();
-		boolean result = service.idCheck(request.getParameter("id").toUpperCase());		
+		boolean result = service.idCheck(request.getParameter("id").toLowerCase());		
 		out.println(result);
 	}
 
