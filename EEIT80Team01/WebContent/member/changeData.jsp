@@ -25,7 +25,7 @@
 			<legend>修改資料</legend>
 			<p>
 				<label class="tag" for="user">帳號：</label>
-				<input type="text" id="username" name="username" value="${LoginOK.userName.toLowerCase()}" readonly="readonly">
+				<input type="text" id="username" name="username" value="${LoginOK.userName}" readonly="readonly">
 			</p>
 			<p>
 				<label class="tag" for="lastName">姓：</label>

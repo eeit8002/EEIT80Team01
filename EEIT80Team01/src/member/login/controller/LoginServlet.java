@@ -76,7 +76,7 @@ public class LoginServlet extends HttpServlet {
 		service = new MemberService();
 		// 呼叫 ms物件的 checkIDPassword()，要記得傳入userid與password兩個參數
 		
-		MemberBean mb = service.checkPasswordWithUsername(username.toUpperCase(), password);
+		MemberBean mb = service.checkPasswordWithUsername(username.toLowerCase(), password);
 		if (mb != null) {
 			// OK, 將mb物件放入Session範圍內，識別字串為"LoginOK"
 			session.setAttribute("LoginOK", mb);

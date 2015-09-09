@@ -41,7 +41,7 @@ public class MemberService {
 		MemberBean bean = new MemberBean();
 		MemberDAO dao = new MemberDAOjdbc();
 		bean = dao.select(username);
-		if( bean!=null && bean.getUserName().toUpperCase().equals(username) 
+		if( bean!=null && bean.getUserName().toLowerCase().equals(username) 
 				&& bean.getPassword().equals(GlobalService.getMD5Endocing(password))){
 			return bean;
 		} else {
@@ -52,6 +52,7 @@ public class MemberService {
 	
 	public MemberBean changeMemberData(MemberBean bean){
 		MemberDAO dao = new MemberDAOjdbc();
+		bean.setPassword(GlobalService.getMD5Endocing(bean.getPassword()));
 		bean = dao.update(bean);
 			
 		return bean;
