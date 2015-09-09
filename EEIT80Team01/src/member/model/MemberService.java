@@ -19,16 +19,6 @@ public class MemberService {
 			return true;
 		}		
 	}
-	public boolean idCheck(String id){
-		MemberDAO dao = new MemberDAOjdbc();
-		MemberBean bean = dao.selectById(id);
-
-		if(bean!=null && bean.getId().equals(id)){
-			return false;
-		} else {
-			return true;
-		}		
-	}
 	
 	public MemberBean register(MemberBean bean){
 		MemberDAO dao = new MemberDAOjdbc();

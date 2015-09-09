@@ -6,8 +6,6 @@ import java.util.List;
 public interface MemberDAO {
 
 	public abstract MemberBean select(String userName);
-	
-	public abstract MemberBean selectById(String userName);
 
 	public abstract List<MemberBean> select();
 		

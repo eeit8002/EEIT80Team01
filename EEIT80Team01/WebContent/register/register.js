@@ -82,17 +82,7 @@
 						id:{
 							required:true,
 							ID_regex:true,
-							ID_arithmetic:true,
-							remote: {
-							    url: "checkId",     //后台处理程序
-							    type: "post",               //数据发送方式
-							    dataType: "json",           //接受数据格式   
-							    data: {                     //要传递的数据
-							        username: function() {
-							            return $("#username").val();
-							        }
-							    }
-							}//end of remote
+							ID_arithmetic:true
 						},
 						firstName:{
 							required:true
@@ -127,8 +117,7 @@
 						id:{
 							required:"請輸入身份證字號",
 							ID_regex:"身份證格式有誤",
-							ID_arithmetic:"請輸入合法的身份證字號",
-							remote:"已有相同的身份證註冊"
+							ID_arithmetic:"請輸入合法的身份證字號"						
 						},
 						firstName:{
 							required: "名字未輸入"

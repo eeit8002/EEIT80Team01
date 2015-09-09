@@ -52,7 +52,7 @@ public class RegisterServlet extends HttpServlet {
 				bean.setPassword(password);
 				String id = request.getParameter("id");
 				IDChecker check = new IDChecker(id);
-				if(id!=null && check.CheakID() && service.idCheck(id)){
+				if(id!=null && check.CheakID()){
 					bean.setId(id);
 					String firstName = request.getParameter("firstName");
 					if(firstName!=null){
