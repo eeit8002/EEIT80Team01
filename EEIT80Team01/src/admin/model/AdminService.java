@@ -4,7 +4,7 @@ import admin.model.dao.AdminDAOJdbc;
 import global.GlobalService;
 
 public class AdminService {
-	
+
 	// check username already exist
 	public boolean adminAccountCheck(String username) {
 		AdminDAO dao = new AdminDAOJdbc();
@@ -16,8 +16,8 @@ public class AdminService {
 			return true;
 		}
 	}
-	
-	//verify username and password
+
+	// verify username and password
 	public AdminBean adminCheckUsernamePassword(String username, String password) {
 		AdminBean bean = new AdminBean();
 		AdminDAO dao = new AdminDAOJdbc();

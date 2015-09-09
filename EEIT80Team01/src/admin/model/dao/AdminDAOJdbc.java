@@ -34,7 +34,7 @@ public class AdminDAOJdbc implements AdminDAO {
 	
 	
 	
-	private static final String SELECT_BY_USERNAME_ADMIN = "SELECT (USERNAME,PASSWD,PERMISSION) FROM ADMINS WHERE USERNAME=?";
+	private static final String SELECT_BY_USERNAME_ADMIN = "SELECT USERNAME,PASSWD FROM ADMINS WHERE USERNAME=?";
 	@Override
 	public AdminBean select(String userName) {
 		AdminBean result = null;
@@ -49,7 +49,6 @@ public class AdminDAOJdbc implements AdminDAO {
 				result = new AdminBean();
 				result.setUserName(rs.getString("USERNAME"));
 				result.setPasswd(rs.getString("PASSWD"));
-				result.setPermission(rs.getInt("PERMISSION"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -69,7 +68,7 @@ public class AdminDAOJdbc implements AdminDAO {
 	
 	
 	
-	private static final String SELECT_ALL_ADMIN = "SELECT (USERNAME,PASSWD,PERMISSION) FROM ADMINS";
+	private static final String SELECT_ALL_ADMIN = "SELECT USERNAME,PASSWD FROM ADMINS";
 	@Override
 	public List<AdminBean> select() {
 		List<AdminBean> beans = null;
@@ -83,7 +82,6 @@ public class AdminDAOJdbc implements AdminDAO {
 				AdminBean bean = new AdminBean();
 				bean.setUserName(rs.getString("USERNAME"));
 				bean.setPasswd(rs.getString("PASSWD"));
-				bean.setPermission(rs.getInt("PERMISSION"));
 				beans.add(bean);
 			}
 		} catch (Exception e) {
@@ -96,7 +94,7 @@ public class AdminDAOJdbc implements AdminDAO {
 	
 	
 	
-	private static final String INSERT_ADMIN = "INSERT INTO ADMINS (USERNAME,PASSWD,PERMISSION) VALUES (?,?,?)";
+	private static final String INSERT_ADMIN = "INSERT INTO ADMINS USERNAME,PASSWD VALUES (?,?,?)";
 	@Override
 	public AdminBean insert(AdminBean bean) {
 		AdminBean result = null;
@@ -107,7 +105,6 @@ public class AdminDAOJdbc implements AdminDAO {
 			if (bean != null) {
 				pstmt.setString(1, bean.getUserName());
 				pstmt.setString(2, bean.getPasswd());
-				pstmt.setInt(3, bean.getPermission());
 			}
 			int i = pstmt.executeUpdate();
 			if(i==1){
@@ -124,7 +121,7 @@ public class AdminDAOJdbc implements AdminDAO {
 	
 	
 	
-	private static final String UPDATE_ADMIN = "UPDATE ADMINS SET PASSWD=?, PERMISSION=? WHERE USERNAME=?";
+	private static final String UPDATE_ADMIN = "UPDATE ADMINS SET PASSWD=? WHERE USERNAME=?";
 	@Override
 	public AdminBean update(AdminBean bean) {
 		AdminBean result = null;
@@ -133,8 +130,7 @@ public class AdminDAOJdbc implements AdminDAO {
 				PreparedStatement pstmt = connection.prepareStatement(UPDATE_ADMIN);
 				){
 			pstmt.setString(1, bean.getPasswd());
-			pstmt.setInt(2, bean.getPermission());
-			pstmt.setString(3, bean.getUserName());
+			pstmt.setString(2, bean.getUserName());
 			int i = pstmt.executeUpdate();
 			if (i == 1) {
 				result = bean;

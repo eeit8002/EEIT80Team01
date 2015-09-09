@@ -39,7 +39,7 @@ public class AdminLoginServlet extends HttpServlet {
 		request.setAttribute("ErrorMsgKey", errorMsgMap);
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		String rm = request.getParameter("rememberMe");
+//		String rm = request.getParameter("rememberMe");
 		String requestURI = (String) session.getAttribute("requestURI");
 
 		if (username == null || username.trim().length() == 0) {

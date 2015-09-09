@@ -7,7 +7,7 @@
 <title>Admin Control Panel</title>
 </head>
 <body>
-<a href="${pageContext.request.contextPath}/login/login.jsp">Login</a>
+<a href="${pageContext.request.contextPath}/login/login.jsp">Login</a><br>
 <a href="${pageContext.request.contextPath}/manage/???">???</a>
 </body>
 </html>

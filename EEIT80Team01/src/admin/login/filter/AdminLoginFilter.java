@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
 
 import admin.model.AdminBean;
 
-@WebFilter(urlPatterns = { "/admin/manage/*" }, initParams = {})
+//@WebFilter(urlPatterns = { "/admin/manage/*" }, initParams = {})
 public class AdminLoginFilter implements Filter {
 	Collection<String> url = new ArrayList<String>();
 	String servletPath;
