@@ -12,13 +12,17 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import admin.model.AdminBean;
 
-//@WebFilter(urlPatterns = { "/admin/manage/*" }, initParams = {})
+@WebFilter(urlPatterns = { "/admin/*" }, initParams = {
+		@WebInitParam(name = "mustLogin1", value = "/admin/manage/*"),
+		@WebInitParam(name = "mustLogin2", value = "/admin/password/*")
+})
 public class AdminLoginFilter implements Filter {
 	Collection<String> url = new ArrayList<String>();
 	String servletPath;
@@ -43,7 +47,6 @@ public class AdminLoginFilter implements Filter {
 			contextPath = req.getContextPath();
 			requestURI = req.getRequestURI();
 			isRequestedSessionIdValid = req.isRequestedSessionIdValid();
-
 			if (mustLogin()) {
 				if (checkLogin(req)) { //需要登入，已經登入
 					chain.doFilter(request, response);

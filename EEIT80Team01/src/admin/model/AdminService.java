@@ -29,4 +29,10 @@ public class AdminService {
 			return null;
 		}
 	}
+	
+	public AdminBean changeAdminPassword(AdminBean bean) {
+		AdminDAO dao = new AdminDAOJdbc();
+		bean = dao.update(bean);
+		return bean;
+	}
 }

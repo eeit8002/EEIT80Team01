@@ -24,9 +24,7 @@ public class AdminLoginServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// response.getWriter().append("Served at:
-		// ").append(request.getContextPath());
-		response.getWriter().append("Don't attack this server !!");
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -39,7 +37,7 @@ public class AdminLoginServlet extends HttpServlet {
 		request.setAttribute("ErrorMsgKey", errorMsgMap);
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-//		String rm = request.getParameter("rememberMe");
+		// String rm = request.getParameter("rememberMe");
 		String requestURI = (String) session.getAttribute("requestURI");
 
 		if (username == null || username.trim().length() == 0) {
@@ -49,50 +47,13 @@ public class AdminLoginServlet extends HttpServlet {
 			errorMsgMap.put("PasswordEmptyError", "密碼為必填欄位");
 		}
 
-		// Cookie cookieAdminUser = null;
-		// Cookie cookieAdminPassword = null;
-		// Cookie cookieAdminRememberMe = null;
-		//
-		// if (rm != null) {
-		// cookieAdminUser = new Cookie("username", username);
-		// cookieAdminUser.setMaxAge(60 * 60 * 24);
-		// cookieAdminUser.setPath(request.getContextPath());
-		//
-		// String encodePassword =
-		// DatatypeConverter.printBase64Binary(password.getBytes());
-		// cookieAdminPassword = new Cookie("password", encodePassword);
-		// cookieAdminPassword.setMaxAge(60 * 60 * 24);
-		// cookieAdminPassword.setPath(request.getContextPath());
-		//
-		// cookieAdminRememberMe = new Cookie("rm", "true");
-		// cookieAdminRememberMe.setMaxAge(60 * 60 * 24);
-		// cookieAdminRememberMe.setPath(request.getContextPath());
-		// } else {
-		// cookieAdminUser = new Cookie("username", username);
-		// cookieAdminUser.setMaxAge(60 * 60 * 24);
-		// cookieAdminUser.setPath(request.getContextPath());
-		//
-		// String encodePassword =
-		// DatatypeConverter.printBase64Binary(password.getBytes());
-		// cookieAdminPassword = new Cookie("password", encodePassword);
-		// cookieAdminPassword.setMaxAge(60 * 60 * 24);
-		// cookieAdminPassword.setPath(request.getContextPath());
-		//
-		// cookieAdminRememberMe = new Cookie("rm", "false");
-		// cookieAdminRememberMe.setMaxAge(60 * 60 * 24);
-		// cookieAdminRememberMe.setPath(request.getContextPath());
-		// }
-		// response.addCookie(cookieAdminUser);
-		// response.addCookie(cookieAdminPassword);
-		// response.addCookie(cookieAdminRememberMe);
-
 		if (!errorMsgMap.isEmpty()) {
 			RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
 			rd.forward(request, response);
 			return;
 		}
 		AdminService service = new AdminService();
-		AdminBean ab = service.adminCheckUsernamePassword(username.toUpperCase(), password);
+		AdminBean ab = service.adminCheckUsernamePassword(username.toLowerCase(), password);
 		if (ab != null) {
 			session.setAttribute("LoginOK", ab);
 		} else {
@@ -101,8 +62,10 @@ public class AdminLoginServlet extends HttpServlet {
 		if (errorMsgMap.isEmpty()) {
 			if (requestURI != null) {
 				requestURI = (requestURI.length() == 0 ? request.getContextPath() : requestURI);
-				response.sendRedirect(response.encodeRedirectURL(request.getContextPath()));
+				response.sendRedirect(response.encodeRedirectURL(requestURI));
 				return;
+			} else {
+				response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/admin/index.jsp"));
 			}
 		} else {
 			RequestDispatcher rd = request.getRequestDispatcher("login.jsp");

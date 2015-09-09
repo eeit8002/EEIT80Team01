@@ -4,10 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>TestPage for Admin Area</title>
+<title>Password Changed</title>
 </head>
 <body>
-<h1>TestPage for Admin Area</h1>
+<h1>密碼更換成功</h1>
 <a href="${pageContext.request.contextPath}/admin/index.jsp">回管理首頁</a>
 </body>
 </html>

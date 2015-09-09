@@ -158,7 +158,6 @@ public class AdminDAOJdbc implements AdminDAO {
 				return true;
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return false;
