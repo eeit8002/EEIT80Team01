@@ -65,39 +65,6 @@ public class LoginServlet extends HttpServlet {
 			errorMsgMap.put("PasswordEmptyError", "密碼欄必須輸入");
 		}
 		
-		//  **********Remember Me**************************** 
-		Cookie cookieUser = null;
-		Cookie cookiePassword = null;
-		Cookie cookieRememberMe = null;
-		
-		if (rm != null) {   // rm存放瀏覽器送來之RememberMe的選項
-			cookieUser = new Cookie("username", username);
-			cookieUser.setMaxAge(30*60*60);
-			cookieUser.setPath(request.getContextPath());
-			// 稍微編碼(不算是加密)
-			String encodePassword = DatatypeConverter.printBase64Binary(password.getBytes());
-			cookiePassword = new Cookie("password", encodePassword);
-			cookiePassword.setMaxAge(30*60*60);
-			cookiePassword.setPath(request.getContextPath());
-			cookieRememberMe = new Cookie("rm", "true");
-			cookieRememberMe.setMaxAge(30*60*60);
-			cookieRememberMe.setPath(request.getContextPath());
-		} else {
-			cookieUser = new Cookie("username", username);
-			cookieUser.setMaxAge(0);   // MaxAge==0 表示要請瀏覽器刪除此Cookie
-			cookieUser.setPath(request.getContextPath());
-			String encodePassword = DatatypeConverter.printBase64Binary(password.getBytes());
-			cookiePassword = new Cookie("password", encodePassword);
-			cookiePassword.setMaxAge(0);
-			cookiePassword.setPath(request.getContextPath());
-			cookieRememberMe = new Cookie("rm", "false");
-			cookieRememberMe.setMaxAge(30*60*60);
-			cookieRememberMe.setPath(request.getContextPath());
-		}
-		response.addCookie(cookieUser);
-		response.addCookie(cookiePassword);
-		response.addCookie(cookieRememberMe);
-		//********************************************
 		// 如果 errorMsgMap 不是空的，表示有錯誤，交棒給login.jsp
 		if (!errorMsgMap.isEmpty()) {
 			RequestDispatcher rd = request.getRequestDispatcher("login.jsp");

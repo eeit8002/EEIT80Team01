@@ -27,11 +27,11 @@
 		<fieldset>
 			<legend>登入</legend>
 			<p>
-				<label class="tag" for="user" value="${sessionScope.username}">帳號：</label>
+				<label class="tag" for="user">帳號：</label>
 				<input type="text" id="username" name="username" title="請輸入帳號">
 			</p>
 			<p>
-				<label class="tag" for="password" value="${sessionScope.password}">密碼：</label>
+				<label class="tag" for="password">密碼：</label>
 				<input type="password" id="password" name="password" title="請輸入密碼">
 			</p>
 			<p>
