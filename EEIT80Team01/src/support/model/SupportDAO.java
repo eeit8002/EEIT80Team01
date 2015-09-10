@@ -1,0 +1,23 @@
+package support.model;
+
+import java.util.List;
+
+import support.model.SupportBean;
+
+public interface SupportDAO {
+
+	SupportBean select(String supportername);
+
+	List<SupportBean> select();
+
+	List<SupportBean> selectSupporterNameLike(String supportername);
+
+	List<SupportBean> selectEmployeeIDLike(String employeeid);
+
+	List<SupportBean> selectLastNameLike(String lastname);
+
+	List<SupportBean> selectFirstNameLike(String firstname);
+
+	List<SupportBean> selectFirstNameLike(String firstname, String lastname);
+
+}

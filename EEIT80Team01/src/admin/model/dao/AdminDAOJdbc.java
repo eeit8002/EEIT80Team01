@@ -17,9 +17,9 @@ import admin.model.AdminDAO;
 import global.GlobalService;
 
 public class AdminDAOJdbc implements AdminDAO {
-	
+
 	private DataSource ds = null;
-	
+
 	public AdminDAOJdbc() {
 		Context context = null;
 		try {
@@ -29,20 +29,15 @@ public class AdminDAOJdbc implements AdminDAO {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
-	
-	
-	private static final String SELECT_BY_USERNAME_ADMIN = "SELECT ADMINNAME,PASSWD FROM ADMINS WHERE USERNAME=?";
+
+	private static final String SELECT_BY_ADMINNAME = "SELECT ADMINNAME,PASSWD FROM ADMINS WHERE USERNAME=?";
+
 	@Override
 	public AdminBean select(String adminname) {
 		AdminBean result = null;
 		ResultSet rs = null;
-		try (
-				Connection connection = ds.getConnection();
-				PreparedStatement pstmt = connection.prepareStatement(SELECT_BY_USERNAME_ADMIN);
-				) {
+		try (Connection connection = ds.getConnection();
+				PreparedStatement pstmt = connection.prepareStatement(SELECT_BY_ADMINNAME);) {
 			pstmt.setString(1, adminname);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
@@ -63,22 +58,17 @@ public class AdminDAOJdbc implements AdminDAO {
 		}
 		return result;
 	}
-	
-	
-	
-	
-	
+
 	private static final String SELECT_ALL_ADMIN = "SELECT ADMINNAME,PASSWD FROM ADMINS";
+
 	@Override
 	public List<AdminBean> select() {
 		List<AdminBean> beans = null;
-		try (
-				Connection connection = ds.getConnection();
+		try (Connection connection = ds.getConnection();
 				PreparedStatement pstmt = connection.prepareStatement(SELECT_ALL_ADMIN);
-				ResultSet rs = pstmt.executeQuery();
-				) {
+				ResultSet rs = pstmt.executeQuery();) {
 			beans = new ArrayList<AdminBean>();
-			while(rs.next()){
+			while (rs.next()) {
 				AdminBean bean = new AdminBean();
 				bean.setAdminName(rs.getString("ADMINNAME"));
 				bean.setPasswd(rs.getString("PASSWD"));
@@ -89,46 +79,35 @@ public class AdminDAOJdbc implements AdminDAO {
 		}
 		return beans;
 	}
-	
-	
-	
-	
-	
+
 	private static final String INSERT_ADMIN = "INSERT INTO ADMINS ADMINNAME,PASSWD VALUES (?,?,?)";
+
 	@Override
 	public AdminBean insert(AdminBean bean) {
 		AdminBean result = null;
-		try (				
-				Connection connection = ds.getConnection();
-				PreparedStatement pstmt = connection.prepareStatement(INSERT_ADMIN);
-				) {
+		try (Connection connection = ds.getConnection();
+				PreparedStatement pstmt = connection.prepareStatement(INSERT_ADMIN);) {
 			if (bean != null) {
 				pstmt.setString(1, bean.getAdminName());
 				pstmt.setString(2, bean.getPasswd());
 			}
 			int i = pstmt.executeUpdate();
-			if(i==1){
-				result=bean;
+			if (i == 1) {
+				result = bean;
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return result;
 	}
-	
-	
-	
-	
-	
+
 	private static final String UPDATE_ADMIN = "UPDATE ADMINS SET PASSWD=? WHERE ADMINNAME=?";
+
 	@Override
 	public AdminBean update(AdminBean bean) {
 		AdminBean result = null;
-		try (
-				Connection connection = ds.getConnection();
-				PreparedStatement pstmt = connection.prepareStatement(UPDATE_ADMIN);
-				){
+		try (Connection connection = ds.getConnection();
+				PreparedStatement pstmt = connection.prepareStatement(UPDATE_ADMIN);) {
 			pstmt.setString(1, bean.getPasswd());
 			pstmt.setString(2, bean.getAdminName());
 			int i = pstmt.executeUpdate();
@@ -140,18 +119,13 @@ public class AdminDAOJdbc implements AdminDAO {
 		}
 		return result;
 	}
-	
-	
-	
-	
-	
+
 	private static final String DELETE_ADMIN = "DELETE FROM ADMINS WHERE ADMINNAME=?";
+
 	@Override
 	public boolean delete(String adminname) {
-		try (
-				Connection connection = ds.getConnection();
-				PreparedStatement pstmt = connection.prepareStatement(DELETE_ADMIN);
-				) {
+		try (Connection connection = ds.getConnection();
+				PreparedStatement pstmt = connection.prepareStatement(DELETE_ADMIN);) {
 			pstmt.setString(1, adminname);
 			int i = pstmt.executeUpdate();
 			if (i == 1) {

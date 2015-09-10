@@ -61,6 +61,7 @@ public class AdminLoginServlet extends HttpServlet {
 		}
 		if (errorMsgMap.isEmpty()) {
 			if (requestURI != null) {
+				session.removeAttribute("requestURI");
 				requestURI = (requestURI.length() == 0 ? request.getContextPath() : requestURI);
 				response.sendRedirect(response.encodeRedirectURL(requestURI));
 				return;
