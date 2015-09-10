@@ -48,5 +48,11 @@ public class MemberService {
 		return bean;
 	}
 	
+	public MemberBean findMemberData(String username){
+		MemberDAO dao = new MemberDAOjdbc();
+		MemberBean bean = dao.select(username);
+		
+		return bean;
+	}
 	
 }

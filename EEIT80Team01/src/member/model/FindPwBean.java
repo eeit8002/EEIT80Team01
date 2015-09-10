@@ -1,10 +1,10 @@
 package member.model;
-import java.util.Date;
+
 
 
 public class FindPwBean {
 	private String userName;
-	private Date requestTime;
+	private long requestTime;
 	
 	
 	public String getUserName() {
@@ -13,10 +13,11 @@ public class FindPwBean {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	public Date getRequestTime() {
+	public long getRequestTime() {
 		return requestTime;
 	}
-	public void setRequestTime(Date requestTime) {
+	public void setRequestTime(long requestTime) {
 		this.requestTime = requestTime;
 	}
+
 }

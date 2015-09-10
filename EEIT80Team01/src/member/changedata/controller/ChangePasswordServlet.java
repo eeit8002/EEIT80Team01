@@ -36,15 +36,14 @@ public class ChangePasswordServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		MemberBean bean = (MemberBean) session.getAttribute("LoginOK");
-		String forGetpassword = (String) session.getAttribute("forGetpassword");
 		String firstName = request.getParameter("fistName");
 		MemberService service = new MemberService();
 		if(firstName!=null){
 			bean.setFirstName(firstName);
 		}
 		
-		if(forGetpassword!=null){
-			String username = request.getParameter("username");
+	
+			String username = request.getParameter("username").toLowerCase();
 			String oldPassword = request.getParameter("oldPassword");
 			MemberBean mb = service.checkPasswordWithUsername(username, oldPassword);
 			if(mb==null){
@@ -52,7 +51,7 @@ public class ChangePasswordServlet extends HttpServlet {
 				request.setAttribute("loginFalure", "密碼錯誤，無法更改密碼");
 				rd.forward(request,response);
 			}
-		}
+		
 		String password = request.getParameter("password");
 		if(password!=null && password.length() >= 5){
 			bean.setPassword(password);

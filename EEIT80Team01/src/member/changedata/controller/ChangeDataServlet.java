@@ -17,11 +17,11 @@ import member.register.EmailValidator;
 
 
 @WebServlet("/member/changeData")
-public class changeDataServlet extends HttpServlet {
+public class ChangeDataServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 
-    public changeDataServlet() {
+    public ChangeDataServlet() {
         super();
     }
 

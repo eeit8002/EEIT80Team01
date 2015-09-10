@@ -92,6 +92,7 @@ public class LoginServlet extends HttpServlet {
 			// RequestDispatcher rd = request.getRequestDispatcher("...");
 			// rd.forward(request, response);
 			if (requestURI != null) {
+				session.removeAttribute("requestURI");
 				requestURI = (requestURI.length() == 0 ? request
 						.getContextPath() : requestURI);
 				response.sendRedirect(response.encodeRedirectURL(requestURI));

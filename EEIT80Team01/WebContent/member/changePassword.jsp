@@ -28,18 +28,10 @@
 				<label class="tag" for="user">帳號：</label>
 				<input type="text" id="username" name="username" title="請輸入帳號"  value="${LoginOK.userName}" readonly="readonly">
 			</p>
-			<c:if test="${empty forGetpassword }">
 			<p>
 				<label class="tag" for="password">舊密碼：</label>
 				<input type="password" id="oldPassword" name="oldPassword" title="請輸入密碼">
-			</p>
-			</c:if>
-			<c:if test="${!empty forGetpassword }">
-			<p>
-				<label class="tag" for="password">舊密碼：</label>
-				<input type="password" id="oldPassword" name="oldPassword" value="${LoginOK.password}" readonly="readonly">
-			</p>
-			</c:if>
+			</p>						
 			<p>
 				<label class="tag" for="password">新密碼：</label>
 				<input type="password" id="password" name="password" title="請輸入密碼">

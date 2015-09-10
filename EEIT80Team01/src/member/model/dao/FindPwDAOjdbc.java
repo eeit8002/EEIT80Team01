@@ -44,7 +44,7 @@ public class FindPwDAOjdbc implements FindPwDAO {
 				if(rset.next()) {
 					bean = new FindPwBean();
 					bean.setUserName(rset.getString("username"));
-					bean.setRequestTime(new Date(rset.getDate("REQUEST_TIME").getTime()));
+					bean.setRequestTime(rset.getLong("REQUEST_TIME"));
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -73,7 +73,7 @@ public class FindPwDAOjdbc implements FindPwDAO {
 				while(rset.next()){
 					FindPwBean bean = new FindPwBean();
 					bean.setUserName(rset.getString("username"));
-					bean.setRequestTime(new Date(rset.getDate("REQUEST_TIME").getTime()));
+					bean.setRequestTime(rset.getLong("REQUEST_TIME"));
 					beans.add(bean);				
 				}
 				
@@ -95,13 +95,7 @@ public class FindPwDAOjdbc implements FindPwDAO {
 				PreparedStatement stmt = conn.prepareStatement(INSERT);){
 					if(bean!=null) {
 						stmt.setString(1, bean.getUserName());
-						java.util.Date requestTime = bean.getRequestTime();
-						if(requestTime!=null) {
-							long time = requestTime.getTime();
-							stmt.setDate(2, new java.sql.Date(time));
-						} else {
-							stmt.setDate(2, null);				
-						}		
+						stmt.setLong(2, bean.getRequestTime());							
 						int i = stmt.executeUpdate();
 						if(i==1) {
 							result = bean;
@@ -119,16 +113,8 @@ public class FindPwDAOjdbc implements FindPwDAO {
 	public FindPwBean update(FindPwBean bean) {
 		FindPwBean result = null;
 		try(Connection conn = ds.getConnection();
-				PreparedStatement stmt = conn.prepareStatement(UPDATE);) {
-
-			java.util.Date requestTime = bean.getRequestTime();
-			if(requestTime!=null) {
-				long time = requestTime.getTime();
-				stmt.setDate(2, new java.sql.Date(time));
-			} else {
-				stmt.setDate(2, null);				
-			}	
-	
+				PreparedStatement stmt = conn.prepareStatement(UPDATE);) {			
+				stmt.setLong(1, bean.getRequestTime());
 				stmt.setString(2, bean.getUserName());
 				int i = stmt.executeUpdate();
 				if(i==1) {
