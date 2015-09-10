@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import support.model.SupportBean;
 import support.model.SupportService;
 
-@WebServlet("/AdminAddSupporterServlet")
+@WebServlet("/admin/manage/AddSupport.do")
 public class AdminAddSupporterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -36,9 +36,10 @@ public class AdminAddSupporterServlet extends HttpServlet {
 		if (supportername != null && service.supporterAccountCheck(supportername)) {
 			bean.setSupportername(supportername.toLowerCase());
 			String password = request.getParameter("password");
-			if (password != null && password.length() >= 5) {
+			String passwordCheck = request.getParameter("passwordCheck");
+			if (password != null && password.length() >= 5 && password.equals(passwordCheck)) {
 				bean.setPassword(password);
-				String employeeid = request.getParameter("employeeID");
+				String employeeid = request.getParameter("employeeid");
 				if (employeeid != null && employeeid.trim().length() != 0
 						&& service.supporterEmployeeIDCheck(employeeid)) {
 					bean.setEmployeeid(employeeid);
