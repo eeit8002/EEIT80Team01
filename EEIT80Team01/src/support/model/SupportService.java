@@ -1,5 +1,7 @@
 package support.model;
 
+import java.util.List;
+
 import global.GlobalService;
 import support.model.dao.SupportDAOJdbc;
 
@@ -31,5 +33,22 @@ public class SupportService {
 		SupportDAO dao = new SupportDAOJdbc();
 		bean = dao.update(bean);
 		return bean;
+	}
+	
+	public SupportBean register(SupportBean bean) {
+		SupportDAO dao = new SupportDAOJdbc();
+		bean.setPassword(GlobalService.getMD5Endocing(bean.getPassword()));
+		SupportBean result = dao.insert(bean);
+		return result;
+	}
+	
+	public boolean supporterEmployeeIDCheck(String employeeid){
+		SupportDAO dao = new SupportDAOJdbc();
+		SupportBean bean = dao.selectByEmployeeID(employeeid);
+		if (bean != null){
+			return false;
+		} else {
+			return true;
+		}
 	}
 }

@@ -31,7 +31,9 @@ public class SupportDAOJdbc implements SupportDAO {
 
 	private static final String SELECT_BY_SUPPORTERNAME = "SELECT SUPPORTERNAME,PASSWD,EMPLOYEE_ID,FIRST_NAME,LAST_NAME FROM SUPPORTERS WHERE SUPPORTERNAME=?";
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see support.model.dao.SupportDAO#select(java.lang.String)
 	 */
 	@Override
@@ -66,7 +68,9 @@ public class SupportDAOJdbc implements SupportDAO {
 
 	private static final String SELECT_ALL_SUPPORTER = "SELECT SUPPORTERNAME,PASSWD,EMPLOYEE_ID,FIRST_NAME,LAST_NAME FROM SUPPORTERS";
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see support.model.dao.SupportDAO#select()
 	 */
 	@Override
@@ -94,8 +98,11 @@ public class SupportDAOJdbc implements SupportDAO {
 	// 模糊搜尋(依照客服名稱)
 	private static final String SELECT_LIKE_SUPPORTERNAME = "SELECT SUPPORTERNAME,PASSWD,EMPLOYEE_ID,FIRST_NAME,LAST_NAME FROM SUPPORTERS WHERE SUPPORTERNAME LIKE ?";
 
-	/* (non-Javadoc)
-	 * @see support.model.dao.SupportDAO#selectSupporterNameLike(java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * support.model.dao.SupportDAO#selectSupporterNameLike(java.lang.String)
 	 */
 	@Override
 	public List<SupportBean> selectSupporterNameLike(String supportername) {
@@ -124,7 +131,9 @@ public class SupportDAOJdbc implements SupportDAO {
 	// 模糊搜尋(依照客服員工編號)
 	private static final String SELECT_LIKE_EMPLOYEE_ID = "SELECT SUPPORTERNAME,PASSWD,EMPLOYEE_ID,FIRST_NAME,LAST_NAME FROM SUPPORTERS WHERE EMPLOYEE_ID LIKE ?";
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see support.model.dao.SupportDAO#selectEmployeeIDLike(java.lang.String)
 	 */
 	@Override
@@ -154,7 +163,9 @@ public class SupportDAOJdbc implements SupportDAO {
 	// 模糊搜尋(依照客服LAST NAME)
 	private static final String SELECT_LIKE_LAST_NAME = "SELECT SUPPORTERNAME,PASSWD,EMPLOYEE_ID,FIRST_NAME,LAST_NAME FROM SUPPORTERS WHERE LAST_NAME LIKE ?";
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see support.model.dao.SupportDAO#selectLastNameLike(java.lang.String)
 	 */
 	@Override
@@ -184,7 +195,9 @@ public class SupportDAOJdbc implements SupportDAO {
 	// 模糊搜尋(依照客服FIRST NAME)
 	private static final String SELECT_LIKE_FIRST_NAME = "SELECT SUPPORTERNAME,PASSWD,EMPLOYEE_ID,FIRST_NAME,LAST_NAME FROM SUPPORTERS WHERE FIRST_NAME LIKE ?";
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see support.model.dao.SupportDAO#selectFirstNameLike(java.lang.String)
 	 */
 	@Override
@@ -214,8 +227,11 @@ public class SupportDAOJdbc implements SupportDAO {
 	// 模糊搜尋(依照客服全名 FIRST + LAST NAME)
 	private static final String SELECT_LIKE_FULL_NAME = "SELECT SUPPORTERNAME,PASSWD,EMPLOYEE_ID,FIRST_NAME,LAST_NAME FROM SUPPORTERS WHERE FIRST_NAME LIKE ? AND LAST_NAME LIKE ?";
 
-	/* (non-Javadoc)
-	 * @see support.model.dao.SupportDAO#selectFirstNameLike(java.lang.String, java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see support.model.dao.SupportDAO#selectFirstNameLike(java.lang.String,
+	 * java.lang.String)
 	 */
 	@Override
 	public List<SupportBean> selectFirstNameLike(String firstname, String lastname) {
@@ -244,7 +260,9 @@ public class SupportDAOJdbc implements SupportDAO {
 
 	private static final String INSERT_SUPPORTER = "INSERT INTO SUPPORTERS SUPPORTERNAME,PASSWD,EMPLOYEE_ID,FIRST_NAME,LAST_NAME VALUES (?,?,?,?,?)";
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see support.model.dao.SupportDAO#insert(support.model.SupportBean)
 	 */
 	@Override
@@ -271,7 +289,9 @@ public class SupportDAOJdbc implements SupportDAO {
 
 	private static final String UPDATE_SUPPORTER = "UPDATE SUPPORTERS SET PASSWD=? EMPLOYEE_ID=? FIRST_NAME=? LAST_NAME=? WHERE SUPPORTERNAME=? ";
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see support.model.dao.SupportDAO#update(support.model.SupportBean)
 	 */
 	@Override
@@ -293,20 +313,22 @@ public class SupportDAOJdbc implements SupportDAO {
 		}
 		return result;
 	}
-	
+
 	private static final String DELETE_SUPPORTER = "DELETE FROM SUPPORTERS WHERE SUPPORTERNAME=?";
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see support.model.dao.SupportDAO#delete(java.lang.String)
 	 */
 	@Override
-	public boolean delete(String supportername){
+	public boolean delete(String supportername) {
 		try {
 			Connection connection = ds.getConnection();
 			PreparedStatement pstmt = connection.prepareStatement(DELETE_SUPPORTER);
 			pstmt.setString(1, supportername);
 			int i = pstmt.executeUpdate();
-			if (i==1){
+			if (i == 1) {
 				return true;
 			}
 		} catch (SQLException e) {
@@ -315,14 +337,29 @@ public class SupportDAOJdbc implements SupportDAO {
 		return false;
 	}
 	
+	private static final String SELECT_BY_EMPLOYEEID = "SELECT SUPPORTERNAME,PASSWD,EMPLOYEE_ID,FIRST_NAME,LAST_NAME FROM SUPPORTERS WHERE EMPLOYEE_ID=?";
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	public SupportBean selectByEmployeeID(String employeeid) {
+		SupportBean result = null;
+		ResultSet rs = null;
+		try (
+				Connection connection = ds.getConnection();
+				PreparedStatement pstmt = connection.prepareStatement(SELECT_BY_EMPLOYEEID);
+				){
+			pstmt.setString(1, employeeid);
+			rs = pstmt.executeQuery();
+			if(rs.next()){
+				result = new SupportBean();
+				result.setSupportername(rs.getString("SUPPORTERNAME"));
+				result.setPassword(rs.getString("PASSWD"));
+				result.setEmployeeid(rs.getString("EMPLOYEE_ID"));
+				result.setFirstname(rs.getString("FIRST_NAME"));
+				result.setLastname(rs.getString("LAST_NAME"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 }
