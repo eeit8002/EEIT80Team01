@@ -39,10 +39,10 @@ public class FindPasswordServlet extends HttpServlet {
 				rd.forward(request, response);
 				
 			}
-		} else {
+		} 
 			RequestDispatcher rd = request.getRequestDispatcher("illeagallink.jsp");
 			rd.forward(request, response);
-		}
+		
 		
 	}
 
