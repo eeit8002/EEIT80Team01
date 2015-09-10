@@ -48,4 +48,10 @@ public class FindPwService {
 		return sb.toString();
 	}
 	
+	public boolean deleteLog(String username){
+		FindPwDAO dao = new FindPwDAOjdbc();
+		boolean bean = dao.delete(username);
+		return bean;
+	}
+	
 }

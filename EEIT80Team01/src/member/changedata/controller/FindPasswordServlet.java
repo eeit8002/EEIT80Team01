@@ -33,6 +33,7 @@ public class FindPasswordServlet extends HttpServlet {
 		if(service.validateData(username, pass)){
 			HttpSession session = request.getSession();
 			session.setAttribute("EmailChecked", username);
+			service.deleteLog(username);			
 			RequestDispatcher rd = request.getRequestDispatcher("changePassword.jsp");
 			rd.forward(request, response);
 			

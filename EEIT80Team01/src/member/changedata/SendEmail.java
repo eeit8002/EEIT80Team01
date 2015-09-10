@@ -39,8 +39,8 @@ public class SendEmail {
    message.setSubject("重設信件");   
    Multipart mp = new MimeMultipart();
    MimeBodyPart part1 = new MimeBodyPart();
-   part1.setText("請點以下連結重新設定密碼"+url);
-   part1.setContent(url,"text/html; charset=utf-8");
+   part1.setText("請點以下連結重新設定密碼<br>"+url);
+   part1.setContent("請點以下連結重新設定密碼<br>"+url,"text/html; charset=utf-8");
    mp.addBodyPart(part1);
    message.setContent(mp);
    Transport.send(message);
