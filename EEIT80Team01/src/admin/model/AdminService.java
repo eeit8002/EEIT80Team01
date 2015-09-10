@@ -5,34 +5,35 @@ import global.GlobalService;
 
 public class AdminService {
 
-	// check username already exist
-	public boolean adminAccountCheck(String username) {
+	// check adminname already exist
+	public boolean adminAccountCheck(String adminname) {
 		AdminDAO dao = new AdminDAOJdbc();
-		AdminBean bean = dao.select(username);
+		AdminBean bean = dao.select(adminname);
 
-		if (bean != null && bean.getUserName().equals(username)) {
+		if (bean != null && bean.getAdminName().equals(adminname)) {
 			return false;
 		} else {
 			return true;
 		}
 	}
 
-	// verify username and password
-	public AdminBean adminCheckUsernamePassword(String username, String password) {
+	// verify adminname and password
+	public AdminBean adminCheckadminnamePassword(String adminname, String password) {
 		AdminBean bean = new AdminBean();
 		AdminDAO dao = new AdminDAOJdbc();
-		bean = dao.select(username);
-		if (bean != null && bean.getUserName().toUpperCase().equals(username)
+		bean = dao.select(adminname);
+		if (bean != null && bean.getAdminName().toUpperCase().equals(adminname)
 				&& bean.getPasswd().equals(GlobalService.getMD5Endocing(password))) {
 			return bean;
 		} else {
 			return null;
 		}
 	}
-	
+
 	public AdminBean changeAdminPassword(AdminBean bean) {
 		AdminDAO dao = new AdminDAOJdbc();
 		bean = dao.update(bean);
 		return bean;
 	}
+	
 }

@@ -34,7 +34,7 @@ public class adminChangePassword extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		AdminBean bean = (AdminBean) session.getAttribute("LoginOK");
-		String username = request.getParameter("username");
+		String adminname = request.getParameter("adminname");
 		String oldpassword = request.getParameter("oldpassword");
 		String password = request.getParameter("password");
 		if (password != null && password.length() >= 5) {
@@ -43,7 +43,7 @@ public class adminChangePassword extends HttpServlet {
 		
 		AdminBean ab = new AdminBean();
 		AdminService service = new AdminService();
-		ab = service.adminCheckUsernamePassword(username, oldpassword);
+		ab = service.adminCheckadminnamePassword(adminname, oldpassword);
 		
 		service.changeAdminPassword(bean);
 

@@ -35,12 +35,12 @@ public class AdminLoginServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Map<String, String> errorMsgMap = new HashMap<String, String>();
 		request.setAttribute("ErrorMsgKey", errorMsgMap);
-		String username = request.getParameter("username");
+		String adminname = request.getParameter("adminname");
 		String password = request.getParameter("password");
 		// String rm = request.getParameter("rememberMe");
 		String requestURI = (String) session.getAttribute("requestURI");
 
-		if (username == null || username.trim().length() == 0) {
+		if (adminname == null || adminname.trim().length() == 0) {
 			errorMsgMap.put("AccountEmptyError", "帳號為必填欄位");
 		}
 		if (password == null || password.trim().length() == 0) {
@@ -53,7 +53,7 @@ public class AdminLoginServlet extends HttpServlet {
 			return;
 		}
 		AdminService service = new AdminService();
-		AdminBean ab = service.adminCheckUsernamePassword(username.toLowerCase(), password);
+		AdminBean ab = service.adminCheckadminnamePassword(adminname.toLowerCase(), password);
 		if (ab != null) {
 			session.setAttribute("LoginOK", ab);
 		} else {

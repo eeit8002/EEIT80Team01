@@ -1,15 +1,15 @@
 package admin.model;
 
 public class AdminBean {
-	private String userName;
+	private String adminname;
 	private String passwd;
 	private int permission;
 	
-	public String getUserName() {
-		return userName;
+	public String getAdminName() {
+		return adminname;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setAdminName(String adminname) {
+		this.adminname = adminname;
 	}
 	public String getPasswd() {
 		return passwd;
