@@ -20,4 +20,10 @@ public interface SupportDAO {
 
 	List<SupportBean> selectFirstNameLike(String firstname, String lastname);
 
+	SupportBean insert(SupportBean bean);
+
+	SupportBean update(SupportBean bean);
+
+	boolean delete(String supportername);
+
 }

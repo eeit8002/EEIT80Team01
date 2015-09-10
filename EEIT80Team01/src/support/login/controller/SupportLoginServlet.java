@@ -1,4 +1,4 @@
-package admin.login.controller;
+package support.login.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -6,25 +6,27 @@ import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import admin.model.AdminBean;
-import admin.model.AdminService;
+import support.model.SupportBean;
+import support.model.SupportService;
 
-//@WebServlet("/admin/login/login.do")
-public class AdminLoginServlet extends HttpServlet {
+@WebServlet("/support/login/login.do")
+public class SupportLoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public AdminLoginServlet() {
+	public SupportLoginServlet() {
 		super();
+
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -35,11 +37,10 @@ public class AdminLoginServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Map<String, String> errorMsgMap = new HashMap<String, String>();
 		request.setAttribute("ErrorMsgKey", errorMsgMap);
-		String adminname = request.getParameter("adminname");
+		String supportername = request.getParameter("supportername");
 		String password = request.getParameter("password");
-		// String rm = request.getParameter("rememberMe");
 		String requestURI = (String) session.getAttribute("requestURI");
-		if (adminname == null || adminname.trim().length() == 0) {
+		if (supportername == null || supportername.trim().length() == 0) {
 			errorMsgMap.put("AccountEmptyError", "帳號為必填欄位");
 		}
 		if (password == null || password.trim().length() == 0) {
@@ -50,10 +51,10 @@ public class AdminLoginServlet extends HttpServlet {
 			rd.forward(request, response);
 			return;
 		}
-		AdminService service = new AdminService();
-		AdminBean ab = service.adminCheckadminnamePassword(adminname.toLowerCase(), password);
-		if (ab != null) {
-			session.setAttribute("LoginOK", ab);
+		SupportService service = new SupportService();
+		SupportBean sb = service.supporterCheckSupporterNamePassword(supportername.toLowerCase(), password);
+		if (sb != null) {
+			session.setAttribute("LoginOK", sb);
 		} else {
 			errorMsgMap.put("LoginError", "帳號不存在或密碼錯誤");
 		}
