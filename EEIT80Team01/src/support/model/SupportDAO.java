@@ -19,6 +19,8 @@ public interface SupportDAO {
 	List<SupportBean> selectFirstNameLike(String firstname);
 
 	List<SupportBean> selectFirstNameLike(String firstname, String lastname);
+	
+	SupportBean selectByEmployeeID(String employeeid);
 
 	SupportBean insert(SupportBean bean);
 
