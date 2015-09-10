@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>登入</title>
+<title>忘記密碼</title>
 <%@include file="/css/cssforvalidate.file" %>
 
 	<style>
