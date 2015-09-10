@@ -29,7 +29,7 @@ public class SupportDAOJdbc implements SupportDAO {
 		}
 	}
 
-	private static final String SELECT_BY_SUPPORTERNAME = "SELECT SUPPORTERNAME,PASSWD,EMPLOYEE_ID,FIRST_NAME,LAST_NAME FROM SUPPORTERS WHERE SUPPORTERNAME = ?";
+	private static final String SELECT_BY_SUPPORTERNAME = "SELECT SUPPORTERNAME,PASSWD,EMPLOYEE_ID,FIRST_NAME,LAST_NAME FROM SUPPORTERS WHERE SUPPORTERNAME=?";
 
 	/* (non-Javadoc)
 	 * @see support.model.dao.SupportDAO#select(java.lang.String)
@@ -103,7 +103,7 @@ public class SupportDAOJdbc implements SupportDAO {
 		ResultSet rs = null;
 		try (Connection connection = ds.getConnection();
 				PreparedStatement pstmt = connection.prepareStatement(SELECT_LIKE_SUPPORTERNAME);) {
-			pstmt.setString(1, "%"+supportername+"%");
+			pstmt.setString(1, "%" + supportername + "%");
 			rs = pstmt.executeQuery();
 			beans = new ArrayList<SupportBean>();
 			while (rs.next()) {
@@ -133,7 +133,7 @@ public class SupportDAOJdbc implements SupportDAO {
 		ResultSet rs = null;
 		try (Connection connection = ds.getConnection();
 				PreparedStatement pstmt = connection.prepareStatement(SELECT_LIKE_EMPLOYEE_ID);) {
-			pstmt.setString(1, "%"+employeeid+"%");
+			pstmt.setString(1, "%" + employeeid + "%");
 			rs = pstmt.executeQuery();
 			beans = new ArrayList<SupportBean>();
 			while (rs.next()) {
@@ -163,7 +163,7 @@ public class SupportDAOJdbc implements SupportDAO {
 		ResultSet rs = null;
 		try (Connection connection = ds.getConnection();
 				PreparedStatement pstmt = connection.prepareStatement(SELECT_LIKE_LAST_NAME);) {
-			pstmt.setString(1, "%"+lastname+"%");
+			pstmt.setString(1, "%" + lastname + "%");
 			rs = pstmt.executeQuery();
 			beans = new ArrayList<SupportBean>();
 			while (rs.next()) {
@@ -180,7 +180,7 @@ public class SupportDAOJdbc implements SupportDAO {
 		}
 		return beans;
 	}
-	
+
 	// 模糊搜尋(依照客服FIRST NAME)
 	private static final String SELECT_LIKE_FIRST_NAME = "SELECT SUPPORTERNAME,PASSWD,EMPLOYEE_ID,FIRST_NAME,LAST_NAME FROM SUPPORTERS WHERE FIRST_NAME LIKE ?";
 
@@ -193,7 +193,7 @@ public class SupportDAOJdbc implements SupportDAO {
 		ResultSet rs = null;
 		try (Connection connection = ds.getConnection();
 				PreparedStatement pstmt = connection.prepareStatement(SELECT_LIKE_FIRST_NAME);) {
-			pstmt.setString(1, "%"+firstname+"%");
+			pstmt.setString(1, "%" + firstname + "%");
 			rs = pstmt.executeQuery();
 			beans = new ArrayList<SupportBean>();
 			while (rs.next()) {
@@ -210,7 +210,7 @@ public class SupportDAOJdbc implements SupportDAO {
 		}
 		return beans;
 	}
-	
+
 	// 模糊搜尋(依照客服全名 FIRST + LAST NAME)
 	private static final String SELECT_LIKE_FULL_NAME = "SELECT SUPPORTERNAME,PASSWD,EMPLOYEE_ID,FIRST_NAME,LAST_NAME FROM SUPPORTERS WHERE FIRST_NAME LIKE ? AND LAST_NAME LIKE ?";
 
@@ -223,8 +223,8 @@ public class SupportDAOJdbc implements SupportDAO {
 		ResultSet rs = null;
 		try (Connection connection = ds.getConnection();
 				PreparedStatement pstmt = connection.prepareStatement(SELECT_LIKE_FULL_NAME);) {
-			pstmt.setString(1, "%"+firstname+"%");
-			pstmt.setString(2, "%"+lastname+"%");
+			pstmt.setString(1, "%" + firstname + "%");
+			pstmt.setString(2, "%" + lastname + "%");
 			rs = pstmt.executeQuery();
 			beans = new ArrayList<SupportBean>();
 			while (rs.next()) {
@@ -241,5 +241,88 @@ public class SupportDAOJdbc implements SupportDAO {
 		}
 		return beans;
 	}
+
+	private static final String INSERT_SUPPORTER = "INSERT INTO SUPPORTERS SUPPORTERNAME,PASSWD,EMPLOYEE_ID,FIRST_NAME,LAST_NAME VALUES (?,?,?,?,?)";
+
+	/* (non-Javadoc)
+	 * @see support.model.dao.SupportDAO#insert(support.model.SupportBean)
+	 */
+	@Override
+	public SupportBean insert(SupportBean bean) {
+		SupportBean result = null;
+		try (Connection connection = ds.getConnection();
+				PreparedStatement pstmt = connection.prepareStatement(INSERT_SUPPORTER);) {
+			if (bean != null) {
+				pstmt.setString(1, bean.getSupportername());
+				pstmt.setString(2, bean.getPassword());
+				pstmt.setString(3, bean.getEmployeeid());
+				pstmt.setString(4, bean.getFirstname());
+				pstmt.setString(5, bean.getLastname());
+			}
+			int i = pstmt.executeUpdate();
+			if (i == 1) {
+				result = bean;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	private static final String UPDATE_SUPPORTER = "UPDATE SUPPORTERS SET PASSWD=? EMPLOYEE_ID=? FIRST_NAME=? LAST_NAME=? WHERE SUPPORTERNAME=? ";
+
+	/* (non-Javadoc)
+	 * @see support.model.dao.SupportDAO#update(support.model.SupportBean)
+	 */
+	@Override
+	public SupportBean update(SupportBean bean) {
+		SupportBean result = null;
+		try (Connection connection = ds.getConnection();
+				PreparedStatement pstmt = connection.prepareStatement(UPDATE_SUPPORTER);) {
+			pstmt.setString(1, bean.getPassword());
+			pstmt.setString(2, bean.getEmployeeid());
+			pstmt.setString(3, bean.getFirstname());
+			pstmt.setString(4, bean.getLastname());
+			pstmt.setString(5, bean.getSupportername());
+			int i = pstmt.executeUpdate();
+			if (i == 1) {
+				result = bean;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	private static final String DELETE_SUPPORTER = "DELETE FROM SUPPORTERS WHERE SUPPORTERNAME=?";
+	
+	/* (non-Javadoc)
+	 * @see support.model.dao.SupportDAO#delete(java.lang.String)
+	 */
+	@Override
+	public boolean delete(String supportername){
+		try {
+			Connection connection = ds.getConnection();
+			PreparedStatement pstmt = connection.prepareStatement(DELETE_SUPPORTER);
+			pstmt.setString(1, supportername);
+			int i = pstmt.executeUpdate();
+			if (i==1){
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
