@@ -33,6 +33,9 @@ public class ForgetPasswordServlet extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		response.setCharacterEncoding("UTF-8");
 		String username = request.getParameter("username").toLowerCase();
 		String email = request.getParameter("email");
 		if(username!=null && email!=null){
@@ -41,7 +44,7 @@ public class ForgetPasswordServlet extends HttpServlet {
 			if(mb!=null && email.equals(mb.getEmail())){
 				FindPwService fs = new FindPwService();
 				FindPwBean fb = fs.writeLog(username);
-				StringBuffer sb = new StringBuffer();
+				StringBuilder sb = new StringBuilder();
 				sb.append(request.getScheme());
 				sb.append("://");
 				sb.append(request.getServerName());

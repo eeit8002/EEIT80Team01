@@ -38,9 +38,9 @@ public class FindPwService {
 	}
 	
 	public String bulidUrl(String Path, FindPwBean bean){
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		sb.append(Path);
-		sb.append("service/findpassword?username=");
+		sb.append("/service/findpassword?username=");
 		sb.append(bean.getUserName());
 		sb.append("&pass=");
 		sb.append(TOTP.getTOTP(bean.getUserName(), bean.getRequestTime()));

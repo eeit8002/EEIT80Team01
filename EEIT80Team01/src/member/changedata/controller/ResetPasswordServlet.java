@@ -8,20 +8,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import member.model.MemberBean;
 import member.model.MemberService;
 
 
-@WebServlet("/member/changePassword")
-public class ChangePasswordServlet extends HttpServlet {
+@WebServlet("/service/resetPassword")
+public class ResetPasswordServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 
-    public ChangePasswordServlet() {
+    public ResetPasswordServlet() {
         super();
-
+    
     }
 
 
@@ -29,16 +28,15 @@ public class ChangePasswordServlet extends HttpServlet {
 		
 	}
 
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
-		MemberBean bean = (MemberBean) session.getAttribute("LoginOK");
-		MemberService service = new MemberService();
 		
+		
+		MemberService service = new MemberService();
 		String username = request.getParameter("username").toLowerCase();
+		MemberBean bean = service.findMemberData(username);		
 		String oldPassword = request.getParameter("oldPassword");
 		MemberBean mb = service.checkPasswordWithUsername(username, oldPassword);
 		if(mb==null){
@@ -56,11 +54,11 @@ public class ChangePasswordServlet extends HttpServlet {
 		
 		if(bean!=null){
 			RequestDispatcher rd = request.getRequestDispatcher("/member/finished.jsp");
-			session.removeAttribute("LoginOK");
-			session.setAttribute("LoginOK", bean);
+			request.setAttribute("message", "密碼變更完成");
 			rd.forward(request,response);
 		} else {
-			RequestDispatcher rd = request.getRequestDispatcher("/member/changeMemberData.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/member/finished.jsp");
+			request.setAttribute("message", "密碼變更失敗");
 			rd.forward(request,response);
 		}
 		

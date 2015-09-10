@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%@include file="/css/cssforvalidate.file" %>
-<title>變更密碼</title>
+<title>重設密碼</title>
 	<style>
 		fieldset{
 			width: 500px;
@@ -21,7 +21,7 @@
 </head>
 <body>
 <div id="main">
-	<form method="post" class="cmxform" id="form" action="changePassword">
+	<form method="post" class="cmxform" id="form" action="resetPassword">
 		<fieldset>
 			<legend>註冊</legend>
 			<p>

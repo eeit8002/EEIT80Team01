@@ -35,6 +35,10 @@
 				<input type="password" id="password" name="password" title="請輸入密碼">
 			</p>
 			<p>
+			<label class="tag"></label>
+			<a href="${pageContext.request.contextPath}/service/forgetpassword.jsp">忘記密碼</a>
+			</p>
+			<p>
              <label class="tag"></label>
 			<input type="submit" id="submit" value="送出">
 			<input type="reset" id="reset" value="清除">

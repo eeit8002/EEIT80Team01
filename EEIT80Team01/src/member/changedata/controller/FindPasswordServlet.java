@@ -17,25 +17,23 @@ import member.model.FindPwService;
 public class FindPasswordServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+
     public FindPasswordServlet() {
         super();
-        // TODO Auto-generated constructor stub
+        
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		response.setCharacterEncoding("UTF-8");
 		String username = request.getParameter("username");
 		String pass = request.getParameter("pass");
 		FindPwService service = new FindPwService();
 		if(service.validateData(username, pass)){
 			HttpSession session = request.getSession();
 			session.setAttribute("EmailChecked", username);
-			RequestDispatcher rd = request.getRequestDispatcher("findpassword.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("changePassword.jsp");
 			rd.forward(request, response);
 			
 		} else {
@@ -45,9 +43,7 @@ public class FindPasswordServlet extends HttpServlet {
 		
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 	}
