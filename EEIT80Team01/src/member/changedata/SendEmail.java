@@ -33,22 +33,22 @@ public class SendEmail {
   });
 
   try {
-   Message message = new MimeMessage(session); 
-   message.setFrom(new InternetAddress("eeit80team01@gmail.com"));
-   message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));  
-   message.setSubject("重設信件");   
-   Multipart mp = new MimeMultipart();
-   MimeBodyPart part1 = new MimeBodyPart();
-   part1.setText("請點以下連結重新設定密碼<br>"+url);
-   part1.setContent("請點以下連結重新設定密碼<br>"+url,"text/html; charset=utf-8");
-   mp.addBodyPart(part1);
-   message.setContent(mp);
-   Transport.send(message);
+	  MimeMessage  message = new MimeMessage(session); 
+	  message.setFrom(new InternetAddress("eeit80team01@gmail.com"));
+	  message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));  
+	  message.setSubject("重設信件","UTF-8");   
+	  Multipart mp = new MimeMultipart();
+	  MimeBodyPart part1 = new MimeBodyPart();
+	  part1.setText("請點以下連結重新設定密碼<br>"+url);
+	  part1.setContent("請點以下連結重新設定密碼<br>"+url,"text/html; charset=utf-8");
+	  mp.addBodyPart(part1);
+	  message.setContent(mp);
+	  Transport.send(message);
    
-   System.out.println("寄送email結束.");
-   return true;
-  } catch (Exception e) {
-   return false;
+	  System.out.println("寄送email結束.");
+	  return true;
+  	} catch (Exception e) {
+  		return false;
   }
   
  }

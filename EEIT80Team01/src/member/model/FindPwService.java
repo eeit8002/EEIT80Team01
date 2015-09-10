@@ -31,7 +31,8 @@ public class FindPwService {
 	public boolean validateData(String username, String pass){
 		FindPwDAO dao = new FindPwDAOjdbc();
 		FindPwBean bean = dao.select(username);
-		if(username.equals(bean.getUserName()) && pass.equals(TOTP.getTOTP(bean.getUserName(), bean.getRequestTime()))){
+
+		if(bean!=null && username.equals(bean.getUserName()) && pass.equals(TOTP.getTOTP(bean.getUserName(), bean.getRequestTime()))){
 			return true;
 		}
 		return false;

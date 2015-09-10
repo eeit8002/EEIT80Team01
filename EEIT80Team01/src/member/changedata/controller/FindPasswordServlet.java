@@ -30,15 +30,17 @@ public class FindPasswordServlet extends HttpServlet {
 		String username = request.getParameter("username");
 		String pass = request.getParameter("pass");
 		FindPwService service = new FindPwService();
-		if(service.validateData(username, pass)){
-			HttpSession session = request.getSession();
-			session.setAttribute("EmailChecked", username);
-			service.deleteLog(username);			
-			RequestDispatcher rd = request.getRequestDispatcher("changePassword.jsp");
-			rd.forward(request, response);
-			
+		if(username!=null && pass!=null){
+			if(service.validateData(username, pass)){
+				HttpSession session = request.getSession();
+				session.setAttribute("EmailChecked", username);
+				service.deleteLog(username);			
+				RequestDispatcher rd = request.getRequestDispatcher("changePassword.jsp");
+				rd.forward(request, response);
+				
+			}
 		} else {
-			RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("illeagallink.jsp");
 			rd.forward(request, response);
 		}
 		

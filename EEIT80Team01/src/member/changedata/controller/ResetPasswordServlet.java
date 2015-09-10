@@ -37,14 +37,6 @@ public class ResetPasswordServlet extends HttpServlet {
 		MemberService service = new MemberService();
 		String username = request.getParameter("username").toLowerCase();
 		MemberBean bean = service.findMemberData(username);		
-		String oldPassword = request.getParameter("oldPassword");
-		MemberBean mb = service.checkPasswordWithUsername(username, oldPassword);
-		if(mb==null){
-			RequestDispatcher rd = request.getRequestDispatcher("/member/changePassword.jsp");
-			request.setAttribute("loginFalure", "密碼錯誤，無法更改密碼");
-			rd.forward(request,response);
-		}
-		
 		String password = request.getParameter("password");
 		if(password!=null && password.length() >= 5){
 			bean.setPassword(password);
