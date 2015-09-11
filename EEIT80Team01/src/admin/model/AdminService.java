@@ -18,12 +18,12 @@ public class AdminService {
 	}
 
 	// verify adminname and password
-	public AdminBean adminCheckadminnamePassword(String adminname, String password) {
+	public AdminBean CheckAdminNamePassword(String adminname, String password) {
 		AdminBean bean = new AdminBean();
 		AdminDAO dao = new AdminDAOJdbc();
 		bean = dao.select(adminname);
-		if (bean != null && bean.getAdminName().toUpperCase().equals(adminname)
-				&& bean.getPasswd().equals(GlobalService.getMD5Endocing(password))) {
+		if (bean != null && bean.getAdminName().toLowerCase().equals(adminname)
+				&& bean.getPasswd().equals(GlobalService.getMD5Encoding(password))) {
 			return bean;
 		} else {
 			return null;

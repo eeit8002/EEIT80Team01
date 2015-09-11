@@ -4,10 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>客服帳號新增成功</title>
+<title>Supporter management TestPage</title>
 </head>
 <body>
-<a href="${pageContext.request.contextPath}/admin/manage/AddNewSupporter.jsp">新增另一個帳號</a><br>
-<a href="${pageContext.request.contextPath }/admin/index.jsp">回管理首頁</a>
+<h1>Supporter management TestPage</h1>
+<a href="${pageContext.request.contextPath}/support/index.jsp">回客服管理首頁</a>
 </body>
 </html>

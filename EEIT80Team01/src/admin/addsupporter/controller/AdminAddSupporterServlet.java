@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import global.GlobalService;
 import support.model.SupportBean;
 import support.model.SupportService;
 
@@ -38,10 +39,10 @@ public class AdminAddSupporterServlet extends HttpServlet {
 			String password = request.getParameter("password");
 			String passwordCheck = request.getParameter("passwordCheck");
 			if (password != null && password.length() >= 5 && password.equals(passwordCheck)) {
-				bean.setPassword(password);
+				bean.setPassword(GlobalService.getMD5Encoding(password));
 				String employeeid = request.getParameter("employeeid");
 				if (employeeid != null && employeeid.trim().length() != 0
-						&& service.supporterEmployeeIDCheck(employeeid)) {
+						&& !service.checkEmployeeIDExist(employeeid)) {
 					bean.setEmployeeid(employeeid);
 					String firstname = request.getParameter("firstname");
 					if (firstname != null && firstname.trim().length() != 0) {

@@ -19,10 +19,8 @@ import javax.servlet.http.HttpSession;
 import member.model.MemberBean;
 
 @WebFilter(
-		urlPatterns = { "/*" }, 
-		initParams = { 
-				@WebInitParam(name = "mustLogin1", value = "/member/*")
-		})
+		urlPatterns = { "/member/*" }
+		)
 public class LoginFilter implements Filter {
 	Collection<String> url = new ArrayList<String>();
 	String servletPath;
@@ -48,7 +46,7 @@ public class LoginFilter implements Filter {
 			requestURI  = req.getRequestURI();
 			isRequestedSessionIdValid = req.isRequestedSessionIdValid();
 			
-			if (mustLogin()) {
+			
 				if (checkLogin(req)) {   //  需要登入，已經登入
 					chain.doFilter(request, response);
 				} else {				//  需要登入，尚未登入
@@ -59,12 +57,7 @@ public class LoginFilter implements Filter {
 					}
 					resp.sendRedirect(contextPath + "/login/login.jsp");
 					return;
-				}
-			} else {   //不需要登入
-				chain.doFilter(request, response);
-			}
-		} else {
-			throw new ServletException("Request / Response 型態錯誤");
+				}				
 		}
 	}
 	private boolean checkLogin(HttpServletRequest req) {
@@ -77,24 +70,7 @@ public class LoginFilter implements Filter {
 		}
 	}
 
-	private boolean mustLogin() {
-		boolean login = false;
-		for (String sURL : url) {
-			if (sURL.endsWith("*")) {
-				sURL = sURL.substring(0, sURL.length() - 1);
-				if (servletPath.startsWith(sURL)) {
-					login = true;
-					break;
-				}
-			} else {
-				if (servletPath.equals(sURL)) {
-					login = true;
-					break;
-				}
-			}
-		}
-		return login;
-	}
+
 	@Override
 	public void destroy() {
 	}

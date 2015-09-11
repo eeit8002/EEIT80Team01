@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<c:set var="memberName" value="${ LoginOK.adminname }" />
+<c:set var="memberName" value="${ LoginOK.supportername }" />
 
 <c:remove var="LoginOK" scope="session" />
 
@@ -23,6 +23,6 @@
 <%
   session.invalidate();
 %>
-<jsp:forward page="/admin/index.jsp"/>
+<jsp:forward page="/support/index.jsp"/>
 </body> 
 </html>

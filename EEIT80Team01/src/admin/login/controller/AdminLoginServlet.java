@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,7 +15,7 @@ import javax.servlet.http.HttpSession;
 import admin.model.AdminBean;
 import admin.model.AdminService;
 
-//@WebServlet("/admin/login/login.do")
+@WebServlet("/admin/login/login.do")
 public class AdminLoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -35,9 +36,8 @@ public class AdminLoginServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Map<String, String> errorMsgMap = new HashMap<String, String>();
 		request.setAttribute("ErrorMsgKey", errorMsgMap);
-		String adminname = request.getParameter("adminname");
+		String adminname = request.getParameter("username");
 		String password = request.getParameter("password");
-		// String rm = request.getParameter("rememberMe");
 		String requestURI = (String) session.getAttribute("requestURI");
 		if (adminname == null || adminname.trim().length() == 0) {
 			errorMsgMap.put("AccountEmptyError", "帳號為必填欄位");
@@ -51,7 +51,7 @@ public class AdminLoginServlet extends HttpServlet {
 			return;
 		}
 		AdminService service = new AdminService();
-		AdminBean ab = service.adminCheckadminnamePassword(adminname.toLowerCase(), password);
+		AdminBean ab = service.CheckAdminNamePassword(adminname.toLowerCase(), password);
 		if (ab != null) {
 			session.setAttribute("LoginOK", ab);
 		} else {

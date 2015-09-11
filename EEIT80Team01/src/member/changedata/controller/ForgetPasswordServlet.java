@@ -45,25 +45,8 @@ public class ForgetPasswordServlet extends HttpServlet {
 			if(mb!=null && email.equals(mb.getEmail())){
 				FindPwService fs = new FindPwService();
 				FindPwBean fb = fs.writeLog(username);
-				StringBuilder sb = new StringBuilder();
-				sb.append(request.getScheme());
-				sb.append("://");
-				sb.append(request.getServerName());
-				if(request.getServerPort()!=80){
-					sb.append(":");
-					sb.append(request.getServerPort());
-				}
-				sb.append(request.getContextPath());
-				String url = fs.bulidUrl(sb.toString(), fb);//將url以信件送出
-				new Thread(new Runnable() {
-					
-					@Override
-					public void run() {
-
-						SendEmail.sendemail(email, url);						
-					}
-				}).start();
-							
+				String url = fs.bulidUrl(request, fb);//將url以信件送出
+				fs.sendEmail(email, url);			
 				RequestDispatcher rd = request.getRequestDispatcher("/service/forgetpassword.jsp");
 				request.setAttribute("message", "您的重設信件已送出，請置電子郵件信箱查看");
 				rd.forward(request,response);
