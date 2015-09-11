@@ -82,6 +82,7 @@ public class RegisterServlet extends HttpServlet {
 											RequestDispatcher rd = request.getRequestDispatcher("/register/register.jsp");									
 											request.setAttribute("Success", bean);
 											rd.forward(request,response);
+											return;
 										}							
 									}									
 								}								
