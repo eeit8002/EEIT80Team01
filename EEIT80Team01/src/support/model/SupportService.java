@@ -21,7 +21,7 @@ public class SupportService {
 		SupportBean bean = new SupportBean();
 		SupportDAO dao = new SupportDAOJdbc();
 		bean = dao.select(supportername);
-		if (bean != null && bean.getSupportername().toUpperCase().equals(supportername)
+		if (bean != null && bean.getSupportername().toLowerCase().equals(supportername)
 				&& bean.getPassword().equals(GlobalService.getMD5Endocing(password))) {
 			return bean;
 		} else {

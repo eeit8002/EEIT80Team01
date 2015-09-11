@@ -22,7 +22,7 @@ public class AdminService {
 		AdminBean bean = new AdminBean();
 		AdminDAO dao = new AdminDAOJdbc();
 		bean = dao.select(adminname);
-		if (bean != null && bean.getAdminName().toUpperCase().equals(adminname)
+		if (bean != null && bean.getAdminName().toLowerCase().equals(adminname)
 				&& bean.getPasswd().equals(GlobalService.getMD5Endocing(password))) {
 			return bean;
 		} else {
