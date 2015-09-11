@@ -2,6 +2,9 @@ package member.model;
 
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+
+import member.changedata.SendEmail;
 import member.changedata.TOTP;
 import member.model.dao.FindPwDAOjdbc;
 
@@ -38,9 +41,16 @@ public class FindPwService {
 		return false;
 	}
 	
-	public String bulidUrl(String Path, FindPwBean bean){
+	public String bulidUrl(HttpServletRequest request, FindPwBean bean){
 		StringBuilder sb = new StringBuilder();
-		sb.append(Path);
+		sb.append(request.getScheme());
+		sb.append("://");
+		sb.append(request.getServerName());
+		if(request.getServerPort()!=80){
+			sb.append(":");
+			sb.append(request.getServerPort());
+		}
+		sb.append(request.getContextPath());
 		sb.append("/service/findpassword?username=");
 		sb.append(bean.getUserName());
 		sb.append("&pass=");
@@ -53,6 +63,20 @@ public class FindPwService {
 		FindPwDAO dao = new FindPwDAOjdbc();
 		boolean bean = dao.delete(username);
 		return bean;
+	}
+	
+	public void sendEmail(String email, String url){
+		
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+
+				  SendEmail.sendemail(email, url);						
+			}
+		}).start();
+		
+		
 	}
 	
 }
