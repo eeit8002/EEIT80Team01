@@ -27,5 +27,6 @@ public interface SupportDAO {
 	SupportBean update(SupportBean bean);
 
 	boolean delete(String supportername);
+	int delete(List<SupportBean> supporterlist);
 
 }
