@@ -37,7 +37,7 @@ public class SupportLoginServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Map<String, String> errorMsgMap = new HashMap<String, String>();
 		request.setAttribute("ErrorMsgKey", errorMsgMap);
-		String supportername = request.getParameter("supportername");
+		String supportername = request.getParameter("username");
 		String password = request.getParameter("password");
 		String requestURI = (String) session.getAttribute("requestURI");
 		if (supportername == null || supportername.trim().length() == 0) {
@@ -65,7 +65,7 @@ public class SupportLoginServlet extends HttpServlet {
 				response.sendRedirect(response.encodeRedirectURL(requestURI));
 				return;
 			} else {
-				response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/admin/index.jsp"));
+				response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/support/index.jsp"));
 			}
 		} else {
 			RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
