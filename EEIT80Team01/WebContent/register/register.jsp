@@ -69,10 +69,10 @@
 			<input type="reset" id="reset" value="清除">
 		</fieldset>	
 	</form>
-	<c:if test="${ ! empty Success }">
+	<c:if test="${ ! empty registerTrue }">
 			註冊成功!
 	</c:if>
-	<Font color='red' size="-1">${Error}&nbsp;</Font>	
+	<Font color='red' size="-1">${registerFalse}&nbsp;</Font>	
 </div>
 
 	<script src="register.js"></script>
