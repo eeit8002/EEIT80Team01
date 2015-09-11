@@ -22,7 +22,7 @@ public class MemberService {
 	
 	public MemberBean register(MemberBean bean){
 		MemberDAO dao = new MemberDAOjdbc();
-		bean.setPassword(GlobalService.getMD5Endocing(bean.getPassword()));
+		bean.setPassword(GlobalService.getMD5Encoding(bean.getPassword()));
 		MemberBean result = dao.insert(bean);
 		return result;
 	}
@@ -32,7 +32,7 @@ public class MemberService {
 		MemberDAO dao = new MemberDAOjdbc();
 		bean = dao.select(username);
 		if( bean!=null && bean.getUserName().toLowerCase().equals(username) 
-				&& bean.getPassword().equals(GlobalService.getMD5Endocing(password))){
+				&& bean.getPassword().equals(GlobalService.getMD5Encoding(password))){
 			return bean;
 		} else {
 			return null;
@@ -42,7 +42,7 @@ public class MemberService {
 	
 	public MemberBean changeMemberData(MemberBean bean){
 		MemberDAO dao = new MemberDAOjdbc();
-		bean.setPassword(GlobalService.getMD5Endocing(bean.getPassword()));
+		bean.setPassword(GlobalService.getMD5Encoding(bean.getPassword()));
 		bean = dao.update(bean);
 			
 		return bean;

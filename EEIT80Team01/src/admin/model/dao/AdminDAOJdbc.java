@@ -30,7 +30,7 @@ public class AdminDAOJdbc implements AdminDAO {
 		}
 	}
 
-	private static final String SELECT_BY_ADMINNAME = "SELECT ADMINNAME,PASSWD FROM ADMINS WHERE USERNAME=?";
+	private static final String SELECT_BY_ADMINNAME = "SELECT ADMINNAME,PASSWD FROM ADMINS WHERE ADMINNAME=?";
 
 	@Override
 	public AdminBean select(String adminname) {
@@ -80,7 +80,7 @@ public class AdminDAOJdbc implements AdminDAO {
 		return beans;
 	}
 
-	private static final String INSERT_ADMIN = "INSERT INTO ADMINS ADMINNAME,PASSWD VALUES (?,?,?)";
+	private static final String INSERT_ADMIN = "INSERT INTO ADMINS ADMINNAME,PASSWD VALUES (?,?)";
 
 	@Override
 	public AdminBean insert(AdminBean bean) {

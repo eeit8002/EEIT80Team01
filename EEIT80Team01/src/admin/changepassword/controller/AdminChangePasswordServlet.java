@@ -15,10 +15,10 @@ import admin.model.AdminService;
 import global.GlobalService;
 
 @WebServlet("/admin/password/adminChangePassword.do")
-public class adminChangePassword extends HttpServlet {
+public class AdminChangePasswordServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public adminChangePassword() {
+	public AdminChangePasswordServlet() {
 		super();
 	}
 
@@ -34,20 +34,19 @@ public class adminChangePassword extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		AdminBean bean = (AdminBean) session.getAttribute("LoginOK");
-		String adminname = request.getParameter("adminname");
+		String adminname = request.getParameter("username");
 		String oldpassword = request.getParameter("oldpassword");
 		String password = request.getParameter("password");
 		if (password != null && password.length() >= 5) {
-			bean.setPasswd(GlobalService.getMD5Endocing(password));
+			bean.setPasswd(GlobalService.getMD5Encoding(password));
 		}
 		
 		AdminBean ab = new AdminBean();
 		AdminService service = new AdminService();
-		ab = service.adminCheckadminnamePassword(adminname, oldpassword);
+		ab = service.CheckAdminNamePassword(adminname, oldpassword);
 		
-		service.changeAdminPassword(bean);
-
 		if (bean != null && ab != null) {
+			service.changeAdminPassword(bean);
 			RequestDispatcher rd = request
 					.getRequestDispatcher("/admin/password/success.jsp");
 			session.removeAttribute("LoginOK");

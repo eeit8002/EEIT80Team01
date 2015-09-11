@@ -1,7 +1,5 @@
 package support.model;
 
-import java.util.List;
-
 import global.GlobalService;
 import support.model.dao.SupportDAOJdbc;
 
@@ -22,7 +20,7 @@ public class SupportService {
 		SupportDAO dao = new SupportDAOJdbc();
 		bean = dao.select(supportername);
 		if (bean != null && bean.getSupportername().toLowerCase().equals(supportername)
-				&& bean.getPassword().equals(GlobalService.getMD5Endocing(password))) {
+				&& bean.getPassword().equals(GlobalService.getMD5Encoding(password))) {
 			return bean;
 		} else {
 			return null;
@@ -37,12 +35,12 @@ public class SupportService {
 	
 	public SupportBean register(SupportBean bean) {
 		SupportDAO dao = new SupportDAOJdbc();
-		bean.setPassword(GlobalService.getMD5Endocing(bean.getPassword()));
+		bean.setPassword(GlobalService.getMD5Encoding(bean.getPassword()));
 		SupportBean result = dao.insert(bean);
 		return result;
 	}
 	
-	public boolean supporterEmployeeIDCheck(String employeeid){
+	public boolean checkEmployeeIDExist(String employeeid){
 		SupportDAO dao = new SupportDAOJdbc();
 		SupportBean bean = dao.selectByEmployeeID(employeeid);
 		if (bean != null){
