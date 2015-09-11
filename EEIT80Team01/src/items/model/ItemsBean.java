@@ -6,12 +6,14 @@ public class ItemsBean {
 	private int itemId;
 	private String seller;
 	private String buyer;
+	private int itemCategory;
 	private String title;
 	private double startPrice;
 	private double directPrice;
 	private int bid;
 	private java.util.Date endTime;
-	private String itemStatus;
+	private String itemDiscribe;
+	private int itemStatus;
 	private int threadLock;
 	
 	public int getItemId() {
@@ -31,6 +33,12 @@ public class ItemsBean {
 	}
 	public void setBuyer(String buyer) {
 		this.buyer = buyer;
+	}
+	public int getItemCategory() {
+		return itemCategory;
+	}
+	public void setItemCategory(int itemCategory) {
+		this.itemCategory = itemCategory;
 	}
 	public String getTitle() {
 		return title;
@@ -62,10 +70,16 @@ public class ItemsBean {
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
 	}
-	public String getItemStatus() {
+	public String getItemDiscribe() {
+		return itemDiscribe;
+	}
+	public void setItemDiscribe(String itemDiscribe) {
+		this.itemDiscribe = itemDiscribe;
+	}
+	public int getItemStatus() {
 		return itemStatus;
 	}
-	public void setItemStatus(String itemStatus) {
+	public void setItemStatus(int itemStatus) {
 		this.itemStatus = itemStatus;
 	}
 	public int getThreadLock() {
