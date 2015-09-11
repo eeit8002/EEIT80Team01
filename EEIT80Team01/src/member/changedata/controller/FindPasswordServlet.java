@@ -38,11 +38,15 @@ public class FindPasswordServlet extends HttpServlet {
 				RequestDispatcher rd = request.getRequestDispatcher("changePassword.jsp");
 				rd.forward(request, response);
 				
+			}else{
+				RequestDispatcher rd = request.getRequestDispatcher("illeagallink.jsp");
+				service.deleteLog(username);
+				rd.forward(request, response);				
 			}
-		} 
+		} else{
 			RequestDispatcher rd = request.getRequestDispatcher("illeagallink.jsp");
 			rd.forward(request, response);
-		
+		}
 		
 	}
 
