@@ -42,7 +42,7 @@ public class AdminDAOJdbc implements AdminDAO {
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				result = new AdminBean();
-				result.setAdminName(rs.getString("ADMINNAME"));
+				result.setAdminname(rs.getString("ADMINNAME"));
 				result.setPasswd(rs.getString("PASSWD"));
 			}
 		} catch (SQLException e) {
@@ -70,7 +70,7 @@ public class AdminDAOJdbc implements AdminDAO {
 			beans = new ArrayList<AdminBean>();
 			while (rs.next()) {
 				AdminBean bean = new AdminBean();
-				bean.setAdminName(rs.getString("ADMINNAME"));
+				bean.setAdminname(rs.getString("ADMINNAME"));
 				bean.setPasswd(rs.getString("PASSWD"));
 				beans.add(bean);
 			}
@@ -88,7 +88,7 @@ public class AdminDAOJdbc implements AdminDAO {
 		try (Connection connection = ds.getConnection();
 				PreparedStatement pstmt = connection.prepareStatement(INSERT_ADMIN);) {
 			if (bean != null) {
-				pstmt.setString(1, bean.getAdminName());
+				pstmt.setString(1, bean.getAdminname());
 				pstmt.setString(2, bean.getPasswd());
 			}
 			int i = pstmt.executeUpdate();
@@ -109,7 +109,7 @@ public class AdminDAOJdbc implements AdminDAO {
 		try (Connection connection = ds.getConnection();
 				PreparedStatement pstmt = connection.prepareStatement(UPDATE_ADMIN);) {
 			pstmt.setString(1, bean.getPasswd());
-			pstmt.setString(2, bean.getAdminName());
+			pstmt.setString(2, bean.getAdminname());
 			int i = pstmt.executeUpdate();
 			if (i == 1) {
 				result = bean;

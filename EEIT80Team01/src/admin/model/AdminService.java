@@ -10,7 +10,7 @@ public class AdminService {
 		AdminDAO dao = new AdminDAOJdbc();
 		AdminBean bean = dao.select(adminname);
 
-		if (bean != null && bean.getAdminName().equals(adminname)) {
+		if (bean != null && bean.getAdminname().equals(adminname)) {
 			return false;
 		} else {
 			return true;
@@ -22,7 +22,7 @@ public class AdminService {
 		AdminBean bean = new AdminBean();
 		AdminDAO dao = new AdminDAOJdbc();
 		bean = dao.select(adminname);
-		if (bean != null && bean.getAdminName().toLowerCase().equals(adminname)
+		if (bean != null && bean.getAdminname().toLowerCase().equals(adminname)
 				&& bean.getPasswd().equals(GlobalService.getMD5Encoding(password))) {
 			return bean;
 		} else {

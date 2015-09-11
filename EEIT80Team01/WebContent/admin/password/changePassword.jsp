@@ -40,7 +40,7 @@
 			<input type="reset" id="reset" value="還原">
 		</fieldset>
 	</form>
-	<a href="${pageContext.request.contextPath}/support/index.jsp">回管理首頁</a>
+	<a href="${pageContext.request.contextPath}/admin/index.jsp">回管理首頁</a>
 </div>
 
 	<script src="changeData.js"></script>

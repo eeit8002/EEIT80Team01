@@ -5,10 +5,10 @@ public class AdminBean {
 	private String passwd;
 	private int permission;
 	
-	public String getAdminName() {
+	public String getAdminname() {
 		return adminname;
 	}
-	public void setAdminName(String adminname) {
+	public void setAdminname(String adminname) {
 		this.adminname = adminname;
 	}
 	public String getPasswd() {
