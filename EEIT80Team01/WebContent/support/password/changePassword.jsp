@@ -16,11 +16,10 @@
 		 	text-align: right;
 		 	}
 	</style>
-
 </head>
 <body>
 <div id="main">
-	<form method="post" class="cmxform" id="form" action="adminChangePassword.do">
+	<form method="post" class="cmxform" id="form" action="supportChangePassword.do">
 		<fieldset>
 			<legend>修改管理員密碼</legend>
 			<p>

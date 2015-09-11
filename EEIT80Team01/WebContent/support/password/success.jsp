@@ -8,6 +8,6 @@
 </head>
 <body>
 <h1>密碼更換成功</h1>
-<a href="${pageContext.request.contextPath}/support/index.jsp">回客服管理首頁</a>
+<a href="${pageContext.request.contextPath}/support/index.jsp">回管理首頁</a>
 </body>
 </html>

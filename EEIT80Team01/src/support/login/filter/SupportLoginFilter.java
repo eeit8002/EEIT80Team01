@@ -20,7 +20,8 @@ import javax.servlet.http.HttpSession;
 import support.model.SupportBean;
 
 @WebFilter(urlPatterns = { "/support/*" }, initParams = {
-		@WebInitParam(name = "supporterManageArea", value = "/support/manage/*") })
+		@WebInitParam(name = "supporterManageArea", value = "/support/manage/*"),
+		@WebInitParam(name = "supporterChangePassword", value = "/support/password/*") })
 public class SupportLoginFilter implements Filter {
 	Collection<String> url = new ArrayList<String>();
 	String servletPath;
@@ -46,12 +47,12 @@ public class SupportLoginFilter implements Filter {
 			requestURI = req.getRequestURI();
 			isRequestedSessionIdValid = req.isRequestedSessionIdValid();
 			if (mustLogin()) {
-				if(checkLogin(req)){
+				if (checkLogin(req)) {
 					chain.doFilter(request, response);
 				} else {
 					HttpSession session = req.getSession();
 					session.setAttribute("requestURI", requestURI);
-					if(!isRequestedSessionIdValid){
+					if (!isRequestedSessionIdValid) {
 						session.setAttribute("timeOut", "連線逾時，請重新登入");
 					}
 					resp.sendRedirect(contextPath + "/support/login/login.jsp");
