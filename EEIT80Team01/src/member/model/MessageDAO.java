@@ -16,7 +16,5 @@ public interface MessageDAO {
 	public abstract MessageBean update(MessageBean bean);
 
 	public abstract boolean delete(long messageNumber);
-
-	public abstract boolean delete(List<MessageBean> beans);
 	
 }
