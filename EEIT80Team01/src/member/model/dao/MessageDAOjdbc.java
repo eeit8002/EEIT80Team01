@@ -133,7 +133,7 @@ public class MessageDAOjdbc implements MessageDAO {
 	}
 	
 	private static final String INSERT =
-			"insert into MSG (sender, receiver, msg_title, msg_body, msg_time, msgno) values (?, ?, ? ,? ,? ,?)";
+			"insert into MSG (sender, receiver, msg_title, msg_body, msg_time) values (?, ?, ? ,? ,?)";
 
 	public MessageBean insert(MessageBean bean) {
 		MessageBean result = null;
@@ -150,8 +150,7 @@ public class MessageDAOjdbc implements MessageDAO {
 							stmt.setDate(5, new java.sql.Date(time));
 						} else {
 							stmt.setDate(5, null);				
-						}
-						stmt.setLong(6, bean.getMessageNumber());						
+						}				
 						int i = stmt.executeUpdate();
 						if(i==1) {
 							result = bean;

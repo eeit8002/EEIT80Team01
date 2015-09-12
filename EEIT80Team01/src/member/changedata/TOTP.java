@@ -4,8 +4,6 @@ package member.changedata;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.math.BigInteger;
 import java.security.GeneralSecurityException;
-import java.util.Date;
-
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
@@ -98,19 +96,5 @@ public class TOTP {
 		}		
 		return generateTOTP(seed64, steps, "10", "HmacSHA512");
 	}
-//  test code //
-//	public static void main(String[] args) throws UnsupportedEncodingException {
-//		long time = System.currentTimeMillis();
-//		long T0 = 0;
-//		long X = 30000;
-//		long T = (long) Math.floor((time - T0) / X);
-//		String steps = "0";
-//		String seed = "gn00466269@gmail.com";
-//		String seed64 = TOTP.toHex(seed);
-//		steps = Long.toHexString(T).toUpperCase();
-//		while (steps.length() < 16) {
-//			steps = "0" + steps;
-//		}
-//		System.out.println(generateTOTP(seed64, steps, "10", "HmacSHA512"));
-//	}
+
 }

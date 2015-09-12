@@ -23,9 +23,12 @@
 		<fieldset>
 			<legend>發送訊息</legend>
 			<label class="tag">收件者帳號：</label><input type="text" name="receiver"><br>
-			<label class="tag">信件主旨：</label><input type="text" name="messageTitle"><br>
-       		<textarea name="messageBody" id="editor1" rows="10" cols="60">
+			 &nbsp;<small><Font color='red' size="-3">${ErrorMsgKey.receiver}</Font></small>
+			<label class="tag">信件主旨：</label><input type="text" name="messagetitle"><br>
+			 &nbsp;<small><Font color='red' size="-3">${ErrorMsgKey.title}</Font></small>
+       		<textarea name="messagebody" id="editor1" rows="10" cols="60">
             </textarea>
+             &nbsp;<small><Font color='red' size="-3">${ErrorMsgKey.body}</Font></small>
 			<script>
 				CKEDITOR.replace( 'editor1' );
 			</script>
@@ -34,5 +37,8 @@
 			<input type="reset" id="reset" value="清除">
 		</fieldset>
 	</form>
+	&nbsp;<small><Font color='red' size="-3">${successMessage}</Font></small>
+	&nbsp;<small><Font color='red' size="-3">${errorMessage}</Font></small>
+	
 </body>
 </html>

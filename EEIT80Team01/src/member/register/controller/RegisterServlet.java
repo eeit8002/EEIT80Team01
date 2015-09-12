@@ -10,8 +10,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import jdk.nashorn.internal.ir.RuntimeNode.Request;
 import member.model.MemberBean;
 import member.model.MemberService;
 import member.register.DateValidator;
