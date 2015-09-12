@@ -1,4 +1,4 @@
-package member.register.controller;
+package member.core.controller;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -10,11 +10,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import member.core.DateValidator;
+import member.core.EmailValidator;
+import member.core.IDChecker;
 import member.model.MemberBean;
 import member.model.MemberService;
-import member.register.DateValidator;
-import member.register.EmailValidator;
-import member.register.IDChecker;
 
 
 @WebServlet("/register/register.do")

@@ -40,6 +40,9 @@ public class NewMessageController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		response.setCharacterEncoding("UTF-8");
 		Map<String, String> errorMsgMap = new HashMap<String, String>();
 		HttpSession session = request.getSession();
 		MemberBean bean = (MemberBean)session.getAttribute("LoginOK");
@@ -80,6 +83,7 @@ public class NewMessageController extends HttpServlet {
 			}
 			Date date = new Date();
 			mb.setMessageTime(date);
+			mb.setVisibility(0);
 			MessageService service = new MessageService();
 			mb = service.addNewMessage(mb);
 			if(mb!=null){

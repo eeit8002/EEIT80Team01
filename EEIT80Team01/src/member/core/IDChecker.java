@@ -1,4 +1,4 @@
-package member.register;
+package member.core;
 public class IDChecker {
 	
 	public String str="";

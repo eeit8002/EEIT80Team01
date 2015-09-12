@@ -1,4 +1,4 @@
-package member.register;
+package member.core;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 public class EmailValidator {	

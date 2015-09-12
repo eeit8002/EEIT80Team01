@@ -9,7 +9,14 @@ public class MessageBean {
 	private String messageBody;
 	private Date messageTime;
 	private long messageNumber;
+	private int visibility;
 	
+	public int getVisibility() {
+		return visibility;
+	}
+	public void setVisibility(int visibility) {
+		this.visibility = visibility;
+	}
 	public String getSender() {
 		return sender;
 	}

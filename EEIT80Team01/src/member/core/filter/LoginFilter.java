@@ -1,4 +1,4 @@
-package member.login.filter;
+package member.core.filter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;

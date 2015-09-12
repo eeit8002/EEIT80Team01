@@ -49,6 +49,7 @@ public class MessageDAOjdbc implements MessageDAO {
 				bean.setMessageBody(rset.getString("msg_body"));
 				bean.setMessageTime(new Date(rset.getDate("msg_time").getTime()));
 				bean.setMessageNumber(rset.getLong("msgno"));
+				bean.setVisibility(rset.getInt("visibility"));
 			}
 		} catch (SQLException e) {
 			
@@ -65,7 +66,7 @@ public class MessageDAOjdbc implements MessageDAO {
 	}
 
 	private static final String SELECT_BY_SENDER =
-			"select * from MSO where SENDER=?";
+			"select * from MSO where SENDER=? and visibility&2=0";
 
 	public List<MessageBean> findBySender(String sender) {
 		List<MessageBean> result = new ArrayList<MessageBean>();
@@ -99,7 +100,7 @@ public class MessageDAOjdbc implements MessageDAO {
 	}
 
 	private static final String SELECT_BY_RECEIVER =
-			"select * from MSO where RECEIVER=?";
+			"select * from MSO where RECEIVER=? and visibility&1=0";
 	
 	public List<MessageBean> findByReceiver(String receiver) {
 		List<MessageBean> result = new ArrayList<MessageBean>();
@@ -133,7 +134,7 @@ public class MessageDAOjdbc implements MessageDAO {
 	}
 	
 	private static final String INSERT =
-			"insert into MSG (sender, receiver, msg_title, msg_body, msg_time) values (?, ?, ? ,? ,?)";
+			"insert into MSG (sender, receiver, msg_title, msg_body, msg_time, visibility) values (?, ?, ? ,? ,?, ?)";
 
 	public MessageBean insert(MessageBean bean) {
 		MessageBean result = null;
@@ -150,7 +151,8 @@ public class MessageDAOjdbc implements MessageDAO {
 							stmt.setDate(5, new java.sql.Date(time));
 						} else {
 							stmt.setDate(5, null);				
-						}				
+						}
+						stmt.setInt(6, 0);
 						int i = stmt.executeUpdate();
 						if(i==1) {
 							result = bean;
@@ -163,8 +165,7 @@ public class MessageDAOjdbc implements MessageDAO {
 	}
 
 	private static final String UPDATE =
-			"update member set sender=?, receiver=?, msg_title=?, msg_body=?, msg_time=? where msgno=?";
-
+			"update member set sender=?, receiver=?, msg_title=?, msg_body=?, msg_time=?, where msgno=?";
 
 	public MessageBean update(MessageBean bean) {
 		MessageBean result = null;
@@ -191,7 +192,27 @@ public class MessageDAOjdbc implements MessageDAO {
 		}		
 		return result;
 	}
+	
+	private static final String CHANGEVISIBILITY =
+			"update member set =?, where msgno=?";
 
+	public MessageBean changeVisibility(MessageBean bean) {
+		MessageBean result = null;
+		try(Connection conn = ds.getConnection();
+			PreparedStatement stmt = conn.prepareStatement(CHANGEVISIBILITY);) {				
+			stmt.setInt(1, bean.getVisibility());	
+			stmt.setLong(2, bean.getMessageNumber());
+			int i = stmt.executeUpdate();
+			if(i==1) {
+				result = bean;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}		
+		return result;
+	}
+	
+	
 	private static final String DELETE =
 			"delete from member where msgno=?";
 

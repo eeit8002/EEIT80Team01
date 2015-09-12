@@ -1,4 +1,4 @@
-package member.register.controller;
+package member.core;
 
 import java.io.IOException;
 import java.io.PrintWriter;

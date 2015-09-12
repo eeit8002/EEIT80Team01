@@ -1,19 +1,22 @@
-package member.login.controller;
+package member.core.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import member.model.MemberBean;
 import member.model.MemberService;
 
 
-
+@WebServlet("/login/login.do")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

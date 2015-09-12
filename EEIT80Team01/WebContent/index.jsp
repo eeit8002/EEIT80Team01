@@ -13,7 +13,7 @@
 		<a href="${pageContext.request.contextPath}/register/register.jsp">註冊</a><br>
 	</c:if>
 	<c:if test="${ ! empty LoginOK }">
-			<a href="${pageContext.request.contextPath}/member/changeData.jsp">修改資料</a><br>
+		<a href="${pageContext.request.contextPath}/member/changeData.jsp">修改資料</a><br>
 	</c:if>
 	<c:if test="${empty LoginOK }">
 		<a href="${pageContext.request.contextPath}/login/login.jsp">登入</a><br>
@@ -22,7 +22,7 @@
 		<a href="${pageContext.request.contextPath}/login/logout.jsp">登出</a><br>
 	</c:if>
 	<c:if test="${ ! empty LoginOK }">
-			<a href="${pageContext.request.contextPath}/member/changePassword.jsp">修改密碼</a><br>
+		<a href="${pageContext.request.contextPath}/member/changePassword.jsp">修改密碼</a><br>
 	</c:if>
 
 	
