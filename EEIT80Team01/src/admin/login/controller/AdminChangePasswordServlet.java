@@ -1,4 +1,4 @@
-package admin.changepassword.controller;
+package admin.login.controller;
 
 import java.io.IOException;
 

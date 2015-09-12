@@ -1,4 +1,4 @@
-package admin.supporterlist.controller;
+package admin.supporter.controller;
 
 import java.io.IOException;
 import java.util.LinkedList;
