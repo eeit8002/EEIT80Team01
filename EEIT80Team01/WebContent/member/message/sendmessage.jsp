@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -19,13 +20,13 @@
 <script src="http://cdn.ckeditor.com/4.5.3/basic/ckeditor.js"></script>
 </head>
 <body>
-	<form>
+	<form action="newmessage" method="post">
 		<fieldset>
 			<legend>發送訊息</legend>
-			<label class="tag">收件者帳號：</label><input type="text" name="receiver"><br>
-			 &nbsp;<small><Font color='red' size="-3">${ErrorMsgKey.receiver}</Font></small>
-			<label class="tag">信件主旨：</label><input type="text" name="messagetitle"><br>
-			 &nbsp;<small><Font color='red' size="-3">${ErrorMsgKey.title}</Font></small>
+			<label class="tag">收件者帳號：</label><input type="text" name="receiver" value='${param.id}'>
+			 &nbsp;<small><Font color='red' size="-3">${ErrorMsgKey.receiver}</Font></small><br>
+			<label class="tag">信件主旨：</label><input type="text" name="messagetitle">
+			 &nbsp;<small><Font color='red' size="-3">${ErrorMsgKey.title}</Font></small><br>
        		<textarea name="messagebody" id="editor1" rows="10" cols="60">
             </textarea>
              &nbsp;<small><Font color='red' size="-3">${ErrorMsgKey.body}</Font></small>
