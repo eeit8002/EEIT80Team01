@@ -11,26 +11,26 @@ public class TradeBean {
     private String buyer;
     private int buyerCheck;
     
-    public boolean equals(Object obj) {
- 	   if (obj == null) { return false; }
- 	   if (obj == this) { return true; }
- 	   if (obj.getClass() != getClass()) {
- 	     return false;
- 	   }
- 	  TradeBean rhs = (TradeBean) obj;
- 	   return new EqualsBuilder()
- 	                 .append(itemId, rhs.itemId)
- 	                 .append(buyer, rhs.buyer)
- 	                 .append(seller, rhs.seller)
- 	                 .isEquals();
- 	  }
-	 public int hashCode() {
-	     return new HashCodeBuilder(23,29).
-	       append(itemId).
-	       append(buyer).
-	       append(seller).
-	       toHashCode();
-	  }
+//    public boolean equals(Object obj) {
+// 	   if (obj == null) { return false; }
+// 	   if (obj == this) { return true; }
+// 	   if (obj.getClass() != getClass()) {
+// 	     return false;
+// 	   }
+// 	  TradeBean rhs = (TradeBean) obj;
+// 	   return new EqualsBuilder()
+// 	                 .append(itemId, rhs.itemId)
+// 	                 .append(buyer, rhs.buyer)
+// 	                 .append(seller, rhs.seller)
+// 	                 .isEquals();
+// 	  }
+//	 public int hashCode() {
+//	     return new HashCodeBuilder(23,29).
+//	       append(itemId).
+//	       append(buyer).
+//	       append(seller).
+//	       toHashCode();
+//	  }
     
 	public int getItemId() {
 		return itemId;
