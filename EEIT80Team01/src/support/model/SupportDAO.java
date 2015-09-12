@@ -19,7 +19,7 @@ public interface SupportDAO {
 	List<SupportBean> selectFirstNameLike(String firstname);
 
 	List<SupportBean> selectFirstNameLike(String firstname, String lastname);
-	
+
 	SupportBean selectByEmployeeID(String employeeid);
 
 	SupportBean insert(SupportBean bean);
@@ -27,6 +27,8 @@ public interface SupportDAO {
 	SupportBean update(SupportBean bean);
 
 	boolean delete(String supportername);
-	int delete(List<SupportBean> supporterlist);
 
+	int delete(List<SupportBean> supporterlist);
+	
+	boolean deleteByEmployeeID(String employeeid);
 }

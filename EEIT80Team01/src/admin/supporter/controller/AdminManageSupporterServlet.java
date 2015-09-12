@@ -37,6 +37,7 @@ public class AdminManageSupporterServlet extends HttpServlet {
 		String action = request.getParameter("action");
 
 		// list all supporters
+		// JSP form 內要多寫一個type="hidden"的Action指向"ListAll" by 王憲春老師
 		if (action.equals("ListAll")) {
 			SupportDAO dao = new SupportDAOJdbc();
 			List<SupportBean> supporterlist = dao.select();
@@ -47,20 +48,33 @@ public class AdminManageSupporterServlet extends HttpServlet {
 			return;
 		}
 
-		if (action.equals("Delete")){
+		// delete supporter by employee id
+		// JSP form 內要多寫一個type="hidden"的Action指向"Delete" by 王憲春老師
+		if (action.equals("Delete")) {
 			SupportDAO dao = new SupportDAOJdbc();
 			List<String> errorMsgs = new LinkedList<String>();
-			request.setAttribute("ErrorMsgs",errorMsgs);
+			request.setAttribute("ErrorMsgs", errorMsgs);
 			String employeeid = request.getParameter("employeeid");
-			if (employeeid == null || (employeeid.trim().length()==0)){
+			if (employeeid == null || (employeeid.trim().length() == 0)) {
 				errorMsgs.add("請輸入客服編號");
 			}
-			if (!errorMsgs.isEmpty()){
+			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher rd = request.getRequestDispatcher("/admin/manage/ManageSupporters.jsp");
 				rd.forward(request, response);
 				return;
+			} else {
+				if (dao.deleteByEmployeeID(employeeid)) {
+					RequestDispatcher rd = request.getRequestDispatcher("/admin/manage/ManageSupporters.jsp");
+					rd.forward(request, response);
+					return;
+				} else {
+					errorMsgs.add("客服帳號刪除失敗");
+					RequestDispatcher rd = request.getRequestDispatcher("/admin/manage/ManageSupporters.jsp");
+					rd.forward(request, response);
+					return;
+				}
 			}
-			
+
 		}
 	}
 
