@@ -1,5 +1,7 @@
 package member.message.controller;
 
+import global.GlobalService;
+
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -44,7 +46,7 @@ public class ReadMessageServlet extends HttpServlet {
 		
 		if(bean!=null){
 			HttpSession session = request.getSession();
-			MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
+			MemberBean mb = (MemberBean) session.getAttribute(GlobalService.LOGIN_TOKEN);
 			if(bean.getSender().equals(mb.getUserName()) && (bean.getVisibility() & 2)==0 || bean.getReceiver().equals(mb.getUserName()) && (bean.getVisibility() & 1)==0){
 				request.setAttribute("Message", bean);
 			} else {

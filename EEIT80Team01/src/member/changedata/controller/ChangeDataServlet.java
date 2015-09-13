@@ -1,6 +1,8 @@
 package member.changedata.controller;
 
 
+import global.GlobalService;
+
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -38,7 +40,7 @@ public class ChangeDataServlet extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		MemberBean bean = (MemberBean) session.getAttribute("LoginOK");
+		MemberBean bean = (MemberBean) session.getAttribute(GlobalService.LOGIN_TOKEN);
 		String firstName = request.getParameter("fistName");
 		if(firstName!=null){
 			bean.setFirstName(firstName);
@@ -57,8 +59,8 @@ public class ChangeDataServlet extends HttpServlet {
 		
 		if(bean!=null){
 			RequestDispatcher rd = request.getRequestDispatcher("/member/finished.jsp");
-			session.removeAttribute("LoginOK");
-			session.setAttribute("LoginOK", bean);
+			session.removeAttribute(GlobalService.LOGIN_TOKEN);
+			session.setAttribute(GlobalService.LOGIN_TOKEN, bean);
 			rd.forward(request,response);
 		} else {
 			RequestDispatcher rd = request.getRequestDispatcher("/member/changeMemberData.jsp");

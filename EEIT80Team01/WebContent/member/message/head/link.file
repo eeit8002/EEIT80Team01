@@ -8,7 +8,7 @@ function goToPage(num) {
 	url[1]="receive";
 	url[2]="sendmessage.jsp";
 	window.location=url[num];``
-}
+};
 
 </script>
 </head>

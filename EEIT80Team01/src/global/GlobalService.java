@@ -5,6 +5,8 @@ import java.security.NoSuchAlgorithmException;
 
 public class GlobalService {
 	public static final String JNDI_DB_NAME = "java:comp/env/jdbc/eeit80team01";	
+	public static final String LOGIN_TOKEN = "LoginOK";
+	
 	
 	public static String getMD5Encoding(String message) {
 		final StringBuffer buffer = new StringBuffer();

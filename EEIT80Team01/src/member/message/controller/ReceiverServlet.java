@@ -1,5 +1,7 @@
 package member.message.controller;
 
+import global.GlobalService;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -32,7 +34,7 @@ public class ReceiverServlet extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		MemberBean mb = (MemberBean)session.getAttribute("LoginOK");
+		MemberBean mb = (MemberBean)session.getAttribute(GlobalService.LOGIN_TOKEN);
 		String receiver = mb.getUserName();
 		MessageService service = new MessageService();
 		List<MessageBean> list = service.findByReceiver(receiver);

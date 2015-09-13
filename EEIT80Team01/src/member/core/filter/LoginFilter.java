@@ -1,8 +1,11 @@
 package member.core.filter;
+import global.GlobalService;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -60,7 +63,7 @@ public class LoginFilter implements Filter {
 	}
 	private boolean checkLogin(HttpServletRequest req) {
 		HttpSession session = req.getSession();
-		MemberBean loginToken = (MemberBean) session.getAttribute("LoginOK");
+		MemberBean loginToken = (MemberBean) session.getAttribute(GlobalService.LOGIN_TOKEN);
 		if (loginToken == null) {
 			return false;
 		} else {

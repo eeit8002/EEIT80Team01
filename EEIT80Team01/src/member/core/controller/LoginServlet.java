@@ -1,5 +1,7 @@
 package member.core.controller;
 
+import global.GlobalService;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -70,8 +72,8 @@ public class LoginServlet extends HttpServlet {
 		
 		MemberBean mb = service.checkPasswordWithUsername(username.toLowerCase(), password);
 		if (mb != null) {
-			// OK, 將mb物件放入Session範圍內，識別字串為"LoginOK"
-			session.setAttribute("LoginOK", mb);
+			// OK, 將mb物件放入Session範圍內，識別字串為GlobalService.LOGIN_TOKEN
+			session.setAttribute(GlobalService.LOGIN_TOKEN, mb);
 		} else {
 			// NG, userid與密碼的組合錯誤，放一個錯誤訊息到 errorMsgMap 之內
 			errorMsgMap.put("LoginError", "該帳號不存在或密碼錯誤");

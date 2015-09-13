@@ -1,5 +1,6 @@
 package member.message.controller;
 
+import global.GlobalService;
 import global.XSSValidate;
 
 import java.io.IOException;
@@ -45,7 +46,7 @@ public class NewMessageServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		Map<String, String> errorMsgMap = new HashMap<String, String>();
 		HttpSession session = request.getSession();
-		MemberBean bean = (MemberBean)session.getAttribute("LoginOK");
+		MemberBean bean = (MemberBean)session.getAttribute(GlobalService.LOGIN_TOKEN);
 		
 			MemberService ms = new MemberService();
 			MessageBean mb = new MessageBean();

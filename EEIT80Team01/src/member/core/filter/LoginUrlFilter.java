@@ -1,5 +1,7 @@
 package member.core.filter;
 
+import global.GlobalService;
+
 import java.io.IOException;
 
 import javax.servlet.Filter;
@@ -32,7 +34,7 @@ public class LoginUrlFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) response;
 		HttpSession session = req.getSession();
-		MemberBean loginToken = (MemberBean) session.getAttribute("LoginOK");
+		MemberBean loginToken = (MemberBean) session.getAttribute(GlobalService.LOGIN_TOKEN);
 		if(loginToken==null){
 			chain.doFilter(req, resp);
 			return;
