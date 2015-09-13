@@ -1,5 +1,8 @@
 package support.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import global.GlobalService;
 import support.model.dao.SupportDAOJdbc;
 
@@ -48,5 +51,12 @@ public class SupportService {
 		} else {
 			return true;
 		}
+	}
+	
+	public List<SupportBean> findAllSupporters() {
+		List<SupportBean> list = new ArrayList<SupportBean>();
+		SupportDAO dao = new SupportDAOJdbc();
+		list = dao.select();
+		return list;
 	}
 }
