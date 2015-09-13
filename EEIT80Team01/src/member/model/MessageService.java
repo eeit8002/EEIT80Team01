@@ -36,4 +36,10 @@ public class MessageService {
 		return list;
 	}
 	
+	public boolean changeVisibility(int visibiblty,long messageNumber){
+		MessageDAO dao = new MessageDAOjdbc();
+		boolean result = dao.changeVisibility(visibiblty, messageNumber);		
+		return result;
+	}
+	
 }

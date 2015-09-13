@@ -75,7 +75,7 @@ public class MessageDAOjdbc implements MessageDAO {
 			PreparedStatement stmt = conn.prepareStatement(SELECT_BY_SENDER);){
 			stmt.setString(1, sender);
 			rset = stmt.executeQuery();
-			if(rset.next()){				
+			while(rset.next()){				
 				MessageBean bean = new MessageBean();
 				bean.setSender(rset.getString("sender"));
 				bean.setReceiver(rset.getString("receiver"));
@@ -109,7 +109,7 @@ public class MessageDAOjdbc implements MessageDAO {
 			PreparedStatement stmt = conn.prepareStatement(SELECT_BY_RECEIVER);){
 			stmt.setString(1, receiver);
 			rset = stmt.executeQuery();
-			if(rset.next()){				
+			while(rset.next()){				
 				MessageBean bean = new MessageBean();
 				bean.setSender(rset.getString("sender"));
 				bean.setReceiver(rset.getString("receiver"));
@@ -194,22 +194,22 @@ public class MessageDAOjdbc implements MessageDAO {
 	}
 	
 	private static final String CHANGEVISIBILITY =
-			"update MSG set =?, where msgno=?";
+			"update MSG set visibility=? where msgno=?";
 
-	public MessageBean changeVisibility(MessageBean bean) {
-		MessageBean result = null;
+	public boolean changeVisibility(int visibiblty,long messageNumber) {
+
 		try(Connection conn = ds.getConnection();
 			PreparedStatement stmt = conn.prepareStatement(CHANGEVISIBILITY);) {				
-			stmt.setInt(1, bean.getVisibility());	
-			stmt.setLong(2, bean.getMessageNumber());
+			stmt.setInt(1, visibiblty);	
+			stmt.setLong(2, messageNumber);
 			int i = stmt.executeUpdate();
 			if(i==1) {
-				result = bean;
+				return true;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}		
-		return result;
+		return false;
 	}
 	
 	

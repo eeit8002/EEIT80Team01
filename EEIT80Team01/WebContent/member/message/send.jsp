@@ -12,7 +12,7 @@
 </head>
 <body>
 	<%@include file="head/link.file" %>
-<form>
+<form method="post" action="senddelete">
 	<fieldset>
 		<legend>已發出信件</legend>
 		<table id="table" class="display" cellspacing="0" width="100%">

@@ -51,7 +51,7 @@ public class NewMessageServlet extends HttpServlet {
 			MemberService ms = new MemberService();
 			MessageBean mb = new MessageBean();
 			mb.setSender(bean.getUserName());
-			String receiver = request.getParameter("receiver");
+			String receiver = request.getParameter("receiver").toLowerCase();
 			if(receiver==null || ms.findMemberData(receiver)==null){
 				errorMsgMap.put("receiver", "查無此帳號");
 			}
