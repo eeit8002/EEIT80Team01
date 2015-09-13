@@ -1,5 +1,8 @@
 package member.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import member.model.dao.MessageDAOjdbc;
 
 public class MessageService {
@@ -19,5 +22,18 @@ public class MessageService {
 		return result;
 	}
 	
+	public List<MessageBean> findBySender(String sender){
+		List<MessageBean> list = new ArrayList<MessageBean>();
+		MessageDAO dao = new MessageDAOjdbc();
+		list = dao.findBySender(sender);		
+		return list;
+	}
+	
+	public List<MessageBean> findByReceiver(String receiver){
+		List<MessageBean> list = new ArrayList<MessageBean>();
+		MessageDAO dao = new MessageDAOjdbc();
+		list = dao.findByReceiver(receiver);		
+		return list;
+	}
 	
 }

@@ -1,6 +1,7 @@
 package member.message.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,14 +16,14 @@ import member.model.MessageBean;
 import member.model.MessageService;
 
 
-@WebServlet("/member/message/msg.jsp")
-public class ReadMessageServlet extends HttpServlet {
+@WebServlet("/member/message/receive")
+public class ReceiverServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 
-    public ReadMessageServlet() {
+    public ReceiverServlet() {
         super();
-      
+     
     }
 
 
@@ -30,36 +31,21 @@ public class ReadMessageServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		String t = request.getParameter("t");
+		HttpSession session = request.getSession();
+		MemberBean mb = (MemberBean)session.getAttribute("LoginOK");
+		String receiver = mb.getUserName();
 		MessageService service = new MessageService();
-		MessageBean bean = null;
-		if(t!=null){
-			long messageNumber= Long.parseLong(t);
-			bean = service.findMessageByMessageno(messageNumber);			
+		List<MessageBean> list = service.findByReceiver(receiver);
+		if(list!=null){
+			RequestDispatcher rd =  request.getRequestDispatcher("receive.jsp");
+			request.setAttribute("list", list);
+			rd.forward(request, response);
+			return;
 		} else {
 			RequestDispatcher rd =  request.getRequestDispatcher("/index.jsp");
 			rd.forward(request, response);
-			return;	
+			return;
 		}
-		
-		if(bean!=null){
-			HttpSession session = request.getSession();
-			MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
-			if(bean.getSender().equals(mb.getUserName()) && (bean.getVisibility() & 2)==0 || bean.getReceiver().equals(mb.getUserName()) && (bean.getVisibility() & 1)==0){
-				request.setAttribute("Message", bean);
-			} else {
-				RequestDispatcher rd =  request.getRequestDispatcher("/index.jsp");
-				rd.forward(request, response);
-				return;
-			}
-		} else {
-			RequestDispatcher rd =  request.getRequestDispatcher("/index.jsp");
-			rd.forward(request, response);
-			return;	
-		}
-		RequestDispatcher rd =  request.getRequestDispatcher("showmessage.jsp");
-		rd.forward(request, response);
-		return;
 	}
 
 
