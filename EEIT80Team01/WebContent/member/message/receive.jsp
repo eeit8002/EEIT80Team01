@@ -11,7 +11,7 @@
 <%@include file="/css/datatables.file" %>
 </head>
 <body>
-
+	<%@include file="head/link.file" %>
 <form>
 	<fieldset>
 		<legend>收到的信件</legend>
@@ -38,6 +38,8 @@
 				</c:forEach>
 			</tbody>
 		</table>
+		<input type="reset" name="reset" value="清除">
+		<input type="submit" name="delete" value="刪除信件">
 	</fieldset>
 </form>
 

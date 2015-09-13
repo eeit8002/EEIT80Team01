@@ -24,7 +24,9 @@
 	<c:if test="${ ! empty LoginOK }">
 		<a href="${pageContext.request.contextPath}/member/changePassword.jsp">修改密碼</a><br>
 	</c:if>
-
+	<c:if test="${ ! empty LoginOK }">
+		<a href="${pageContext.request.contextPath}/member/message/sendmessage.jsp">站內信系統</a><br>
+	</c:if>
 	
 </body>
 </html>

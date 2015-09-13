@@ -20,6 +20,7 @@
 <script src="http://cdn.ckeditor.com/4.5.3/basic/ckeditor.js"></script>
 </head>
 <body>
+	<%@include file="head/link.file" %>
 	<form action="newmessage" method="post">
 		<fieldset>
 			<legend>發送訊息</legend>
