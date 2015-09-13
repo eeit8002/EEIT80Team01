@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<c:set var="memberName" value="${ LoginOK.supportername }" />
+<c:set var="memberName" value="${ LoginSupport.supportername }" />
 
 <c:remove var="LoginOK" scope="session" />
 
