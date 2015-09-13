@@ -18,7 +18,7 @@
 			                    <td  colspan='5' ALIGN='CENTER'>商品資訊</td>
 			                </tr>
 			                <tr  bgcolor="CCCC00">
-			                    <th>商品名稱</th><th>起標價格</th><th>直購價格</th><th>結標時間</th><th>Java經驗</th>
+			                    <th>商品名稱</th><th>起標價格</th><th>直購價格</th><th>結標時間</th><th>商品描述</th>
 			                </tr>
                     </c:if>		         
                     <c:choose>
@@ -31,11 +31,17 @@
                    </c:choose>
                     
                     <tr bgcolor="${colorVar}">
-                    <td>${mem.username}</td>
-                    <td>${mem.passwd}</td>
-                    <td>${mem.id}</td>
-                    <td>${mem.fname}</td>
-                    <td>${mem.lname}</td>
+                      <td>${mem.TITLE}</td>
+                    <td>${mem.START_PRICE}</td>
+                    <td>${mem.DIRECT_PRICE}</td>
+                    <td>${mem.END_TIME}</td>
+                    <td>${mem.ITEM_DISCRIBE}</td>
+                    
+<%--                     <td>${mem.username}</td> --%>
+<%--                     <td>${mem.passwd}</td> --%>
+<%--                     <td>${mem.id}</td> --%>
+<%--                     <td>${mem.fname}</td> --%>
+<%--                     <td>${mem.lname}</td> --%>
 <%--                          <td>${mem.userId}</td> --%>
 <%--                          <td>${mem.name} </td> --%>
 <%--                          <td>${mem.email}</td> --%>

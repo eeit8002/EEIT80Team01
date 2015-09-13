@@ -1,4 +1,4 @@
-﻿package model;
+﻿package ch04.ex03.model;
 
 import java.io.IOException;
 import java.sql.*;
@@ -42,7 +42,7 @@ public class RegisterService extends HttpServlet{
 			RegisterService  rs = new RegisterService();   //呼叫JDBC的Class
 		     	Collection<Member>  coll = rs.getAllMembers(keyword) ;//呼叫JDBC的Class裡的方法  ,keyword加的
 		     	request.setAttribute("AllMembers", coll);//把呼叫JDBC的Class裡的方法變成識別字串
-			RequestDispatcher rd = request.getRequestDispatcher("/search/showAllMembers.jsp");//呼叫showAllMembers.jsp頁面
+			RequestDispatcher rd = request.getRequestDispatcher("showAllMembers.jsp");//呼叫showAllMembers.jsp頁面
 			rd.forward(request, response);
 		}//修改
 			
@@ -50,10 +50,10 @@ public class RegisterService extends HttpServlet{
 			//String keyword
 		public Collection<Member> getAllMembers(String keyword)  {
 		try {
-			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/eeit80team01");//jdbc/eeit80team01  原 MemberDataBase
+			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/eeit80team01");
 			conn = ds.getConnection();
 //			PreparedStatement stmt = conn.prepareStatement("SELECT * from  MEMBER");//原來
-			PreparedStatement stmt = conn.prepareStatement("select * from MEMBER where USERNAME like ?");//改1
+			PreparedStatement stmt = conn.prepareStatement("select * from ITEMS where TITLE like ?");//改1  MEMBER      USERNAME
 			//String keyword = request.getParameter("keyword");
 			keyword = keyword + "%";
 			stmt.setString(1,keyword );
@@ -69,7 +69,9 @@ public class RegisterService extends HttpServlet{
 //			}
 			
 			while (rs.next()) {
-			mem = new Member(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5));
+			mem = new Member(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),
+					rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(9),rs.getString(10),rs.getString(11)
+					);//,rs.getString(12)
 			allMembers.add(mem);
 		}
 			
