@@ -1,7 +1,6 @@
 package admin.supporter.controller;
 
 import java.io.IOException;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -10,11 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import support.model.SupportBean;
-import support.model.SupportDAO;
-import support.model.dao.SupportDAOJdbc;
+import support.model.SupportService;
 
 @WebServlet("/admin/manage/listSupporters.jsp")
 public class AdminManageSupporterServlet extends HttpServlet {
@@ -26,56 +23,27 @@ public class AdminManageSupporterServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		SupportService service = new SupportService();
+		List<SupportBean> list = service.findAllSupporters();
+		if (list != null) {
+			RequestDispatcher rd = request.getRequestDispatcher("ShowSupporters.jsp");
+			request.setAttribute("list", list);
+			rd.forward(request, response);
+			return;
+		} else {
+			RequestDispatcher rd = request.getRequestDispatcher("/admin/index.jsp");
+			rd.forward(request, response);
+			return;
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; charset=UTF-8");
-		response.setCharacterEncoding("UTF-8");
-		String action = request.getParameter("action");
-
-		// list all supporters
-		// JSP form 內要多寫一個type="hidden"的Action指向"ListAll" by 王憲春老師
-		if (action.equals("ListAll")) {
-			SupportDAO dao = new SupportDAOJdbc();
-			List<SupportBean> supporterlist = dao.select();
-			HttpSession session = request.getSession();
-			session.setAttribute("supporterlist", supporterlist);
-			RequestDispatcher rd = request.getRequestDispatcher("/admin/manage/ManageSupporters.jsp");
-			rd.forward(request, response);
-			return;
-		}
-
-		// delete supporter by employee id
-		// JSP form 內要多寫一個type="hidden"的Action指向"Delete" by 王憲春老師
-		if (action.equals("Delete")) {
-			SupportDAO dao = new SupportDAOJdbc();
-			List<String> errorMsgs = new LinkedList<String>();
-			request.setAttribute("ErrorMsgs", errorMsgs);
-			String employeeid = request.getParameter("employeeid");
-			if (employeeid == null || (employeeid.trim().length() == 0)) {
-				errorMsgs.add("請輸入客服編號");
-			}
-			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher rd = request.getRequestDispatcher("/admin/manage/ManageSupporters.jsp");
-				rd.forward(request, response);
-				return;
-			} else {
-				if (dao.deleteByEmployeeID(employeeid)) {
-					RequestDispatcher rd = request.getRequestDispatcher("/admin/manage/ManageSupporters.jsp");
-					rd.forward(request, response);
-					return;
-				} else {
-					errorMsgs.add("客服帳號刪除失敗");
-					RequestDispatcher rd = request.getRequestDispatcher("/admin/manage/ManageSupporters.jsp");
-					rd.forward(request, response);
-					return;
-				}
-			}
-
-		}
+		RequestDispatcher rd = request.getRequestDispatcher("/admin/index.jsp");
+		rd.forward(request, response);
+		return;
 	}
-
 }
