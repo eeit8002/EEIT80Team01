@@ -13,5 +13,11 @@ public class MessageService {
 		return result;
 	}
 	
+	public MessageBean findMessageByMessageno(long messageNumber){
+		MessageDAO dao = new MessageDAOjdbc();
+		MessageBean result = dao.select(messageNumber); 
+		return result;
+	}
+	
 	
 }

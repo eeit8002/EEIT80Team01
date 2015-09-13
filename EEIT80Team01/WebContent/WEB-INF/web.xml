@@ -9,7 +9,6 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-
   <resource-ref>
     <description>JNDI DataSource</description>
     <res-ref-name>jdbc/eeit80team01</res-ref-name>

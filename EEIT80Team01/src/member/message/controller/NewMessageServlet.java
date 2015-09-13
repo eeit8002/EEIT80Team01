@@ -23,11 +23,11 @@ import member.model.MessageService;
 
 
 @WebServlet("/member/message/newmessage")
-public class NewMessageController extends HttpServlet {
+public class NewMessageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 
-    public NewMessageController() {
+    public NewMessageServlet() {
         super();
         
     }

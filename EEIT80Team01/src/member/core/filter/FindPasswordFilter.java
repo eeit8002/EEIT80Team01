@@ -1,4 +1,4 @@
-package member.changedata.filter;
+package member.core.filter;
 
 import java.io.IOException;
 

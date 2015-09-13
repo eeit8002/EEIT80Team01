@@ -1,4 +1,4 @@
-﻿package search.model;
+﻿package model;
 
 import java.io.IOException;
 import java.sql.*;

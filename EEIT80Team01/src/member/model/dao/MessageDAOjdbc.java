@@ -32,7 +32,7 @@ public class MessageDAOjdbc implements MessageDAO {
 
 	
 	private static final String SELECT_BY_MESSAGENUMBER =
-			"select * from MSO where MSGNOr=?";
+			"select * from MSG where MSGNO=?";
 	
 	public MessageBean select(long messageNumber) {
 		MessageBean bean = null;
@@ -66,7 +66,7 @@ public class MessageDAOjdbc implements MessageDAO {
 	}
 
 	private static final String SELECT_BY_SENDER =
-			"select * from MSO where SENDER=? and visibility&2=0";
+			"select * from MSG where SENDER=? and visibility&2=0";
 
 	public List<MessageBean> findBySender(String sender) {
 		List<MessageBean> result = new ArrayList<MessageBean>();
@@ -100,7 +100,7 @@ public class MessageDAOjdbc implements MessageDAO {
 	}
 
 	private static final String SELECT_BY_RECEIVER =
-			"select * from MSO where RECEIVER=? and visibility&1=0";
+			"select * from MSG where RECEIVER=? and visibility&1=0";
 	
 	public List<MessageBean> findByReceiver(String receiver) {
 		List<MessageBean> result = new ArrayList<MessageBean>();
@@ -165,7 +165,7 @@ public class MessageDAOjdbc implements MessageDAO {
 	}
 
 	private static final String UPDATE =
-			"update member set sender=?, receiver=?, msg_title=?, msg_body=?, msg_time=?, where msgno=?";
+			"update MSG set sender=?, receiver=?, msg_title=?, msg_body=?, msg_time=?, where msgno=?";
 
 	public MessageBean update(MessageBean bean) {
 		MessageBean result = null;
@@ -194,7 +194,7 @@ public class MessageDAOjdbc implements MessageDAO {
 	}
 	
 	private static final String CHANGEVISIBILITY =
-			"update member set =?, where msgno=?";
+			"update MSG set =?, where msgno=?";
 
 	public MessageBean changeVisibility(MessageBean bean) {
 		MessageBean result = null;
@@ -214,7 +214,7 @@ public class MessageDAOjdbc implements MessageDAO {
 	
 	
 	private static final String DELETE =
-			"delete from member where msgno=?";
+			"delete from MSG where msgno=?";
 
 	public boolean delete(long messageNumber) {
 		try(Connection conn = ds.getConnection();
