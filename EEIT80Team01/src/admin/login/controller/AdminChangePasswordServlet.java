@@ -33,7 +33,7 @@ public class AdminChangePasswordServlet extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		AdminBean bean = (AdminBean) session.getAttribute("LoginOK");
+		AdminBean bean = (AdminBean) session.getAttribute(GlobalService.LOGIN_TOKEN_ADMIN);
 		String adminname = request.getParameter("username");
 		String oldpassword = request.getParameter("oldpassword");
 		String password = request.getParameter("password");
@@ -49,8 +49,8 @@ public class AdminChangePasswordServlet extends HttpServlet {
 			service.changeAdminPassword(bean);
 			RequestDispatcher rd = request
 					.getRequestDispatcher("/admin/password/success.jsp");
-			session.removeAttribute("LoginOK");
-			session.setAttribute("LoginOK", bean);
+			session.removeAttribute(GlobalService.LOGIN_TOKEN_ADMIN);
+			session.setAttribute(GlobalService.LOGIN_TOKEN_ADMIN, bean);
 			rd.forward(request, response);
 		} else {
 			RequestDispatcher rd = request.getRequestDispatcher("/admin/index.jsp");

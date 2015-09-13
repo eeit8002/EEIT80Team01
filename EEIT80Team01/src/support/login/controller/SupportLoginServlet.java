@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import global.GlobalService;
 import support.model.SupportBean;
 import support.model.SupportService;
 
@@ -54,7 +55,7 @@ public class SupportLoginServlet extends HttpServlet {
 		SupportService service = new SupportService();
 		SupportBean sb = service.supporterCheckSupporterNamePassword(supportername.toLowerCase(), password);
 		if (sb != null) {
-			session.setAttribute("LoginOK", sb);
+			session.setAttribute(GlobalService.LOGIN_TOKEN_SUPPORT, sb);
 		} else {
 			errorMsgMap.put("LoginError", "帳號不存在或密碼錯誤");
 		}

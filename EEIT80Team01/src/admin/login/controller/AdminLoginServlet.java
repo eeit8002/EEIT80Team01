@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import admin.model.AdminBean;
 import admin.model.AdminService;
+import global.GlobalService;
 
 @WebServlet("/admin/login/login.do")
 public class AdminLoginServlet extends HttpServlet {
@@ -53,7 +54,7 @@ public class AdminLoginServlet extends HttpServlet {
 		AdminService service = new AdminService();
 		AdminBean ab = service.CheckAdminNamePassword(adminname.toLowerCase(), password);
 		if (ab != null) {
-			session.setAttribute("LoginOK", ab);
+			session.setAttribute(GlobalService.LOGIN_TOKEN_ADMIN, ab);
 		} else {
 			errorMsgMap.put("LoginError", "帳號不存在或密碼錯誤");
 		}

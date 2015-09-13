@@ -33,7 +33,7 @@ public class SupportChangePasswordServlet extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		SupportBean bean = (SupportBean) session.getAttribute("LoginOK");
+		SupportBean bean = (SupportBean) session.getAttribute(GlobalService.LOGIN_TOKEN_SUPPORT);
 		String supportername = request.getParameter("username");
 		String oldpassword = request.getParameter("oldpassword");
 		String password = request.getParameter("password");
@@ -48,8 +48,8 @@ public class SupportChangePasswordServlet extends HttpServlet {
 		if(bean != null && sb != null){
 			service.changeSupporterPassword(bean);
 			RequestDispatcher rd = request.getRequestDispatcher("/support/password/success.jsp");
-			session.removeAttribute("LoginOK");
-			session.setAttribute("LoginOK", bean);
+			session.removeAttribute(GlobalService.LOGIN_TOKEN_SUPPORT);
+			session.setAttribute(GlobalService.LOGIN_TOKEN_SUPPORT, bean);
 			rd.forward(request, response);
 		} else {
 			RequestDispatcher rd = request.getRequestDispatcher("/support/index.jsp");

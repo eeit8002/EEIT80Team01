@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import admin.model.AdminBean;
+import global.GlobalService;
 
 @WebFilter(urlPatterns = { "/admin/*" }, initParams = {
 		@WebInitParam(name = "mustLogin1", value = "/admin/manage/*"),
@@ -78,7 +79,7 @@ public class AdminLoginFilter implements Filter {
 
 	private boolean checkLogin(HttpServletRequest req) {
 		HttpSession session = req.getSession();
-		AdminBean loginToken = (AdminBean) session.getAttribute("LoginOK");
+		AdminBean loginToken = (AdminBean) session.getAttribute(GlobalService.LOGIN_TOKEN_ADMIN);
 		if (loginToken == null) {
 			return false;
 		} else {

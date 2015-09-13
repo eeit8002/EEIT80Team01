@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import global.GlobalService;
 import support.model.SupportBean;
 
 @WebFilter(urlPatterns = { "/support/*" }, initParams = {
@@ -76,7 +77,7 @@ public class SupportLoginFilter implements Filter {
 
 	private boolean checkLogin(HttpServletRequest req) {
 		HttpSession session = req.getSession();
-		SupportBean loginToken = (SupportBean) session.getAttribute("LoginOK");
+		SupportBean loginToken = (SupportBean) session.getAttribute(GlobalService.LOGIN_TOKEN_SUPPORT);
 		if (loginToken == null) {
 			return false;
 		} else {
