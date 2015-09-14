@@ -1,5 +1,8 @@
 package member.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import global.GlobalService;
 import member.model.dao.MemberDAOjdbc;
 
@@ -53,6 +56,14 @@ public class MemberService {
 		MemberBean bean = dao.select(username);
 		
 		return bean;
+	}
+	
+	public List<MemberBean> findAllMembers(){
+		List<MemberBean> list = new ArrayList<MemberBean>();
+		MemberDAO dao = new MemberDAOjdbc();
+		list = dao.select();
+		
+		return list;
 	}
 	
 }
