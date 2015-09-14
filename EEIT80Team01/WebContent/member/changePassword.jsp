@@ -23,7 +23,7 @@
 <div id="main">
 	<form method="post" class="cmxform" id="form" action="changePassword">
 		<fieldset>
-			<legend>註冊</legend>
+			<legend>變更密碼</legend>
 			<p>
 				<label class="tag" for="user">帳號：</label>
 				<input type="text" id="username" name="username" title="請輸入帳號"  value="${LoginOK.userName}" readonly="readonly">
