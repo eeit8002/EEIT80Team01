@@ -2,8 +2,6 @@ package support.model;
 
 import java.util.List;
 
-import member.model.MemberBean;
-
 public interface ReportDAO {
 
 	public abstract ReportBean select(int legal);
