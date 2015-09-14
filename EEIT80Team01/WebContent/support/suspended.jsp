@@ -23,11 +23,12 @@ font-size:0.8em;
 </style>
 </head>
 <body>
-<a href="${pageContext.request.contextPath}/support/login/login.jsp">Login</a><br>
+<a href="${pageContext.request.contextPath}/support/login/login.jsp">登入</a><br>
 <a href="${pageContext.request.contextPath}/support/manage/TestPage.jsp">Manage TestPage</a><br>
-<a href="${pageContext.request.contextPath}/support/password/changePassword.jsp">Change Password</a>
-<a href="${pageContext.request.contextPath}/support/login/logout.jsp">Logout</a>
-<a href="">下架商品</a><br>
+<a href="${pageContext.request.contextPath}/support/password/changePassword.jsp">修改密碼</a><br>
+<a href="${pageContext.request.contextPath}/support/login/logout.jsp">登出</a><br>
+<a href="${pageContext.request.contextPath}/support/forciblySnatch.jsp">強制下架商品</a><br>
+<a href="${pageContext.request.contextPath}/support/suspended.jsp">停權</a><br>
 <input type="button" id="newList" value="更新">
 <table id="Suspended_table">
 	<thead>
