@@ -49,6 +49,7 @@ public class ReportDAOjdbc implements ReportDAO {
 					bean.setUsername(rset.getString("username"));
 					bean.setUrl(rset.getString("url"));
 					bean.setReason(rset.getString("reason"));
+					bean.setStatus(rset.getInt("statu"));
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -82,6 +83,7 @@ public class ReportDAOjdbc implements ReportDAO {
 					bean.setUsername(rset.getString("username"));
 					bean.setUrl(rset.getString("url"));
 					bean.setReason(rset.getString("reason"));
+					bean.setStatus(rset.getInt("statu"));
 					beans.add(bean);				
 				}
 				
@@ -93,7 +95,7 @@ public class ReportDAOjdbc implements ReportDAO {
 	}
 
 	private static final String INSERT =
-			"insert into report (prosecutor, username, url, reason) values (?, ?, ?, ?)";
+			"insert into report (prosecutor, username, url, reason, statu) values (?, ?, ?, ?, ?)";
 
 	public ReportBean insert(ReportBean bean) {
 		ReportBean result = null;
@@ -105,6 +107,7 @@ public class ReportDAOjdbc implements ReportDAO {
 				stmt.setString(2, bean.getUsername());
 				stmt.setString(3, bean.getUrl());
 				stmt.setString(4, bean.getReason());
+				stmt.setInt(5, 0);
 				int i = stmt.executeUpdate();
 				if(i==1) {
 					result = bean;
@@ -119,7 +122,7 @@ public class ReportDAOjdbc implements ReportDAO {
 	}
 	
 	private static final String UPDATE =
-			"update report set prosecutor=?, username=?, url=?, reason=? where legal=?";
+			"update report set prosecutor=?, username=?, url=?, reason=?, statu=? where legal=?";
 
 	public ReportBean update(ReportBean bean) {
 		ReportBean result = null;
@@ -129,7 +132,8 @@ public class ReportDAOjdbc implements ReportDAO {
 			stmt.setString(2, bean.getUsername());
 			stmt.setString(3, bean.getUrl());
 			stmt.setString(4, bean.getReason());
-			stmt.setInt(5, bean.getLegal());
+			stmt.setInt(5, bean.getStatus());
+			stmt.setInt(6, bean.getLegal());
 			int i = stmt.executeUpdate();
 			if(i==1) {
 				result = bean;

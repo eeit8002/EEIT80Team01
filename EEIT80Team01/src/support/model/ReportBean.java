@@ -6,6 +6,14 @@ public class ReportBean {
 	private String username;
 	private String url;
 	private String reason;
+	private int status;
+	
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
+	}
 	public int getLegal() {
 		return legal;
 	}
