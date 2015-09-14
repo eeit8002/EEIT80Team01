@@ -1,4 +1,4 @@
-package admin.supporter.controller;
+package admin.support.controller;
 
 import java.io.IOException;
 

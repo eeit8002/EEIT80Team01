@@ -10,6 +10,7 @@
 <a href="${pageContext.request.contextPath}/admin/login/login.jsp">Login</a><br><br>
 <a href="${pageContext.request.contextPath}/admin/manage/TestPage.jsp">TestPage</a><br><br>
 <a href="${pageContext.request.contextPath}/admin/password/changePassword.jsp">Change Password</a><br><br>
+<a href="${pageContext.request.contextPath}/admin/manage/listSupporters.jsp">List Supporters</a><br><br>
 <a href="${pageContext.request.contextPath}/admin/login/logout.jsp">Logout</a>
 </body>
 </html>
