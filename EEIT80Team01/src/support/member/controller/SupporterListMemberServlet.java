@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import support.model.SupportBean;
-import support.model.SupportService;
+import member.model.MemberBean;
+import member.model.MemberService;
 
 @WebServlet("/support/manage/listMembers.jsp")
 public class SupporterListMemberServlet extends HttpServlet {
@@ -25,11 +25,11 @@ public class SupporterListMemberServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		SupportService service = new SupportService();
-		List<SupportBean> list = service.findAllSupporters();
+		MemberService service = new MemberService();
+		List<MemberBean> list = service.findAllMembers();
 		if (list != null) {
 			RequestDispatcher rd = request.getRequestDispatcher("showMembersList.jsp");
-			request.setAttribute("list", list);
+			request.setAttribute("memberlist", list);
 			rd.forward(request, response);
 			return;
 		} else {

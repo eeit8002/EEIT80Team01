@@ -26,14 +26,14 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${list}" var="item">
+					<c:forEach items="${supporterlist}" var="item">
 						<tr>
 							<td>${item.supportername}</td>
-							<td>${item.employeeid }</td>
-							<td>${item.lastname }</td>
-							<td>${item.firstname }</td>
-							<td><input type="submit" name="" value="modify"></td>
-							<td><input type="submit" name="" value="delete"></td>
+							<td>${item.employeeid}</td>
+							<td>${item.lastname}</td>
+							<td>${item.firstname}</td>
+							<td><input type="submit" name="" value="修改"></td>
+							<td><input type="submit" name="" value="刪除"></td>
 						</tr>
 					</c:forEach>
 				</tbody>
