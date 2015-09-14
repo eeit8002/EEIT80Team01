@@ -83,6 +83,7 @@ public class MessageDAOjdbc implements MessageDAO {
 				bean.setMessageBody(rset.getString("msg_body"));
 				bean.setMessageTime(new Date(rset.getDate("msg_time").getTime()));
 				bean.setMessageNumber(rset.getLong("msgno"));
+				bean.setVisibility(rset.getInt("visibility"));
 				result.add(bean);
 			}
 		} catch (SQLException e) {
@@ -117,6 +118,7 @@ public class MessageDAOjdbc implements MessageDAO {
 				bean.setMessageBody(rset.getString("msg_body"));
 				bean.setMessageTime(new Date(rset.getDate("msg_time").getTime()));
 				bean.setMessageNumber(rset.getLong("msgno"));
+				bean.setVisibility(rset.getInt("visibility"));
 				result.add(bean);
 			}
 		} catch (SQLException e) {
@@ -196,16 +198,36 @@ public class MessageDAOjdbc implements MessageDAO {
 	private static final String CHANGEVISIBILITY =
 			"update MSG set visibility=? where msgno=?";
 
-	public boolean changeVisibility(int visibiblty,long messageNumber) {
+	public boolean changeVisibility(String charactor ,int type,String[] messageNumbers) {
 
+		
 		try(Connection conn = ds.getConnection();
+			PreparedStatement pstm = conn.prepareStatement(SELECT_BY_MESSAGENUMBER);
 			PreparedStatement stmt = conn.prepareStatement(CHANGEVISIBILITY);) {				
-			stmt.setInt(1, visibiblty);	
-			stmt.setLong(2, messageNumber);
-			int i = stmt.executeUpdate();
-			if(i==1) {
-				return true;
+
+			for(String messageNumber : messageNumbers){
+				pstm.setLong(1, Long.parseLong(messageNumber));
+				ResultSet rs = pstm.executeQuery();
+				if(rs.next()){
+					int visibiblty = rs.getInt("visibility")|type;
+					if(type==2){
+						if(charactor.equals(rs.getString("sender"))){
+							stmt.setInt(1, visibiblty);	
+							stmt.setLong(2, Long.parseLong(messageNumber));
+							stmt.executeUpdate();
+						}
+					} else if(type==1){
+						if(charactor.equals(rs.getString("receiver"))){
+							stmt.setInt(1, visibiblty);	
+							stmt.setLong(2, Long.parseLong(messageNumber));
+							stmt.executeUpdate();
+						}
+					}
+				}
+				
 			}
+			
+			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}		

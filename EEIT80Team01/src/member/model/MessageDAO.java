@@ -15,7 +15,7 @@ public interface MessageDAO {
 
 	public abstract MessageBean update(MessageBean bean);
 
-	public abstract boolean changeVisibility(int visibiblty,long messageNumber);
+	public abstract boolean changeVisibility(String charactor, int type,String[] messageNumbers);
 	
 	public abstract boolean delete(long messageNumber);
 	
