@@ -10,7 +10,6 @@ public class SupportService {
 	public boolean supporterAccountCheck(String supportername) {
 		SupportDAO dao = new SupportDAOJdbc();
 		SupportBean bean = dao.select(supportername);
-
 		if (bean != null && bean.getSupportername().equals(supportername)) {
 			return false;
 		} else {
@@ -29,34 +28,45 @@ public class SupportService {
 			return null;
 		}
 	}
-	
+
 	public SupportBean changeSupporterPassword(SupportBean bean) {
 		SupportDAO dao = new SupportDAOJdbc();
 		bean = dao.update(bean);
 		return bean;
 	}
-	
+
 	public SupportBean register(SupportBean bean) {
 		SupportDAO dao = new SupportDAOJdbc();
 		bean.setPassword(GlobalService.getMD5Encoding(bean.getPassword()));
 		SupportBean result = dao.insert(bean);
 		return result;
 	}
-	
-	public boolean checkEmployeeIDExist(String employeeid){
+
+	public boolean checkEmployeeIDExist(String employeeid) {
 		SupportDAO dao = new SupportDAOJdbc();
 		SupportBean bean = dao.selectByEmployeeID(employeeid);
-		if (bean != null){
+		if (bean != null) {
 			return false;
 		} else {
 			return true;
 		}
 	}
-	
+
 	public List<SupportBean> findAllSupporters() {
 		List<SupportBean> list = new ArrayList<SupportBean>();
 		SupportDAO dao = new SupportDAOJdbc();
 		list = dao.select();
 		return list;
+	}
+
+	public int deleteSupporterAccounts(String[] supportaccounts) {
+		int result = 0;
+		SupportDAO dao = new SupportDAOJdbc();
+		for (int i = 0; i < supportaccounts.length; i++) {
+			if (dao.delete(supportaccounts[i])) {
+				result++;
+			}
+		}
+		return result;
 	}
 }
