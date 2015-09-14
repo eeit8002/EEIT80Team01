@@ -12,7 +12,7 @@
 </head>
 <body>
 	<%@include file="head/link.file"%>
-	<form>
+	<form method="post" action="">
 		<fieldset>
 			<legend>客服人員列表</legend>
 			<table id="table" class="display" cellspacing="0" width="100%">
@@ -33,7 +33,7 @@
 							<td>${item.employeeid}</td>
 							<td>${item.lastname}</td>
 							<td>${item.firstname}</td>
-							<td><input type="submit" name="" value="修改"></td>
+							<td><a href="${pageContext.request.contextPath}/admin/manage/modifySupporter.do?supportername=${item.supportername}">修改</a></td>
 							<td><input type="checkbox" name="supporterChecked"
 								value="${item.supportername}"></td>
 						</tr>
@@ -41,6 +41,8 @@
 				</tbody>
 			</table>
 		</fieldset>
+		<input type="reset" name="reset" value="清除">
+		<input type="submit" name="delete" value="刪除客服帳號">
 	</form>
 </body>
 </html>

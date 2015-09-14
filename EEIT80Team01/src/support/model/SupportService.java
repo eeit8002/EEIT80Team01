@@ -7,6 +7,16 @@ import global.GlobalService;
 import support.model.dao.SupportDAOJdbc;
 
 public class SupportService {
+	public boolean updateSupporterAccountInfo(SupportBean bean){
+		SupportDAO dao = new SupportDAOJdbc();
+		SupportBean result = dao.update(bean);
+		if (result != null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	public boolean supporterAccountCheck(String supportername) {
 		SupportDAO dao = new SupportDAOJdbc();
 		SupportBean bean = dao.select(supportername);
@@ -27,6 +37,13 @@ public class SupportService {
 		} else {
 			return null;
 		}
+	}
+
+	public SupportBean select(String supportername) {
+		SupportBean bean = new SupportBean();
+		SupportDAO dao = new SupportDAOJdbc();
+		bean = dao.select(supportername);
+		return bean;
 	}
 
 	public SupportBean changeSupporterPassword(SupportBean bean) {
