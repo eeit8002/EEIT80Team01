@@ -30,14 +30,32 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${list}" var="item">
+					<c:forEach items="${memberlist}" var="item">
 						<tr>
-							<td>${item.supportername}</td>
-							<td>${item.employeeid }</td>
-							<td>${item.lastname }</td>
-							<td>${item.firstname }</td>
-							<td><input type="submit" name="" value="modify"></td>
-							<td><input type="submit" name="" value="delete"></td>
+							<td>${item.userName}</td>
+							<td>${item.lastName}</td>
+							<td>${item.firstName}</td>
+							<td>${item.email}</td>
+							<td>${item.gender}</td>
+							<td>${item.birthDay}</td>
+							<c:choose>
+								<c:when test="${item.access eq 0}">
+									<td>正常使用</td>
+								</c:when>
+								<c:otherwise>
+									<td>封鎖中！</td>
+								</c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="${item.certified eq 0}">
+									<td>未認證</td>
+								</c:when>
+								<c:otherwise>
+									<td>已認證</td>
+								</c:otherwise>
+							</c:choose>
+							<td><input type="submit" name="" value="封鎖"></td>
+							<td><input type="submit" name="" value="刪除"></td>
 						</tr>
 					</c:forEach>
 				</tbody>

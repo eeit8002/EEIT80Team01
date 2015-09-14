@@ -30,7 +30,7 @@ public class AdminListSupporterServlet extends HttpServlet {
 		List<SupportBean> list = service.findAllSupporters();
 		if (list != null) {
 			RequestDispatcher rd = request.getRequestDispatcher("showSupportersList.jsp");
-			request.setAttribute("list", list);
+			request.setAttribute("supporterlist", list);
 			rd.forward(request, response);
 			return;
 		} else {
