@@ -1,0 +1,16 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+<script type="text/javascript">
+function goToPage(num) {
+	var url=new Array();
+	url[0]="send";
+	url[1]="receive";
+	url[2]="sendmessage.jsp";
+	window.location=url[num];``
+};
+</script>
+
+<input type="button" value="新增客服帳號" onclick="goToPage(0)"/>
+<input type="button" value="刪除客服帳號" onclick="goToPage(1)"/>
+<input type="button" value="客服帳號列表" onclick="goToPage(2)"/>

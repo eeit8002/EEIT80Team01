@@ -11,9 +11,10 @@
 <title>Show Supporters</title>
 </head>
 <body>
+	<%@include file="head/link.file"%>
 	<form>
 		<fieldset>
-			<legend>客服人員一覽</legend>
+			<legend>客服人員列表</legend>
 			<table id="table" class="display" cellspacing="0" width="100%">
 				<thead>
 					<tr>
@@ -33,7 +34,8 @@
 							<td>${item.lastname}</td>
 							<td>${item.firstname}</td>
 							<td><input type="submit" name="" value="修改"></td>
-							<td><input type="submit" name="" value="刪除"></td>
+							<td><input type="checkbox" name="supporterChecked"
+								value="${item.supportername}"></td>
 						</tr>
 					</c:forEach>
 				</tbody>
