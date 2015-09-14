@@ -42,8 +42,6 @@ public class AdminListSupporterServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("/admin/index.jsp");
-		rd.forward(request, response);
-		return;
+		doGet(request, response);
 	}
 }

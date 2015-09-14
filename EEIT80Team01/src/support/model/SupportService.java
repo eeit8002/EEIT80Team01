@@ -17,13 +17,13 @@ public class SupportService {
 		}
 	}
 	
-	public boolean supporterAccountCheck(String supportername) {
+	public boolean checkSupporterAccountExist(String supportername) {
 		SupportDAO dao = new SupportDAOJdbc();
 		SupportBean bean = dao.select(supportername);
 		if (bean != null && bean.getSupportername().equals(supportername)) {
-			return false;
-		} else {
 			return true;
+		} else {
+			return false;
 		}
 	}
 
@@ -63,9 +63,9 @@ public class SupportService {
 		SupportDAO dao = new SupportDAOJdbc();
 		SupportBean bean = dao.selectByEmployeeID(employeeid);
 		if (bean != null) {
-			return false;
-		} else {
 			return true;
+		} else {
+			return false;
 		}
 	}
 

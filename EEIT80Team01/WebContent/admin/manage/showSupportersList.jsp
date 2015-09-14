@@ -12,7 +12,7 @@
 </head>
 <body>
 	<%@include file="head/link.file"%>
-	<form method="post" action="">
+	<form method="post" action="砍客服資料 還沒寫">
 		<fieldset>
 			<legend>客服人員列表</legend>
 			<table id="table" class="display" cellspacing="0" width="100%">
