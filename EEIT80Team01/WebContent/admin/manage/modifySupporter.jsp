@@ -13,33 +13,36 @@
 				<legend>修改客服帳號</legend>
 				<p>
 					<label class="tag" for="user">帳號：</label> <input type="text"
-						id="supportername" name="supportername" title="請輸入客服帳號" value="${supporterInfo.supportername}">
+						id="supportername" name="supportername" title="請輸入客服帳號"
+						value="${supporterInfo.supportername}">
 				</p>
 				<p>
 					<label class="tag" for="password">密碼：</label> <input
-						type="password" id="password" name="password" title="請輸入密碼" value="${supporterInfo.password}">
+						type="password" id="password" name="password" title="請輸入密碼">
 				</p>
 				<p>
 					<label class="tag" for="password">確認密碼：</label> <input
 						type="password" id="passwordCheck" name="passwordCheck"
-						title="再次輸入密碼" value="${supporterInfo.password}">
+						title="再次輸入密碼"">
 				</p>
 				<p>
 					<label class="tag" for="employeeid">客服編號：</label> <input
-						type="text" id="employeeid" name="employeeid" title="輸入客服編號" value="${supporterInfo.employeeid}">
+						type="text" id="employeeid" name="employeeid" title="輸入客服編號"
+						value="${supporterInfo.employeeid}">
 				</p>
 				<p>
-					<label class="tag" for="lastname">姓氏：</label>
-					<input type="text" id="lastname" name="lastname" title="請輸入客服人員的姓氏" value="${supporterInfo.lastname}">
+					<label class="tag" for="lastname">姓氏：</label> <input type="text"
+						id="lastname" name="lastname" title="請輸入客服人員的姓氏"
+						value="${supporterInfo.lastname}">
 				</p>
 				<p>
-					<label class="tag" for="firstname">名字：</label>
-					<input type="text" id="firstname" name="firstname" title="請輸入客服人員的名字" value="${supporterInfo.firstname}">
+					<label class="tag" for="firstname">名字：</label> <input type="text"
+						id="firstname" name="firstname" title="請輸入客服人員的名字"
+						value="${supporterInfo.firstname}">
 				</p>
 				<p>
-					<label class="tag"></label>
-					<input type="submit" id="submit" value="送出">
-					<input type="reset" id="reset" value="清除">
+					<label class="tag"></label> <input type="submit" id="submit"
+						value="送出"> <input type="reset" id="reset" value="清除">
 				</p>
 			</fieldset>
 		</form>

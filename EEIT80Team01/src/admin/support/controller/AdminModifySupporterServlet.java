@@ -15,7 +15,7 @@ import support.model.SupportService;
 @WebServlet("/admin/manage/modifySupporter.do")
 public class AdminModifySupporterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
 	public AdminModifySupporterServlet() {
 		super();
 	}
@@ -41,11 +41,11 @@ public class AdminModifySupporterServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		String supportername = (String) request.getAttribute("supportername");
-		String password = (String) request.getAttribute("password");
-		String employeeid = (String) request.getAttribute("employeeid");
-		String firstname = (String) request.getAttribute("firstname");
-		String lastname = (String) request.getAttribute("lastname");
+		String supportername = request.getParameter("supportername");
+		String password = request.getParameter("password");
+		String employeeid = request.getParameter("employeeid");
+		String firstname = request.getParameter("firstname");
+		String lastname = request.getParameter("lastname");
 		SupportBean bean = new SupportBean();
 		bean.setSupportername(supportername);
 		bean.setPassword(password);
@@ -54,7 +54,7 @@ public class AdminModifySupporterServlet extends HttpServlet {
 		bean.setLastname(lastname);
 		SupportService service = new SupportService();
 		if (service.updateSupporterAccountInfo(bean)) {
-			RequestDispatcher rd = request.getRequestDispatcher("/admin/manage/showSupportersList.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/admin/manage/listSupporters.jsp"); // call AdminListSupporterServlet.java to reload supporter list again
 			rd.forward(request, response);
 			return;
 		} else {
