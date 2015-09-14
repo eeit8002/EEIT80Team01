@@ -68,9 +68,7 @@ public class ReadMessageServlet extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd =  request.getRequestDispatcher("/index.jsp");
-		rd.forward(request, response);
-		return;	
+		response.sendRedirect(request.getContextPath());
 	}
 
 }
