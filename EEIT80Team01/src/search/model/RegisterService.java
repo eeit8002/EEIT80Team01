@@ -34,13 +34,15 @@ public class RegisterService extends HttpServlet{
 		Collection<Member> allMembers = new ArrayList<Member>();
 		protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			String keyword = request.getParameter("keyword");
+			String option = request.getParameter("option");//取下拉值
+			getAllMembers(keyword,option);//傳keyword,option 給getAllMembers
 			System.out.println(keyword);
-			getAllMembers(keyword);
+//			getAllMembers(keyword);
 			
 			
 			//String keyword="";//因為 RegisterService 第40行 所以才加的
 			RegisterService  rs = new RegisterService();   //呼叫JDBC的Class
-		     	Collection<Member>  coll = rs.getAllMembers(keyword) ;//呼叫JDBC的Class裡的方法  ,keyword加的
+		     	Collection<Member>  coll = rs.getAllMembers(keyword,option) ;//呼叫JDBC的Class裡的方法  ,keyword加的
 		     	request.setAttribute("AllMembers", coll);//把呼叫JDBC的Class裡的方法變成識別字串
 			RequestDispatcher rd = request.getRequestDispatcher("showAllMembers.jsp");//呼叫showAllMembers.jsp頁面
 			rd.forward(request, response);
@@ -48,15 +50,25 @@ public class RegisterService extends HttpServlet{
 			
 			
 			//String keyword
-		public Collection<Member> getAllMembers(String keyword)  {
+		public Collection<Member> getAllMembers(String keyword,String option)  {
 		try {
 			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/eeit80team01");
 			conn = ds.getConnection();
-//			PreparedStatement stmt = conn.prepareStatement("SELECT * from  MEMBER");//原來
-			PreparedStatement stmt = conn.prepareStatement("select * from ITEMS where TITLE like ?");//改1  MEMBER      USERNAME
+			String sql=null;
+			if(option==""){
+				sql="select * from ITEMS where TITLE like ?";
+			}else{		
+				sql="select * from ITEMS where ITEM_CATEGORY ="+option+" and title like ?";			
+			}
+			PreparedStatement stmt = conn.prepareStatement(sql);//改1  MEMBER      USERNAME
 			//String keyword = request.getParameter("keyword");
 			keyword = keyword + "%";
-			stmt.setString(1,keyword );
+			if(option==""){
+				stmt.setString(1,keyword );
+			}else{
+				stmt.setString(1,keyword );
+			}			
+//			stmt.setString(1,keyword );
 			ResultSet rs = stmt.executeQuery();//原來的
 			System.out.println(rs);
 			System.out.println(keyword);
