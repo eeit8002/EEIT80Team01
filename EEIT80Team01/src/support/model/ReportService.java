@@ -24,4 +24,16 @@ public class ReportService {
 		}
 		return bean;
 	}
+	
+	public boolean Report(ReportBean bean){
+		ReportDAO dao = new ReportDAOjdbc();
+		bean = dao.insert(bean);
+		if(bean != null){
+			return true;
+		} else{
+			return false;
+		}
+		
+	}
+	
 }
