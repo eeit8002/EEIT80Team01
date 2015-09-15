@@ -9,6 +9,14 @@
 <title>已發出信件</title>
 <%@include file="/css/cssforvalidate.file" %>
 <%@include file="/css/datatables.file" %>
+<%@page import="javax.servlet.http.*,global.GlobalService,member.model.*,java.util.List" %>
+<%	
+	MemberBean mb = (MemberBean)session.getAttribute(GlobalService.LOGIN_TOKEN);
+	String sender = mb.getUserName();
+	MessageService service = new MessageService();
+	List<MessageBean> list = service.findBySender(sender);
+	pageContext.setAttribute("list",list);
+%>
 </head>
 <body>
 	<%@include file="head/link.file" %>
@@ -28,12 +36,13 @@
 			<tbody>
 				<c:forEach items="${list}" var="item">
 					<tr>
-						<td><input type="checkbox" name="messageNumber" value="${item.messageNumber}"></td>
-						<td>${item.sender}</td>
-						<td>${item.receiver}</td>
-						<td><a href="msg.jsp?t=${item.messageNumber}">${item.messageTitle}</a></td>
+						<td><input type="checkbox" name="messageNumber" value="${item.messageNumber}"></td>						
+						<td onclick="tdUrl(${item.messageNumber})">${item.sender}</td>
+						<td onclick="tdUrl(${item.messageNumber})">${item.receiver}</td>
+						<td onclick="tdUrl(${item.messageNumber})">${item.messageTitle}</td>
 						<fmt:formatDate value="${item.messageTime}" var="formattedDate" type="date" pattern="yyyy年MM月dd日" />				
-						<td><c:out value="${formattedDate}"/></td>					
+						<td onclick="tdUrl(${item.messageNumber})"><c:out value="${formattedDate}"/></td>
+									
 					</tr>						
 				</c:forEach>
 			</tbody>
@@ -43,7 +52,11 @@
 	</fieldset>
 </form>
 
-
+<script type="text/javascript">
+	function tdUrl(num){
+		window.location="msg.jsp?t="+num;
+	}
+</script>
 
 </body>
 </html>
