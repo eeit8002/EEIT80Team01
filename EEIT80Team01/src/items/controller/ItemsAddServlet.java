@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -13,13 +12,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import items.model.ItemsBean;
-import items.model.ItemsDAOService;
 import items.model.ItemsService;
 @WebServlet("/items/itemAdd.controller")
-public class ItemsServlet extends HttpServlet {
+public class ItemsAddServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ItemsService service;
 	
@@ -40,66 +37,55 @@ public class ItemsServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-//		HttpSession session = request.getSession();
-
-				
+//		HttpSession session = request.getSession();	//後續用來抓取seller資料用
+		
 		// 1. 讀取使用者輸入資料
+//		String itemCategorySelect = request.getParameter("itemCategory");	//使用select方式讓會員使用
 		String title = request.getParameter("title");
 		String startPriceStr = request.getParameter("startPrice");
 		String directPriceStr = request.getParameter("directPrice");
 		String bidStr = request.getParameter("bid");
 		String endTimeStr = request.getParameter("endTime");
-		String itemStatus = request.getParameter("itemStatus");
-		//CRUD按鈕
+		String itemDescribe = request.getParameter("itemDescribe");
+		//新增按鈕
 		String itemsButton = request.getParameter("itemsButton");
 		
-		// 2. 進行必要的資料轉換
-		double startPrice = 0;
-		if(startPriceStr!=null && startPriceStr.length()!=0){
-			startPrice = Double.parseDouble(startPriceStr);
-		}
-		double directPrice = 0;
-		if(directPriceStr!=null && directPriceStr.length()!=0){
-			directPrice = Double.parseDouble(directPriceStr);
-		}
-		int bid = 0;
-		if(bidStr!=null && bidStr.length()!=0){
-			bid = Integer.parseInt(bidStr);
-		}
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		java.util.Date endTime = null;
-		if(endTimeStr!=null && endTimeStr.length()!=0){
-			try {
-				endTime = sdf.parse(endTimeStr);
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-		}
 		
-		// 3. 檢查使用者輸入資料
+		
+		// 2. 檢查使用者輸入資料
 		
 		
 		// 存放錯誤訊息物件
 				Map<String, String> errors = new HashMap<String, String>();
 				request.setAttribute("error", errors);
-				
+//		if(itemCategorySelect==null || itemCategorySelect.length()==0){
+//			errors.put("itemCategoryError", "請選擇一項商品分類");
+//		}	
 		if(title==null || title.trim().length()==0){
 			errors.put("titleError", "請輸入商品名稱");
 		}
 		if(startPriceStr==null || startPriceStr.trim().length()==0){
-			startPriceStr = "0";
+			errors.put("startPriceError", "請輸入起標價格");
+		}else if (!startPriceStr.matches("^[0-9]*[1-9][0-9]*$")) {
+			errors.put("startPriceError", "起標價格必須為零以上的正整數");
 		}
 		if(directPriceStr==null || directPriceStr.trim().length()==0){
 			errors.put("directPriceError", "請輸入直購價格");
+		}else if (!directPriceStr.matches("^[0-9]*[1-9][0-9]*$")) {
+			errors.put("directPriceError", "直購價格必須為零以上的正整數");
 		}
 		if(bidStr==null || bidStr.trim().length()==0){
-			errors.put("bidError", "加價金額至少1元");
+			errors.put("bidError", "請輸入每次加價金額");
+		}else if (!directPriceStr.matches("^[0-9]*[1-9][0-9]*$")) {
+			errors.put("bidError", "加價金額必須為零以上的正整數");
 		}
 		if(endTimeStr==null || endTimeStr.trim().length()==0){
-			errors.put("endTimeError", "請輸入結標時間，格式為YYYY-MM-DD");
+			errors.put("endTimeError", "請輸入結標時間  (如：2015-10-10)");
+		}else if(!endTimeStr.matches("^((19|20)?[0-9]{2}[-](0?[1-9]|1[012])[-](0?[1-9]|[12][0-9]|3[01]))*$")){
+			errors.put("endTimeError", "請輸入正確的結標時間  (如：2015-10-10)");
 		}
-		if(itemStatus==null || itemStatus.trim().length()==0){
-			itemStatus = "";
+		if(itemDescribe==null || itemDescribe.trim().length()==0){
+			itemDescribe = "";
 		}
 		if(errors!=null && !errors.isEmpty()){
 			RequestDispatcher rd = request.getRequestDispatcher("/items/itemAdd.jsp");
@@ -107,18 +93,46 @@ public class ItemsServlet extends HttpServlet {
 			return;
 		}
 		
+		
+		// 3. 進行必要的資料轉換
+		
+		
+				double startPrice = 0;
+				if(startPriceStr!=null && startPriceStr.length()!=0){
+					startPrice = Double.parseDouble(startPriceStr);
+				}
+				double directPrice = 0;
+				if(directPriceStr!=null && directPriceStr.length()!=0){
+					directPrice = Double.parseDouble(directPriceStr);
+				}
+				int bid = 0;
+				if(bidStr!=null && bidStr.length()!=0){
+					bid = Integer.parseInt(bidStr);
+				}
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				java.util.Date endTime = null;
+				if(endTimeStr!=null && endTimeStr.length()!=0){
+					try {
+						endTime = sdf.parse(endTimeStr);
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+				}
+		
+		
+		
+		
 		//呼叫Model
 		ItemsBean bean = new ItemsBean();
 		bean.setSeller("aaaaa");	//可以使用session or 呼叫member
-		bean.setBuyer("bbbbb");	//暫時輸入一個買家名稱，之後會設定成可以NULL
-		bean.setItemCategory(1);
+		bean.setItemCategory(1);	//須轉為int存入資料庫
 		bean.setTitle(title);
 		bean.setStartPrice(startPrice);
 		bean.setDirectPrice(directPrice);
 		bean.setBid(bid);
 		bean.setEndTime(endTime);
-		bean.setItemDiscribe("");
-		bean.setItemStatus(0);
+		bean.setItemDescribe(itemDescribe);
+		bean.setItemStatus(0);	//上架為0
 		bean.setThreadLock(0);	//預設為0
 		
 		//根據Model執行結果導向View
@@ -129,23 +143,7 @@ public class ItemsServlet extends HttpServlet {
 			}else{
 				request.setAttribute("insert", result);
 			}
-			request.getRequestDispatcher("/items/itemsAdd.jsp").forward(request, response);
-		}else if(itemsButton!=null && itemsButton.equals("Update")){
-			ItemsBean result = service.update(bean);
-			if(result==null){
-				errors.put("action", "商品修改錯誤");
-			}else{
-				request.setAttribute("update", result);
-			}
-			request.getRequestDispatcher("/items/itemR.jsp").forward(request, response);
-		}else if(itemsButton!=null && itemsButton.equals("Delete")){
-			boolean result = service.delete(bean);
-			if(!result){
-				request.setAttribute("delete", 0);
-			}else{
-				request.setAttribute("delete", 1);
-			}
-			request.getRequestDispatcher("/items/itemsUp.jsp").forward(request, response);
+			request.getRequestDispatcher("/items/itemSuccess.jsp").forward(request, response);
 		}
 		
 		

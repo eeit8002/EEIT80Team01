@@ -45,8 +45,8 @@ public class ItemCategoryAddServlet extends HttpServlet {
 		//驗證資料
 		if(itemCategoryStr == null || itemCategoryStr.trim().length()==0){
 			errors.put("itemCategoryError", "請輸入商品分類編號");
-		}else if (!itemCategoryStr.matches("^[0-9]*$")) {
-			errors.put("itemCategoryError", "商品分類編號必須為整數");
+		}else if (!itemCategoryStr.matches("^[0-9]*[1-9][0-9]*$")) {
+			errors.put("itemCategoryError", "商品分類編號請輸入零以上的正整數");
 		}else if(service.checkIfItemCategoryAlreadyExist(Integer.parseInt(itemCategoryStr))){
 			errors.put("itemCategoryError", "商品分類編號重複");
 		}
@@ -70,7 +70,6 @@ public class ItemCategoryAddServlet extends HttpServlet {
 		ItemCategoryBean bean = new ItemCategoryBean();
 		bean.setItemCategory(itemCategory);
 		bean.setCategoryName(categoryName);
-		service.insert(bean);
 		
 		//根據model結果轉向view
 		if(categoryButton!=null &&categoryButton.equals("Insert")){

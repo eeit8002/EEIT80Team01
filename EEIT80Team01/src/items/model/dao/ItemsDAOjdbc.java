@@ -1,7 +1,7 @@
 package items.model.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
+//import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,20 +22,20 @@ public class ItemsDAOjdbc implements ItemsDAO{
 	private DataSource ds = null;
 	
 	//DriverManager用
-	private static final String URL = "jdbc:sqlserver://localhost:1433;database=EEIT80TEAM01";
-	private static final String USER = "sa";
-	private static final String PASSWORD = "sa123456";
+//	private static final String URL = "jdbc:sqlserver://localhost:1433;database=EEIT80TEAM01";
+//	private static final String USER = "sa";
+//	private static final String PASSWORD = "sa123456";
 	
 	//DataSource用
-//	public ItemsDAOjdbc(){
-//		Context ctx;
-//		try {
-//			ctx = new InitialContext();
-//			ds = (DataSource)ctx.lookup(GlobalService.JNDI_DB_NAME);
-//		} catch (NamingException e) {
-//			e.printStackTrace();
-//		}
-//	}
+	public ItemsDAOjdbc(){
+		Context ctx;
+		try {
+			ctx = new InitialContext();
+			ds = (DataSource)ctx.lookup(GlobalService.JNDI_DB_NAME);
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 	private static final String SELECT_BY_ID = "SELECT * FROM ITEMS WHERE ITEM_ID = ?";
 
 	/* (non-Javadoc)
@@ -48,8 +48,8 @@ public class ItemsDAOjdbc implements ItemsDAO{
 		PreparedStatement stmt = null;
 		ResultSet rset = null;
 		try {
-			conn = DriverManager.getConnection(URL, USER, PASSWORD);
-//			conn = ds.getConnection();
+//			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			conn = ds.getConnection();
 			stmt = conn.prepareStatement(SELECT_BY_ID);
 			stmt.setInt(1, itemId);
 			rset = stmt.executeQuery();
@@ -57,14 +57,13 @@ public class ItemsDAOjdbc implements ItemsDAO{
 				result = new ItemsBean();
 				result.setItemId(rset.getInt("ITEM_ID"));
 				result.setSeller(rset.getString("SELLER"));
-				result.setBuyer(rset.getString("BUYER"));
 				result.setItemCategory(rset.getInt("ITEM_CATEGORY"));
 				result.setTitle(rset.getString("TITLE"));
 				result.setStartPrice(rset.getDouble("START_PRICE"));
 				result.setDirectPrice(rset.getDouble("DIRECT_PRICE"));
 				result.setBid(rset.getInt("BID"));
 				result.setEndTime(rset.getDate("END_TIME"));
-				result.setItemDiscribe(rset.getString("ITEM_DISCRIBE"));
+				result.setItemDescribe(rset.getString("ITEM_DESCRIBE"));
 				result.setItemStatus(rset.getInt("ITEM_STATUS"));
 				result.setThreadLock(rset.getInt("THREAD_LOCK"));
 			}
@@ -109,8 +108,8 @@ public class ItemsDAOjdbc implements ItemsDAO{
 		PreparedStatement stmt = null;
 		ResultSet rset = null;
 		try {
-			conn = DriverManager.getConnection(URL, USER, PASSWORD);
-//			conn = ds.getConnection();
+//			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			conn = ds.getConnection();
 			stmt = conn.prepareStatement(SELECT_BY_CATEGORY);
 			stmt.setInt(1, itemCategory);
 			rset = stmt.executeQuery();
@@ -118,14 +117,13 @@ public class ItemsDAOjdbc implements ItemsDAO{
 				result = new ItemsBean();
 				result.setItemId(rset.getInt("ITEM_ID"));
 				result.setSeller(rset.getString("SELLER"));
-				result.setBuyer(rset.getString("BUYER"));
 				result.setItemCategory(rset.getInt("ITEM_CATEGORY"));
 				result.setTitle(rset.getString("TITLE"));
 				result.setStartPrice(rset.getDouble("START_PRICE"));
 				result.setDirectPrice(rset.getDouble("DIRECT_PRICE"));
 				result.setBid(rset.getInt("BID"));
 				result.setEndTime(rset.getDate("END_TIME"));
-				result.setItemDiscribe(rset.getString("ITEM_DISCRIBE"));
+				result.setItemDescribe(rset.getString("ITEM_DESCRIBE"));
 				result.setItemStatus(rset.getInt("ITEM_STATUS"));
 				result.setThreadLock(rset.getInt("THREAD_LOCK"));
 			}
@@ -164,14 +162,14 @@ public class ItemsDAOjdbc implements ItemsDAO{
 	 * @see items.model.dao.ItemsDAO#selectAll()
 	 */
 	@Override
-	public List<ItemsBean> selectAll(){
+	public List<ItemsBean> getAll(){
 		List<ItemsBean> result=null;
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rset = null;
 		try {
-			conn = DriverManager.getConnection(URL, USER, PASSWORD);
-//			conn = ds.getConnection();
+//			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			conn = ds.getConnection();
 			stmt = conn.prepareStatement(SELECT_ALL);
 			rset = stmt.executeQuery();
 			result = new ArrayList<ItemsBean>();
@@ -179,14 +177,13 @@ public class ItemsDAOjdbc implements ItemsDAO{
 				ItemsBean item = new ItemsBean();
 				item.setItemId(rset.getInt("ITEM_ID"));
 				item.setSeller(rset.getString("SELLER"));
-				item.setBuyer(rset.getString("BUYER"));
 				item.setItemCategory(rset.getInt("ITEM_CATEGORY"));
 				item.setTitle(rset.getString("TITLE"));
 				item.setStartPrice(rset.getDouble("START_PRICE"));
 				item.setDirectPrice(rset.getDouble("DIRECT_PRICE"));
 				item.setBid(rset.getInt("BID"));
 				item.setEndTime(rset.getDate("END_TIME"));
-				item.setItemDiscribe(rset.getString("ITEM_DISCRIBE"));
+				item.setItemDescribe(rset.getString("ITEM_DESCRIBE"));
 				item.setItemStatus(rset.getInt("ITEM_STATUS"));
 				item.setThreadLock(rset.getInt("THREAD_LOCK"));
 				result.add(item);
@@ -221,7 +218,7 @@ public class ItemsDAOjdbc implements ItemsDAO{
 	}
 	
 	private static final String INSERT = "INSERT INTO ITEMS(SELLER, ITEM_CATEGORY, TITLE, "
-			+ "START_PRICE, DIRECT_PRICE, BID, END_TIME,ITEM_DISCRIBE, ITEM_STATUS,THREAD_LOCK) VALUES(?,?,?,?,?,?,?,?,?,?)";
+			+ "START_PRICE, DIRECT_PRICE, BID, END_TIME,ITEM_DESCRIBE, ITEM_STATUS,THREAD_LOCK) VALUES(?,?,?,?,?,?,?,?,?,?)";
 
 	/* (non-Javadoc)
 	 * @see items.model.dao.ItemsDAO#insert(items.model.ItemsBean)
@@ -232,8 +229,8 @@ public class ItemsDAOjdbc implements ItemsDAO{
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try {
-			conn = DriverManager.getConnection(URL, USER, PASSWORD);
-//			conn = ds.getConnection();
+//			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			conn = ds.getConnection();
 			stmt = conn.prepareStatement(INSERT);
 			if(bean!=null){
 				stmt.setString(1, bean.getSeller());
@@ -248,7 +245,7 @@ public class ItemsDAOjdbc implements ItemsDAO{
 					stmt.setDate(7, new java.sql.Date(time));
 				}else
 					stmt.setDate(7, null);
-				stmt.setString(8, bean.getItemDiscribe());
+				stmt.setString(8, bean.getItemDescribe());
 				stmt.setInt(9, bean.getItemStatus());
 				stmt.setInt(10, bean.getThreadLock());
 				int i = stmt.executeUpdate();
@@ -277,42 +274,40 @@ public class ItemsDAOjdbc implements ItemsDAO{
 		return result;
 	}
 	private static final String UPDATE ="UPDATE ITEMS SET SELLER=?,ITEM_CATEGORY=?,TITLE=?, "
-			+ "STARTPRICE=?, DIRECTPRICE=?, BID=?, END_TIME=?,ITEM_DISCRIBE=?, ITEM_STATUS=?,THREAD_LOCK=? WHERE ITEM_ID=?";
+			+ "START_PRICE=?, DIRECT_PRICE=?, BID=?, END_TIME=?,ITEM_DESCRIBE=?, ITEM_STATUS=?,THREAD_LOCK=? WHERE ITEM_ID=?";
 
 	/* (non-Javadoc)
 	 * @see items.model.dao.ItemsDAO#update(java.lang.String, java.lang.String, int, java.lang.String, double, double, int, java.util.Date, java.lang.String, int, int, int)
 	 */
 	@Override
-	public ItemsBean update(String seller, String buyer,int itemCategory, String title, 
-			double startPrice, double directPrice, int bid, java.util.Date endTime ,
-			String itemDiscribe,int itemStatus, int threadLock, int itemId){
+	public ItemsBean update(ItemsBean bean){
 		ItemsBean result = null;
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try {
-			conn = DriverManager.getConnection(URL, USER, PASSWORD);
-//			conn = ds.getConnection();
+//			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			conn = ds.getConnection();
 			stmt = conn.prepareStatement(UPDATE);
-			stmt.setString(1, seller);
-			stmt.setString(2, buyer);
-			stmt.setInt(3, itemCategory);
-			stmt.setString(4, title);
-			stmt.setDouble(5, startPrice);
-			stmt.setDouble(6, directPrice);
-			stmt.setInt(7, bid);
+			stmt.setString(1, bean.getSeller());
+			stmt.setInt(2, bean.getItemCategory());
+			stmt.setString(3, bean.getTitle());
+			stmt.setDouble(4, bean.getStartPrice());
+			stmt.setDouble(5, bean.getDirectPrice());
+			stmt.setInt(6, bean.getBid());
+			java.util.Date endTime = bean.getEndTime();
 			if(endTime!=null){
 				long time = endTime.getTime();
-				stmt.setDate(8, new java.sql.Date(time));
+				stmt.setDate(7, new java.sql.Date(time));
 			}else{
-				stmt.setDate(8, null);
+				stmt.setDate(7, null);
 			}
-			stmt.setString(9, itemDiscribe);
-			stmt.setInt(10, itemStatus);
-			stmt.setInt(11, threadLock);
-			stmt.setInt(12, itemId);
+			stmt.setString(8, bean.getItemDescribe());
+			stmt.setInt(9, bean.getItemStatus());
+			stmt.setInt(10, bean.getThreadLock());
+			stmt.setInt(11, bean.getItemId());
 			int i = stmt.executeUpdate();
 			if(i == 1){
-				result = this.selectId(itemId);
+				result = bean;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -345,8 +340,8 @@ public class ItemsDAOjdbc implements ItemsDAO{
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try {
-			conn = DriverManager.getConnection(URL, USER, PASSWORD);
-//			conn = ds.getConnection();
+//			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			conn = ds.getConnection();
 			stmt = conn.prepareStatement(DELETE);
 			stmt.setInt(1, itemId);
 			int i = stmt.executeUpdate();
@@ -379,37 +374,36 @@ public class ItemsDAOjdbc implements ItemsDAO{
 	
 	
 	public static void main(String[] args){
-		ItemsDAOjdbc dao = new ItemsDAOjdbc();
+//		ItemsDAOjdbc dao = new ItemsDAOjdbc();
 		//新增
-		ItemsBean bean = new ItemsBean();
-		bean.setSeller("aaaaa");
-		bean.setItemCategory(1);
-		bean.setTitle("杯子");
-		bean.setStartPrice(new Double(10));
-		bean.setDirectPrice(new Double(1000));
-		bean.setBid(10);
-		bean.setEndTime(java.sql.Date.valueOf("2015-09-11"));
-		bean.setItemDiscribe("這是一個杯子");
-		bean.setItemStatus(0);
-		bean.setThreadLock(0);
-		dao.insert(bean);
-		System.out.println("執行新增");
+//		ItemsBean bean = new ItemsBean();
+//		bean.setSeller("aaaaa");	//FK到MEMBER的USERNAME
+//		bean.setItemCategory(1);	//FK到ITEMCLASS的ITEM_CATEGORY
+//		bean.setTitle("杯子");
+//		bean.setStartPrice(new Double(10));
+//		bean.setDirectPrice(new Double(1000));
+//		bean.setBid(10);
+//		bean.setEndTime(java.sql.Date.valueOf("2015-09-11"));
+//		bean.setItemDescribe("這是一個杯子");
+//		bean.setItemStatus(0);
+//		bean.setThreadLock(0);
+//		dao.insert(bean);
+//		System.out.println("執行新增");
 		
 		//修改
 //		ItemsBean bean2 = new ItemsBean();
-//		bean2.setSeller("a1234");
-//		bean2.setBuyer("b1234");
-//		bean2.setTitle("茶杯");
+//		bean2.setSeller("bbbbb");
+//		bean2.setItemCategory(2);
+//		bean2.setTitle("茶杯子");
 //		bean2.setStartPrice(new Double(15));
 //		bean2.setDirectPrice(new Double(1500));
 //		bean2.setBid(10);
 //		bean2.setEndTime(java.sql.Date.valueOf("2011-01-01"));
-//		bean2.setItemStatus("xxxxxxxxxxxxxx");
+//		bean2.setItemDescribe("xxxxxxxxxxxxxx");
+//		bean.setItemStatus(0);
 //		bean2.setThreadLock(0);
 //		bean2.setItemId(4);
-//		dao.update(bean2.getSeller(), bean2.getBuyer(), bean2.getTitle(), bean2.getStartPrice(),
-//				bean2.getDirectPrice(), bean2.getBid(), bean2.getEndTime(), bean2.getItemStatus(),
-//				bean2.getThreadLock(), bean2.getItemId());
+//		dao.update(bean2);
 //		System.out.println("執行修改");
 		
 		//刪除
@@ -417,22 +411,28 @@ public class ItemsDAOjdbc implements ItemsDAO{
 //				System.out.println("執行刪除");
 		
 		//查詢一筆
-//		ItemsBean bean3 = dao.select(4);
-//		System.out.println(bean3.getItemId()+","+bean3.getSeller()+","+bean3.getBuyer()
+//		ItemsBean bean3 = dao.selectId(4);
+//		System.out.println(bean3.getItemId()+","+bean3.getSeller()+","+bean3.getItemCategory()
 //		+","+bean3.getTitle()+","+bean3.getStartPrice()+","+bean3.getDirectPrice()+","
-//		+bean3.getBid()+","+bean3.getEndTime()+","+bean3.getItemStatus()+","
-//		+bean3.getThreadLock());
+//		+bean3.getBid()+","+bean3.getEndTime()+","+bean3.getItemDescribe()+","
+//		+bean3.getItemStatus()+","+bean3.getThreadLock());
 //		System.out.println("查詢一筆");
 		
 		//查詢全部
-//		List<ItemsBean> bean4 = dao.selectAll();
+//		List<ItemsBean> bean4 = dao.getAll();
 //		for(ItemsBean list : bean4){
-//			System.out.println(list.getItemId()+","+list.getSeller()+","+list.getBuyer()
+//			System.out.println(list.getItemId()+","+list.getSeller()+","+list.getItemCategory()
 //			+","+list.getTitle()+","+list.getStartPrice()+","+list.getDirectPrice()+","
-//			+list.getBid()+","+list.getEndTime()+","+list.getItemStatus()+","
-//			+list.getThreadLock());
+//			+list.getBid()+","+list.getEndTime()+","+list.getItemDescribe()+","
+//			+list.getItemStatus()+","+list.getThreadLock());
 //		}
 //		System.out.println("查詢全部");
+		
+		
+		
+		
+		
+		
 	}
 	
 	

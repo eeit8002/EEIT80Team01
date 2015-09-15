@@ -5,14 +5,13 @@ import java.util.Date;
 public class ItemsBean {
 	private int itemId;
 	private String seller;
-	private String buyer;
 	private int itemCategory;
 	private String title;
 	private double startPrice;
 	private double directPrice;
 	private int bid;
 	private java.util.Date endTime;
-	private String itemDiscribe;
+	private String itemDescribe;
 	private int itemStatus;
 	private int threadLock;
 	
@@ -27,12 +26,6 @@ public class ItemsBean {
 	}
 	public void setSeller(String seller) {
 		this.seller = seller;
-	}
-	public String getBuyer() {
-		return buyer;
-	}
-	public void setBuyer(String buyer) {
-		this.buyer = buyer;
 	}
 	public int getItemCategory() {
 		return itemCategory;
@@ -70,11 +63,11 @@ public class ItemsBean {
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
 	}
-	public String getItemDiscribe() {
-		return itemDiscribe;
+	public String getItemDescribe() {
+		return itemDescribe;
 	}
-	public void setItemDiscribe(String itemDiscribe) {
-		this.itemDiscribe = itemDiscribe;
+	public void setItemDescribe(String itemDiscribe) {
+		this.itemDescribe = itemDiscribe;
 	}
 	public int getItemStatus() {
 		return itemStatus;

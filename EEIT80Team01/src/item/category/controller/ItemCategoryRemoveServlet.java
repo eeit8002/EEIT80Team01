@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import item.category.model.ItemCategoryBean;
 import item.category.model.ItemCategoryService;
 @WebServlet("/support/manage/itemCategory/itemCategoryList.controller")
 public class ItemCategoryRemoveServlet extends HttpServlet {
