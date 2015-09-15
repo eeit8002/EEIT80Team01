@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import support.model.SupportService;
 
-@WebServlet("/admin/manage/deleteSupporterAccounts.jsp")
+@WebServlet("/admin/manage/deleteSupporterAccounts.do")
 public class AdminDeleteSupporterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -37,5 +37,4 @@ public class AdminDeleteSupporterServlet extends HttpServlet {
 		}
 		response.sendRedirect("listSupporters.jsp"); //reload AdminListSupporterServlet.java again to get new supporter account list
 	}
-
 }
