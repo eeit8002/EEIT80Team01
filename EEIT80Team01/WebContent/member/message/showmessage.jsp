@@ -14,11 +14,11 @@
 		}
 	.msgBody{
 		padding-left:115px;
-		border: 1px solid #000000;
 	}
 </style>
 </head>
 <body>
+	<%@include file="head/link.file" %>
 	<label class="tag">收件者帳號：</label><span>${Message.sender}</span><br>
 	<label class="tag">寄件者帳號：</label><span>${Message.receiver}</span><br>
 	<label class="tag">信件主旨：</label><span>${Message.messageTitle}</span><br>

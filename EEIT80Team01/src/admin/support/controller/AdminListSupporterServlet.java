@@ -1,4 +1,4 @@
-package admin.supporter.controller;
+package admin.support.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,10 +14,10 @@ import support.model.SupportBean;
 import support.model.SupportService;
 
 @WebServlet("/admin/manage/listSupporters.jsp")
-public class AdminManageSupporterServlet extends HttpServlet {
+public class AdminListSupporterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public AdminManageSupporterServlet() {
+	public AdminListSupporterServlet() {
 		super();
 	}
 
@@ -29,8 +29,8 @@ public class AdminManageSupporterServlet extends HttpServlet {
 		SupportService service = new SupportService();
 		List<SupportBean> list = service.findAllSupporters();
 		if (list != null) {
-			RequestDispatcher rd = request.getRequestDispatcher("ShowSupporters.jsp");
-			request.setAttribute("list", list);
+			RequestDispatcher rd = request.getRequestDispatcher("showSupportersList.jsp");
+			request.setAttribute("supporterlist", list);
 			rd.forward(request, response);
 			return;
 		} else {
@@ -42,8 +42,6 @@ public class AdminManageSupporterServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("/admin/index.jsp");
-		rd.forward(request, response);
-		return;
+		doGet(request, response);
 	}
 }

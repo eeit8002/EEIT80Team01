@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import support.model.SupportBean;
 import member.model.MemberBean;
 import member.model.MessageBean;
 import member.model.MessageService;
@@ -47,7 +48,8 @@ public class ReadMessageServlet extends HttpServlet {
 		if(bean!=null){
 			HttpSession session = request.getSession();
 			MemberBean mb = (MemberBean) session.getAttribute(GlobalService.LOGIN_TOKEN);
-			if(bean.getSender().equals(mb.getUserName()) && (bean.getVisibility() & 2)==0 || bean.getReceiver().equals(mb.getUserName()) && (bean.getVisibility() & 1)==0){
+			SupportBean support = (SupportBean) session.getAttribute(GlobalService.LOGIN_TOKEN_SUPPORT);
+			if(support!=null || bean.getSender().equals(mb.getUserName()) && (bean.getVisibility() & 2)==0 || bean.getReceiver().equals(mb.getUserName()) && (bean.getVisibility() & 1)==0){
 				request.setAttribute("Message", bean);
 			} else {
 				RequestDispatcher rd =  request.getRequestDispatcher("/index.jsp");
@@ -66,9 +68,7 @@ public class ReadMessageServlet extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd =  request.getRequestDispatcher("/index.jsp");
-		rd.forward(request, response);
-		return;	
+		response.sendRedirect(request.getContextPath());
 	}
 
 }

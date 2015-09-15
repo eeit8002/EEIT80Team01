@@ -1,4 +1,4 @@
-package admin.supporter.controller;
+package admin.support.controller;
 
 import java.io.IOException;
 
@@ -34,7 +34,7 @@ public class AdminAddSupporterServlet extends HttpServlet {
 		SupportBean bean = new SupportBean();
 		SupportService service = new SupportService();
 		String supportername = request.getParameter("supportername");
-		if (supportername != null && service.supporterAccountCheck(supportername)) {
+		if (supportername != null && !service.checkSupporterAccountExist(supportername)) {
 			bean.setSupportername(supportername.toLowerCase());
 			String password = request.getParameter("password");
 			String passwordCheck = request.getParameter("passwordCheck");

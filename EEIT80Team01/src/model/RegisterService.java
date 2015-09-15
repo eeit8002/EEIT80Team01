@@ -1,4 +1,4 @@
-﻿package ch04.ex03.model;
+﻿package model;
 
 import java.io.IOException;
 import java.sql.*;

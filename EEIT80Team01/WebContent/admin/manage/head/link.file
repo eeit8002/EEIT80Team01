@@ -1,0 +1,13 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<script type="text/javascript">
+function goToPage(num) {
+	var url=new Array();
+	url[0]="AddNewSupporter.jsp";
+	url[1]="listSupporters.jsp";
+	window.location=url[num];
+};
+</script>
+
+<input type="button" value="新增客服帳號" onclick="goToPage(0)"/>
+<input type="button" value="重新載入客服列表" onclick="goToPage(1)"/>

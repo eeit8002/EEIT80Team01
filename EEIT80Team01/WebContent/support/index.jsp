@@ -8,10 +8,11 @@
 
 </head>
 <body>
-<a href="${pageContext.request.contextPath}/support/login/login.jsp">Login</a><br>
-<a href="${pageContext.request.contextPath}/support/manage/TestPage.jsp">Manage TestPage</a><br>
-<a href="${pageContext.request.contextPath}/support/password/changePassword.jsp">Change Password</a><br>
-<a href="${pageContext.request.contextPath}/support/login/logout.jsp">Logout</a><br>
+<a href="${pageContext.request.contextPath}/support/login/login.jsp">登入</a><br><br>
+<a href="${pageContext.request.contextPath}/support/password/changePassword.jsp">修改密碼</a><br><br>
+<a href="${pageContext.request.contextPath}/support/manage/TestPage.jsp">測試頁面TestPage</a><br><br>
+<a href="${pageContext.request.contextPath}/support/manage/listMembers.jsp">管理會員帳號</a><br><br>
+<a href="${pageContext.request.contextPath}/support/login/logout.jsp">登出</a><br><br>
 
 </body>
 </html>
