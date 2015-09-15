@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import support.model.SupportBean;
+import admin.model.AdminBean;
 import member.model.MemberBean;
 
 @WebFilter(
@@ -64,7 +66,9 @@ public class LoginFilter implements Filter {
 	private boolean checkLogin(HttpServletRequest req) {
 		HttpSession session = req.getSession();
 		MemberBean loginToken = (MemberBean) session.getAttribute(GlobalService.LOGIN_TOKEN);
-		if (loginToken == null) {
+		AdminBean adminToken = (AdminBean) session.getAttribute(GlobalService.LOGIN_TOKEN_ADMIN);
+		SupportBean supportToken = (SupportBean) session.getAttribute(GlobalService.LOGIN_TOKEN_SUPPORT);
+		if (loginToken == null && adminToken == null && supportToken==null) {
 			return false;
 		} else {
 			return true;

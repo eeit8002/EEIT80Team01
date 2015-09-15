@@ -23,7 +23,7 @@
 <div id="main">
 	<form method="post" class="cmxform" id="form" action="resetPassword">
 		<fieldset>
-			<legend>註冊</legend>
+			<legend>重設密碼</legend>
 			<p>
 				<label class="tag" for="user">帳號：</label>
 				<input type="text" id="username" name="username" title="請輸入帳號"  value="${EmailChecked}" readonly="readonly">

@@ -11,9 +11,10 @@
 <title>Show Supporters</title>
 </head>
 <body>
-	<form>
+	<%@include file="head/link.file"%>
+	<form method="post" action="deleteSupporterAccounts.do">
 		<fieldset>
-			<legend>客服人員一覽</legend>
+			<legend>客服人員列表</legend>
 			<table id="table" class="display" cellspacing="0" width="100%">
 				<thead>
 					<tr>
@@ -26,19 +27,22 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${list}" var="item">
+					<c:forEach items="${supporterlist}" var="item">
 						<tr>
 							<td>${item.supportername}</td>
-							<td>${item.employeeid }</td>
-							<td>${item.lastname }</td>
-							<td>${item.firstname }</td>
-							<td><input type="submit" name="" value="modify"></td>
-							<td><input type="submit" name="" value="delete"></td>
+							<td>${item.employeeid}</td>
+							<td>${item.lastname}</td>
+							<td>${item.firstname}</td>
+							<td><a href="${pageContext.request.contextPath}/admin/manage/modifySupporter.do?supportername=${item.supportername}">修改</a></td>
+							<td><input type="checkbox" name="supporterChecked"
+								value="${item.supportername}"></td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
 		</fieldset>
+		<input type="reset" name="reset" value="清除">
+		<input type="submit" name="delete" value="刪除客服帳號">
 	</form>
 </body>
 </html>

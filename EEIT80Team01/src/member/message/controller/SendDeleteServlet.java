@@ -11,14 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import member.model.MemberBean;
-import member.model.MessageBean;
 import member.model.MessageService;
 
-/**
- * Servlet implementation class DeleteServlet
- */
+
 @WebServlet("/member/message/senddelete")
 public class SendDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -31,9 +27,7 @@ public class SendDeleteServlet extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd =  request.getRequestDispatcher("/index.jsp");
-		rd.forward(request, response);
-		return;
+		response.sendRedirect(request.getContextPath());
 	}
 
 
@@ -47,13 +41,8 @@ public class SendDeleteServlet extends HttpServlet {
 		
 		String[] messageNumbers = request.getParameterValues("messageNumber");
 		MessageService service = new MessageService();
-		for(String Number: messageNumbers){
-			Long messageNumber = Long.parseLong(Number);
-			MessageBean mb = service.findMessageByMessageno(messageNumber);
-			if(mb.getSender().equals(sender)){
-				int visibiblty = mb.getVisibility()|2;
-				service.changeVisibility(visibiblty, messageNumber);
-			}
+		if(messageNumbers!=null && messageNumbers.length>0){
+			service.changeVisibility(sender, 2, messageNumbers);			
 		}
 		
 		response.sendRedirect("send");

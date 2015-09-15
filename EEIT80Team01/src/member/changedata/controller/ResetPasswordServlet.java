@@ -25,9 +25,7 @@ public class ResetPasswordServlet extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd =  request.getRequestDispatcher("/index.jsp");
-		rd.forward(request, response);
-		return;	
+		response.sendRedirect(request.getContextPath());
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

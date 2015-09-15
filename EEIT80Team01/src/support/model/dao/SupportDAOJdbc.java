@@ -245,7 +245,7 @@ public class SupportDAOJdbc implements SupportDAO {
 		return result;
 	}
 
-	private static final String UPDATE_SUPPORTER = "UPDATE SUPPORTERS SET PASSWD=? EMPLOYEE_ID=? FIRST_NAME=? LAST_NAME=? WHERE SUPPORTERNAME=? ";
+	private static final String UPDATE_SUPPORTER = "UPDATE SUPPORTERS SET PASSWD=?,EMPLOYEE_ID=?,FIRST_NAME=?,LAST_NAME=? WHERE SUPPORTERNAME=? ";
 
 	/*
 	 * (non-Javadoc)

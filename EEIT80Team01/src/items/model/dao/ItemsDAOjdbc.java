@@ -220,8 +220,8 @@ public class ItemsDAOjdbc implements ItemsDAO{
 		return result;
 	}
 	
-	private static final String INSERT = "INSERT INTO ITEMS(SELLER, BUYER, ITEM_CATEGORY, TITLE, "
-			+ "STARTPRICE, DIRECTPRICE, BID, END_TIME,ITEM_DISCRIBE, ITEM_STATUS,THREAD_LOCK) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+	private static final String INSERT = "INSERT INTO ITEMS(SELLER, ITEM_CATEGORY, TITLE, "
+			+ "START_PRICE, DIRECT_PRICE, BID, END_TIME,ITEM_DISCRIBE, ITEM_STATUS,THREAD_LOCK) VALUES(?,?,?,?,?,?,?,?,?,?)";
 
 	/* (non-Javadoc)
 	 * @see items.model.dao.ItemsDAO#insert(items.model.ItemsBean)
@@ -237,21 +237,20 @@ public class ItemsDAOjdbc implements ItemsDAO{
 			stmt = conn.prepareStatement(INSERT);
 			if(bean!=null){
 				stmt.setString(1, bean.getSeller());
-				stmt.setString(2, bean.getBuyer());
-				stmt.setInt(3, bean.getItemCategory());
-				stmt.setString(4, bean.getTitle());
-				stmt.setDouble(5, bean.getStartPrice());
-				stmt.setDouble(6, bean.getDirectPrice());
-				stmt.setInt(7, bean.getBid());
+				stmt.setInt(2, bean.getItemCategory());
+				stmt.setString(3, bean.getTitle());
+				stmt.setDouble(4, bean.getStartPrice());
+				stmt.setDouble(5, bean.getDirectPrice());
+				stmt.setInt(6, bean.getBid());
 				java.util.Date endTime = bean.getEndTime();
 				if(endTime!=null){
 					long time = endTime.getTime();
-					stmt.setDate(8, new java.sql.Date(time));
+					stmt.setDate(7, new java.sql.Date(time));
 				}else
-					stmt.setDate(8, null);
-				stmt.setString(9, bean.getItemDiscribe());
-				stmt.setInt(10, bean.getItemStatus());
-				stmt.setInt(11, bean.getThreadLock());
+					stmt.setDate(7, null);
+				stmt.setString(8, bean.getItemDiscribe());
+				stmt.setInt(9, bean.getItemStatus());
+				stmt.setInt(10, bean.getThreadLock());
 				int i = stmt.executeUpdate();
 				if(i == 1){
 					result = bean;
@@ -277,7 +276,7 @@ public class ItemsDAOjdbc implements ItemsDAO{
 		}
 		return result;
 	}
-	private static final String UPDATE ="UPDATE ITEMS SET SELLER=?, BUYER=?,ITEM_CATEGORY=?,TITLE=?, "
+	private static final String UPDATE ="UPDATE ITEMS SET SELLER=?,ITEM_CATEGORY=?,TITLE=?, "
 			+ "STARTPRICE=?, DIRECTPRICE=?, BID=?, END_TIME=?,ITEM_DISCRIBE=?, ITEM_STATUS=?,THREAD_LOCK=? WHERE ITEM_ID=?";
 
 	/* (non-Javadoc)
@@ -384,7 +383,6 @@ public class ItemsDAOjdbc implements ItemsDAO{
 		//新增
 		ItemsBean bean = new ItemsBean();
 		bean.setSeller("aaaaa");
-		bean.setBuyer("");
 		bean.setItemCategory(1);
 		bean.setTitle("杯子");
 		bean.setStartPrice(new Double(10));
