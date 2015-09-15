@@ -1,46 +1,55 @@
 package item.category.model.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
+//import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import global.GlobalService;
 import item.category.model.ItemCategoryBean;
+import item.category.model.ItemCategoryDAO;
 
-public class ItemCategoryDAOjdbc {
+public class ItemCategoryDAOjdbc implements ItemCategoryDAO {
 private DataSource ds = null;
 	
 	//DriverManager用
-	private static final String URL = "jdbc:sqlserver://localhost:1433;database=EEIT80TEAM01";
-	private static final String USER = "sa";
-	private static final String PASSWORD = "sa123456";
+//	private static final String URL = "jdbc:sqlserver://localhost:1433;database=EEIT80TEAM01";
+//	private static final String USER = "sa";
+//	private static final String PASSWORD = "sa123456";
 	
 	//DataSource用
-//	public ItemsDAOjdbc(){
-//		Context ctx;
-//		try {
-//			ctx = new InitialContext();
-//			ds = (DataSource)ctx.lookup(GlobalService.JNDI_DB_NAME);
-//		} catch (NamingException e) {
-//			e.printStackTrace();
-//		}
-//	}
+	public ItemCategoryDAOjdbc(){
+		Context ctx;
+		try {
+			ctx = new InitialContext();
+			ds = (DataSource)ctx.lookup(GlobalService.JNDI_DB_NAME);
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	private static final String SELECT_BY_ITEMCATEGORY = "SELECT * FROM ITEMCLASS WHERE ITEM_CATEGORY = ?";
 
+	/* (non-Javadoc)
+	 * @see item.category.model.dao.ItemCategoryDAO#selectItemCategory(int)
+	 */
+	@Override
 	public ItemCategoryBean selectItemCategory(int itemCategory){
 		ItemCategoryBean result=null;
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rset = null;
 		try {
-			conn = DriverManager.getConnection(URL, USER, PASSWORD);
-//			conn = ds.getConnection();
+//			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			conn = ds.getConnection();
 			stmt = conn.prepareStatement(SELECT_BY_ITEMCATEGORY);
 			stmt.setInt(1, itemCategory);
 			rset = stmt.executeQuery();
@@ -80,14 +89,18 @@ private DataSource ds = null;
 	
 	private static final String SELECT_ALL = "SELECT * FROM ITEMCLASS ";
 
-	public List<ItemCategoryBean> selectAll(){
+	/* (non-Javadoc)
+	 * @see item.category.model.dao.ItemCategoryDAO#selectAll()
+	 */
+	@Override
+	public List<ItemCategoryBean> getAll(){
 		List<ItemCategoryBean> result=null;
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rset = null;
 		try {
-			conn = DriverManager.getConnection(URL, USER, PASSWORD);
-//			conn = ds.getConnection();
+//			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			conn = ds.getConnection();
 			stmt = conn.prepareStatement(SELECT_ALL);
 			rset = stmt.executeQuery();
 			result = new ArrayList<ItemCategoryBean>();
@@ -128,13 +141,17 @@ private DataSource ds = null;
 	
 	private static final String INSERT = "INSERT INTO ITEMCLASS(ITEM_CATEGORY, CATEGORY_NAME) VALUES(?,?)";
 
+	/* (non-Javadoc)
+	 * @see item.category.model.dao.ItemCategoryDAO#insert(item.category.model.ItemCategoryBean)
+	 */
+	@Override
 	public ItemCategoryBean insert(ItemCategoryBean bean){
 		ItemCategoryBean result = null;
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try {
-			conn = DriverManager.getConnection(URL, USER, PASSWORD);
-//			conn = ds.getConnection();
+//			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			conn = ds.getConnection();
 			stmt = conn.prepareStatement(INSERT);
 			if(bean!=null){
 				stmt.setInt(1, bean.getItemCategory());
@@ -167,19 +184,24 @@ private DataSource ds = null;
 	
 	private static final String UPDATE ="UPDATE ITEMCLASS SET CATEGORY_NAME=? WHERE ITEM_CATEGORY=?";
 
-	public ItemCategoryBean update(String categoryName, int itemCategory){
+
+	/* (non-Javadoc)
+	 * @see item.category.model.dao.ItemCategoryDAO#update(item.category.model.ItemCategoryBean)
+	 */
+	@Override
+	public ItemCategoryBean update(ItemCategoryBean bean){
 		ItemCategoryBean result = null;
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try {
-			conn = DriverManager.getConnection(URL, USER, PASSWORD);
-//			conn = ds.getConnection();
+//			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			conn = ds.getConnection();
 			stmt = conn.prepareStatement(UPDATE);
-			stmt.setString(1, categoryName);
-			stmt.setInt(2, itemCategory);
+			stmt.setString(1, bean.getCategoryName());
+			stmt.setInt(2, bean.getItemCategory());
 			int i = stmt.executeUpdate();
 			if(i == 1){
-				result = this.selectItemCategory(itemCategory);
+				result = bean;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -204,12 +226,16 @@ private DataSource ds = null;
 	
 	private static final String DELETE = "DELETE FROM ITEMCLASS WHERE ITEM_CATEGORY=?";
 
+	/* (non-Javadoc)
+	 * @see item.category.model.dao.ItemCategoryDAO#delete(int)
+	 */
+	@Override
 	public boolean delete(int itemCategory){
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try {
-			conn = DriverManager.getConnection(URL, USER, PASSWORD);
-//			conn = ds.getConnection();
+//			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			conn = ds.getConnection();
 			stmt = conn.prepareStatement(DELETE);
 			stmt.setInt(1, itemCategory);
 			int i = stmt.executeUpdate();
@@ -239,7 +265,7 @@ private DataSource ds = null;
 	
 	
 	public static void main(String[] args) {
-		ItemCategoryDAOjdbc dao = new ItemCategoryDAOjdbc();
+//		CategoryDAO dao = new CategoryDAOjdbc();
 		
 		//新增
 //		ItemClassBean bean = new ItemClassBean();
@@ -248,10 +274,10 @@ private DataSource ds = null;
 //		dao.insert(bean);
 //		System.out.println("執行新增");
 		//修改
-//		ItemClassBean bean2  = new ItemClassBean();
+//		ItemCategoryBean bean2  = new ItemCategoryBean();
 //		bean2.setItemCategory(2);
-//		bean2.setCategoryName("日常用品");
-//		dao.update(bean2.getCategoryName(), bean2.getItemCategory());
+//		bean2.setCategoryName("日常用品xx");
+//		dao.update(bean2);
 //		System.out.println("執行修改");
 		//刪除
 //		dao.delete(3);

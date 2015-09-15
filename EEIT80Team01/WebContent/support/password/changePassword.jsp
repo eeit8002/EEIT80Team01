@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%@include file="/css/cssforvalidate.file" %>
-<title>修改系統管理員密碼</title>
+<title>修改客服密碼</title>
 	<style>
 		fieldset{
 			width: 500px;
@@ -21,7 +21,7 @@
 <div id="main">
 	<form method="post" class="cmxform" id="form" action="supportChangePassword.do">
 		<fieldset>
-			<legend>修改管理員密碼</legend>
+			<legend>修改客服密碼</legend>
 			<p>
 				<label class="tag" for="oldpassword">舊密碼：</label>
 				<input type="password" id="oldpassword" name="oldpassword" title="請輸入舊密碼">

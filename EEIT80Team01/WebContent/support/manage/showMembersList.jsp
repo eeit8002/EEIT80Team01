@@ -11,7 +11,7 @@
 <title>Show Supporters</title>
 </head>
 <body>
-	<form>
+	<form method="post" action="">
 		<fieldset>
 			<legend>客服人員一覽</legend>
 			<table id="table" class="display" cellspacing="0" width="100%">
@@ -26,7 +26,6 @@
 						<td>帳號狀態</td>
 						<td>身份驗證</td>
 						<td>封鎖</td>
-						<td>刪除</td>
 					</tr>
 				</thead>
 				<tbody>
@@ -54,12 +53,14 @@
 									<td>已認證</td>
 								</c:otherwise>
 							</c:choose>
-							<td><input type="submit" name="" value="封鎖"></td>
-							<td><input type="submit" name="" value="刪除"></td>
+							<td><input type="checkbox" name="memberChecked" value="${item.userName}"></td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
+			<input type="reset" name="reset" value="清除">
+			<input type="submit" name="suspend" value="封鎖選取的用戶">
+			<input type="submit" name="resume" value="解除封鎖選取的用戶">
 		</fieldset>
 	</form>
 </body>

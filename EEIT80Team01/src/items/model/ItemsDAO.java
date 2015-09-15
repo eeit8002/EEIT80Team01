@@ -10,12 +10,11 @@ public interface ItemsDAO {
 
 	ItemsBean selectCategory(int itemCategory);
 
-	List<ItemsBean> selectAll();
+	List<ItemsBean> getAll();
 
 	ItemsBean insert(ItemsBean bean);
 
-	ItemsBean update(String seller, String buyer, int itemCategory, String title, double startPrice, double directPrice,
-			int bid, java.util.Date endTime, String itemDiscribe, int itemStatus, int threadLock, int itemId);
+	ItemsBean update(ItemsBean bean);
 
 	boolean delete(int itemId);
 

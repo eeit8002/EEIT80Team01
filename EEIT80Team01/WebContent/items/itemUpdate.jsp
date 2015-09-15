@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>商品修改</title>
 </head>
 <body>
-<h1>操作成功</h1>
+
 </body>
 </html>

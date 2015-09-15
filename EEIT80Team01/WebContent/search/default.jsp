@@ -29,9 +29,9 @@
 
 
 <!-- autocom搬過來的 -->
-分類<select >
+分類<select name ="option">
 <!-- <optgroup label="商品分類" > -->
-
+<option ></option>
 <option value="1">3c商品</option>
 <option value="2">鞋子</option>
 <option value="3">衣服</option>

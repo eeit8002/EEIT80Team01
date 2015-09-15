@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="item.category.model.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -27,15 +28,28 @@ function clearForm(){
 <body>
 <h3>商品頁面</h3>
 <form action="${pageContext.request.contextPath }/items/itemAdd.controller" method="post" > 
+<!-- 	<select> -->
+<!-- 		<option></option> -->
+<!-- 	</select> -->
 	<table>
+		<tr>
+			<td>
+				<select>
+				<c:forEach var="list" items="${service.all }]">
+					<option value="${list.itemCategory}" ${(list.deptno==list.deptno)?'selected':'' }>${list.categoryName}
+				</c:forEach>
+				</select>
+			</td>
+		</tr>
 		<tr>
 			<td>商品名稱</td>
 			<td><input type="text" name="title" value="${param.title }"></td>
 			<td><font color="red" size="-1"><span class="error">${error.titleError }</span></font></td>
 		</tr>
 		<tr>
-			<td>底價</td>
+			<td>起標價格</td>
 			<td><input type="text" name="startPrice" value="${param.startPrice }"></td>
+			<td><font color="red" size="-1"><span class="error">${error.startPriceError }</span></font></td>
 		</tr>
 		<tr>
 			<td>直購價</td>
@@ -52,22 +66,13 @@ function clearForm(){
 			<td><input type="text" name="endTime" value="${param.endTime }"></td>
 			<td><font color="red" size="-1"><span class="error">${error.endTimeError }</span></font></td>
 		</tr>
-		<tr>
-			<td>商品狀態</td>
-			<td><input type="text" name="itemStatus" value="${param.itemStatus }"></td>
-		</tr>
-<!-- 		<tr> -->
-<!-- 		<td> -->
-			
-<!-- 			<input type="submit" name="itemsButton" value="Update"> -->
-<!-- 		</td> -->
-<!-- 		<td> -->
-<!-- 			<input type="submit" name="itemsButton" value="Delete"> -->
-			
-<!-- 		</td> -->
-<!-- 	</tr> -->
 	</table>
-	<input type="submit" name="itemsButton" value="Insert">
+	<div>
+		<p>商品描述</p>
+		<textarea name="itemDescribe" cols="50" rows="5"></textarea>
+	</div>
+	<input type="submit" value="新增商品">
+	<input type="hidden" name="itemsButton" value="Insert">
 	<input type="button" value="Clear" onclick="clearForm()">
 <h3><font color="red" size="-1"><span class="error" >${error.action }</span></font></h3>
 

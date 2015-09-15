@@ -7,7 +7,7 @@
 <title>檢舉會員</title>
 	<style>
 		fieldset{
-			width: 600px;
+			width: 650px;
 		}
 		.tag{ 
 			display: inline-block;
@@ -18,31 +18,31 @@
 	<script src="http://cdn.ckeditor.com/4.5.3/basic/ckeditor.js"></script>
 </head>
 <body>
-		<form method="post" class="cmxform" id="form" action="">
+	<div>
+		<form method="post" class="cmxform" id="form" action="report">
 		<fieldset>
 			<legend>檢舉會員</legend>
 			<p>
 				<label class="tag">被檢舉人帳號：</label>
-				<input type="text" id="prosecutor" name="prosecutor">
+				<input type="text" id="username" name="username" value='${param.id}'>
+				${ErrorMsgKey.username}
 			</p>
 			<p>
 				<label class="tag">網址連結：</label>
 				<input type="text" id="url" name="url">
+				${ErrorMsgKey.url}
 			</p>
 			<p>
 				<label class="tag">檢舉理由：</label>
 				<input type="text" id="reason" name="reason"><br>
-				<textarea name="messagebody" id="editor1" rows="10" cols="60">
-            	</textarea>
-			<script>
-				CKEDITOR.replace( 'editor1' );
-			</script>
+				${ErrorMsgKey.reason}
 			<p>
              <label class="tag"></label>
 			<input type="submit" id="submit" value="送出">
 			<input type="reset" id="reset" value="清除">
 		</fieldset>	
 	</form>
+	${success}
 </div>
 
 
