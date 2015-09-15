@@ -1,4 +1,4 @@
-﻿package model;
+﻿package search.model;
 
 import java.io.Serializable;
 
