@@ -1,13 +1,14 @@
 package member.model;
 
-import java.util.Date;
+import java.sql.Timestamp;
+
 
 public class MessageBean {
 	private String sender;
 	private String receiver;
 	private String messageTitle;
 	private String messageBody;
-	private Date messageTime;
+	private Timestamp messageTime;
 	private long messageNumber;
 	private int visibility;
 	
@@ -41,10 +42,10 @@ public class MessageBean {
 	public void setMessageBody(String messageBody) {
 		this.messageBody = messageBody;
 	}
-	public Date getMessageTime() {
+	public Timestamp getMessageTime() {
 		return messageTime;
 	}
-	public void setMessageTime(Date messageTime) {
+	public void setMessageTime(Timestamp messageTime) {
 		this.messageTime = messageTime;
 	}
 	public long getMessageNumber() {

@@ -10,13 +10,20 @@
 <%@include file="/include/datatables.file" %>
 <style type="text/css">
 	form{
-		width:75%;
+		width:100%;
 	}
 	.tag{ 
 		display: inline-block;
 		width: 115px;
 		text-align: right;
 		}
+
+	.navbar{ 
+ 		margin-bottom: 0px;
+	}
+body { padding-top: 50px; }
+#contentPart { padding-top: 50px; }
+
 </style>
 <script src="http://cdn.ckeditor.com/4.5.3/basic/ckeditor.js"></script>
 </head>
@@ -24,7 +31,11 @@
 	<header>
 		<%@include file="/include/header" %>
 	</header>
-	<%@include file="head/link.file" %>
+<article>
+	<div class="container-fluid">
+	      <div class="row">
+			<%@include file="/include/navPart" %>
+			<div class="col-md-7 main" id="contentPart">
 	<form action="newmessage" method="post">
 		<fieldset>
 			<legend>發送訊息</legend>
@@ -38,13 +49,20 @@
 			<script>
 				CKEDITOR.replace( 'editor1' );
 			</script>
-			<label class="tag"></label>
-			<input type="submit" id="submit" value="送出">
-			<input type="reset" id="reset" value="清除">
+			 <div class="form-group">
+			 <div class="col-sm-offset-2 col-sm-7">
+			<input type="submit" id="submit" value="送出" class="btn btn-default">
+			<input type="reset" id="reset" value="清除" class="btn btn-default">
+			</div>
+			</div>
 		</fieldset>
 	</form>
 	&nbsp;<small><Font color='red' size="-3">${successMessage}</Font></small>
 	&nbsp;<small><Font color='red' size="-3">${errorMessage}</Font></small>
-	
+	</div>
+		<%@include file="/include/blockPart" %>
+	</div>
+	</div>
+	</article>
 </body>
 </html>
