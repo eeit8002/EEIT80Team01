@@ -16,6 +16,9 @@
 </style>
 </head>
 <body>
+	<header>
+		<%@include file="/include/header" %>
+	</header>
 	<c:set var="funcName" value="LOG" scope="session"/>
 	
 	<c:if test="${!empty message }">

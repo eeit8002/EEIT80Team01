@@ -15,6 +15,9 @@
 </style>
 </head>
 <body>
+	<header>
+		<%@include file="/include/header" %>
+	</header>
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12 text-center">

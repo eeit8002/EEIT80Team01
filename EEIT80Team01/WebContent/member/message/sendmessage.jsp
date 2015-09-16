@@ -6,7 +6,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>發送訊息</title>
-<%@include file="/css/cssforvalidate.file" %>
+<%@include file="/include/include" %>
+<%@include file="/include/datatables.file" %>
 <style type="text/css">
 	form{
 		width:75%;
@@ -20,6 +21,9 @@
 <script src="http://cdn.ckeditor.com/4.5.3/basic/ckeditor.js"></script>
 </head>
 <body>
+	<header>
+		<%@include file="/include/header" %>
+	</header>
 	<%@include file="head/link.file" %>
 	<form action="newmessage" method="post">
 		<fieldset>

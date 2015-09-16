@@ -7,8 +7,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>收到的的信件</title>
-<%@include file="/css/cssforvalidate.file" %>
-<%@include file="/css/datatables.file" %>
+<%@include file="/include/include" %>
+<%@include file="/include/datatables.file" %>
 <%@page import="javax.servlet.http.*,global.GlobalService,member.model.*,java.util.List" %>
 <%	
 	MemberBean mb = (MemberBean)session.getAttribute(GlobalService.LOGIN_TOKEN);
@@ -19,6 +19,9 @@
 %>
 </head>
 <body>
+	<header>
+		<%@include file="/include/header" %>
+	</header>
 	<%@include file="head/link.file" %>
 <form method="post" action="receivedelete">
 	<fieldset>

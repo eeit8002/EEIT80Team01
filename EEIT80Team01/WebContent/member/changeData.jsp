@@ -18,7 +18,9 @@ body { padding-top: 50px; }
 <body>
 	<header>
 		<%@include file="/include/header" %>
-	</header>
+	</header>	
+		
+	
 	<article>
 		<div class="container-fluid">
 	      <div class="row">

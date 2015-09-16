@@ -18,6 +18,9 @@
 </style>
 </head>
 <body>
+	<header>
+		<%@include file="/include/header" %>
+	</header>
 	<%@include file="head/link.file" %>
 	<label class="tag">收件者帳號：</label><span>${Message.sender}</span><br>
 	<label class="tag">寄件者帳號：</label><span>${Message.receiver}</span><br>

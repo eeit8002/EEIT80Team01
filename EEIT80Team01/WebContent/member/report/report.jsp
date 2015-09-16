@@ -18,6 +18,9 @@
 	<script src="http://cdn.ckeditor.com/4.5.3/basic/ckeditor.js"></script>
 </head>
 <body>
+	<header>
+		<%@include file="/include/header" %>
+	</header>
 	<div>
 		<form method="post" class="cmxform" id="form" action="report">
 		<fieldset>
