@@ -4,50 +4,71 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<%@include file="/css/cssforvalidate.file" %>
-<title>修改帳戶資料</title>
-	<style>
-		fieldset{
-			width: 500px;
-		}
-		.tag{ 
-			display: inline-block;
-		 	width: 100px;
-		 	text-align: right;
-		 	}
-	</style>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<%@include file="/include/include" %>
+<style>
+.navbar{ 
+ 	margin-bottom: 0px;
+}
+body { padding-top: 50px; }
+#contentPart { padding-top: 50px; }
+</style>
+<title>DashBoard</title>
 </head>
 <body>
-<div id="main">
-	<form method="post" class="cmxform" id="form" action="changeData">
-		<fieldset>
-			<legend>修改資料</legend>
-			<p>
-				<label class="tag" for="user">帳號：</label>
-				<input type="text" id="username" name="username" value="${LoginOK.userName}" readonly="readonly">
-			</p>
-			<p>
-				<label class="tag" for="lastName">姓：</label>
-				<input type="text" id="lastName" name="lastName" title="請輸入姓" value="${LoginOK.lastName}">
-			</p>
-			<p>
-				<label class="tag" for="firstName">名：</label>
-				<input type="text" id="firstName" name="firstName" title="請輸入名" value="${LoginOK.firstName}">
-			</p>
-			<p>
-				<label class="tag" for="email">E-mail：</label>
-				<input type="text" id="email" name="email" title="請輸入E-mail信箱" value="${LoginOK.email}">
-			</p>
-
-			<label class="tag"></label>
-			<input type="submit" id="submit" value="送出">
-			<input type="reset" id="reset" value="還原">
-		</fieldset>	
-	</form>
-	<a href="${pageContext.request.contextPath}/index.jsp">回首頁</a>
-</div>
-
-	<script src="changeData.js"></script>
+	<header>
+		<%@include file="/include/header" %>
+	</header>
+	<article>
+		<div class="container-fluid">
+	      <div class="row">
+			<%@include file="/include/navPart" %>
+	        <div class="col-md-7 main" id="contentPart">
+	        	<form method="post" class="form-horizontal cmxform" id="form" action="changeData">
+				  <div class="form-group" >
+				    <label for="username" class="col-sm-3 control-label">帳號：</label>
+				    <div class="col-sm-7">
+				      <input type="text" class="form-control" id="username" name="username" value="${LoginOK.userName}" readonly>
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label for="lastName" class="col-sm-3 control-label">姓：</label>
+				    <div class="col-sm-7">
+				      <input type="text" class="form-control" id="lastName" name="lastName" placeholder="請輸入姓" value="${LoginOK.lastName}">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label for="firstName" class="col-sm-3 control-label">名：</label>
+				    <div class="col-sm-7">
+				      <input type="text" class="form-control" id="firstName" name="firstName" placeholder="請輸入名" value="${LoginOK.firstName}">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label for="email" class="col-sm-3 control-label">E-mail：</label>
+				    <div class="col-sm-7">
+				      <input type="email" class="form-control" id="email" name="email" placeholder="請輸入E-mail信箱" value="${LoginOK.email}">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <div class="col-sm-offset-3 col-sm-7">
+				      <button type="submit" id="submit" class="btn btn-default">送出</button>
+				      <button type="button" id="reset" class="btn btn-default">還原</button>
+				    </div>
+				  </div>
+				</form>
+	        </div>
+			<%@include file="/include/blockPart" %>
+         </div>
+        </div>
+	</article>
+	<footer>
+	
+	</footer>
+	<%@include file="/include/modal" %>
+	
+<script src="$(pageContext.request.contextPath)/scripts/changeData.js"></script>
+<script>
+$("#sectionItem1").addClass("active");
+</script>
 </body>
 </html>

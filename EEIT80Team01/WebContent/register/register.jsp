@@ -1,80 +1,137 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<%@include file="/css/cssforvalidate.file" %>
-<title>註冊</title>
-	<style>
-		fieldset{
-			width: 500px;
-		}
-		.tag{ 
-			display: inline-block;
-		 	width: 100px;
-		 	text-align: right;
-		 	}
-	</style>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<%@include file="/include/include" %>
+<style>
+.navbar{ 
+ 	margin-bottom: 0px;
+}
+body { padding-top: 50px; }
+.form-group{height:45px;}
+.error{color:red;}
+</style>
+<title>Register</title>
 </head>
 <body>
-<div id="main">
-	<form method="post" class="cmxform" id="form" action="register.do">
-		<fieldset>
-			<legend>註冊</legend>
-			<p>
-				<label class="tag" for="user">帳號：</label>
-				<input type="text" id="username" name="username" title="請輸入帳號">
-			</p>
-			<p>
-				<label class="tag" for="password">密碼：</label>
-				<input type="password" id="password" name="password" title="請輸入密碼">
-			</p>
-			<p>
-				<label class="tag" for="password">確認密碼：</label>
-				<input type="password" id="passwordCheck" name="passwordCheck" title="請再次輸入密碼">
-			</p>
-			<p>
-				<label class="tag" for="id">身份證字號：</label>
-				<input type="text" id="id" name="id" title="請輸入身份證字號">
-			</p>
-			<p>
-				<label class="tag" for="lastName">姓：</label>
-				<input type="text" id="lastName" name="lastName" title="請輸入姓">
-			</p>
-			<p>
-				<label class="tag" for="firstName">名：</label>
-				<input type="text" id="firstName" name="firstName" title="請輸入名">
-			</p>
-			<p>
-				<label class="tag" for="email">E-mail：</label>
-				<input type="text" id="email" name="email" title="請輸入E-mail信箱">
-			</p>
-			<p>
-				<label class="tag" for="birthDay">生日：</label>
-				<input type="text" id="birthDay" name="birthDay" title="輸入生日日期">
-			</p>
-			<p>
-			<label class="tag" for="gender">姓別：</label>
-			<select id="gender" name="gender">
-				<option value="">請選擇姓別：</option>
-				<option value="1">男</option>
-				<option value="0">女</option>
-			</select>
-			</p>
-			<label class="tag"></label>
-			<input type="submit" id="submit" value="送出">
-			<input type="reset" id="reset" value="清除">
-		</fieldset>	
-	</form>
-	<c:if test="${ ! empty registerTrue }">
-			註冊成功!
+	<header>
+		<%@include file="/include/header" %>
+	</header>
+	<article>
+	<c:if test="${!empty registerTrue }">
+	<div class="alert alert-success alert-dismissible text-center" role="alert">
+	  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	  <strong>註冊成功!</strong>回<a href="${pageContext.request.contextPath}/index.jsp">首頁</a>繼續您的購物,或是進入您的<a href="#">拍賣小店</a>。
+	</div>
 	</c:if>
-	<Font color='red' size="-1">${registerFalse}&nbsp;</Font>	
-</div>
+	<c:if test="${!empty registerFalse }">
+	<div class="alert alert-danger alert-dismissible text-center" role="alert">
+	  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	  <strong>註冊失敗!</strong>
+	</div>
+	</c:if>
+	<div class="container-fluid">
+		<div class="row text-center">
+			<h5>&nbsp;</h5>
+		</div>
+		<div class="row text-center">
+			<h1><strong>建立您的XXX帳號</strong></h1>
+		</div>
+		<div class="row text-center">
+			<h3>&nbsp;</h3>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="col-md-offset-2 col-md-10 ">
+       				<h2>Slogan</h2>
+       				<p>details</p>
+				</div>
+			</div>
+			<div class="col-md-5 ">
+				<form method="post" class="form-horizontal jumbotron  cmxform" id="form" action="register.do">
+				  <div class="form-group" >
+				    <label for="username" class="col-sm-4 control-label">帳號：</label>
+				    <div class="col-sm-8">
+				      <input type="text" class="form-control" id="username" name="username" placeholder="請輸入帳號">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label for="password" class="col-sm-4 control-label">密碼：</label>
+				    <div class="col-sm-8">
+				      <input type="password" class="form-control" id="password" name="password" placeholder="請輸入密碼" title="請注意密碼大小寫">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label for="passwordCheck" class="col-sm-4 control-label">確認密碼：</label>
+				    <div class="col-sm-8">
+				      <input type="password" class="form-control" id="passwordCheck" name="passwordCheck" placeholder="請再次輸入密碼" title="請注意密碼大小寫">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label for="id" class="col-sm-4 control-label">身份證字號：</label>
+				    <div class="col-sm-8">
+				      <input type="text" class="form-control" id="id" name="id" placeholder="請輸入身份證字號">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label for="lastName" class="col-sm-4 control-label">姓：</label>
+				    <div class="col-sm-8">
+				      <input type="text" class="form-control" id="lastName" name="lastName" placeholder="請輸入姓">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label for="firstName" class="col-sm-4 control-label">名：</label>
+				    <div class="col-sm-8">
+				      <input type="text" class="form-control" id="firstName" name="firstName" placeholder="請輸入名">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label for="email" class="col-sm-4 control-label">E-mail：</label>
+				    <div class="col-sm-8">
+				      <input type="text" class="form-control" id="email" name="email" placeholder="請輸入E-mail信箱">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label for="birthDay" class="col-sm-4 control-label">生日：</label>
+				    <div class="col-sm-8">
+				      <input type="text" class="form-control" id="birthDay" name="birthDay" placeholder="請輸入生日日期">
+				    </div>
+				  </div>
+	
+				  <div class="form-group">
+				  	<label for="gender" class="col-sm-4 control-label">性別：</label>
+				    <div class="col-sm-8">
+					  <div class="radio-inline">
+						<label>
+						  <input type="radio" name="gender" id="gender" value="1" checked>男
+					    </label>
+				 	  </div>
+					  <div class="radio-inline">
+						<label>
+						  <input type="radio" name="gender" value="0" >女
+					    </label>
+				 	  </div>
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <div class="col-sm-offset-4 col-sm-8">
+				      <button type="submit" id="submit" class="btn btn-default">送出</button>
+				      <button type="button" id="reset" class="btn btn-default">清除</button>
+				    </div>
+				  </div>
+				</form>
+			</div>
+		</div>
+	</div>
+	</article>
+	<footer>
 
-	<script src="register.js"></script>
+	</footer>
+	<%@include file="/include/modal" %>
+<script src="${pageContext.request.contextPath}/scripts/register.js">
+</script>
 </body>
 </html>

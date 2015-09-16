@@ -7,12 +7,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <%@include file="/include/include" %>
 <style>
+body { padding-top: 50px; }
 .navbar{ 
  	margin-bottom: 0px;
 }
-body { padding-top: 50px; }
+#alertBar{margin-bottom:0px;}
 #contentPart { padding-top: 50px; }
-.error{color:red;}
 </style>
 <title>DashBoard</title>
 </head>
@@ -21,6 +21,10 @@ body { padding-top: 50px; }
 		<%@include file="/include/header" %>
 	</header>
 	<article>
+		<div id="alertBar"class="alert alert-danger alert-dismissible text-center" role="alert">
+		  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		  <strong>資料修改失敗!</strong>
+		</div>
 		<div class="container-fluid">
 	      <div class="row">
 			<%@include file="/include/navPart" %>
@@ -33,28 +37,27 @@ body { padding-top: 50px; }
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label for="oldPassword" class="col-sm-3 control-label">舊密碼：</label>
+				    <label for="lastName" class="col-sm-3 control-label">姓：</label>
 				    <div class="col-sm-7">
-				      <input type="password" class="form-control" id="oldPassword" name="oldPassword" placeholder="請輸入密碼" >
-				      <span class="error">${loginFalure}</span>
+				      <input type="text" class="form-control" id="lastName" name="lastName" placeholder="請輸入姓" value="${LoginOK.lastName}">
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label for="password" class="col-sm-3 control-label">新密碼：</label>
+				    <label for="firstName" class="col-sm-3 control-label">名：</label>
 				    <div class="col-sm-7">
-				      <input type="password" class="form-control" id="password" name="password" placeholder="請輸入密碼" >
+				      <input type="text" class="form-control" id="firstName" name="firstName" placeholder="請輸入名" value="${LoginOK.firstName}">
 				    </div>
 				  </div>
 				  <div class="form-group">
-				    <label for="passwordCheck" class="col-sm-3 control-label">確認新密碼：</label>
+				    <label for="email" class="col-sm-3 control-label">E-mail：</label>
 				    <div class="col-sm-7">
-				      <input type="password" class="form-control" id="passwordCheck" name="passwordCheck" placeholder="請再次輸入密碼" >
+				      <input type="email" class="form-control" id="email" name="email" placeholder="請輸入E-mail信箱" value="${LoginOK.email}">
 				    </div>
 				  </div>
 				  <div class="form-group">
 				    <div class="col-sm-offset-3 col-sm-7">
 				      <button type="submit" id="submit" class="btn btn-default">送出</button>
-				      <button type="button" id="reset" class="btn btn-default">清除</button>
+				      <button type="button" id="reset" class="btn btn-default">還原</button>
 				    </div>
 				  </div>
 				</form>
@@ -69,6 +72,6 @@ body { padding-top: 50px; }
 	<%@include file="/include/modal" %>
 </body>
 <script>
-$("#sectionItem2").addClass("active");
+$("#sectionItem1").addClass("active");
 </script>
 </html>

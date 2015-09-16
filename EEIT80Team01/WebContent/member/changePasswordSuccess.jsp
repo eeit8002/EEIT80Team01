@@ -7,12 +7,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <%@include file="/include/include" %>
 <style>
+body { padding-top: 50px; }
 .navbar{ 
  	margin-bottom: 0px;
 }
-body { padding-top: 50px; }
+#alertBar{margin-bottom:0px;}
 #contentPart { padding-top: 50px; }
-.error{color:red;}
 </style>
 <title>DashBoard</title>
 </head>
@@ -21,6 +21,10 @@ body { padding-top: 50px; }
 		<%@include file="/include/header" %>
 	</header>
 	<article>
+		<div id="alertBar"class="alert alert-success alert-dismissible text-center" role="alert">
+		  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		  <strong>密碼修改成功!</strong>回<a href="${pageContext.request.contextPath}/index.jsp">首頁</a>繼續您的購物,或是進入您的<a href="#">拍賣小店</a>。
+		</div>
 		<div class="container-fluid">
 	      <div class="row">
 			<%@include file="/include/navPart" %>
@@ -36,7 +40,6 @@ body { padding-top: 50px; }
 				    <label for="oldPassword" class="col-sm-3 control-label">舊密碼：</label>
 				    <div class="col-sm-7">
 				      <input type="password" class="form-control" id="oldPassword" name="oldPassword" placeholder="請輸入密碼" >
-				      <span class="error">${loginFalure}</span>
 				    </div>
 				  </div>
 				  <div class="form-group">
