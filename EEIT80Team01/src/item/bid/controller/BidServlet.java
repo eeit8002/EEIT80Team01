@@ -55,11 +55,11 @@ public class BidServlet extends HttpServlet {
 				bidLogBean = bidService.insertDirectBuyer(itemId,bidTime,buyer);
 				if(bidLogBean!=null){
 					request.setAttribute("message","購買成功");
-					request.getRequestDispatcher("/product/product.jsp").forward(request, response);
+					request.getRequestDispatcher(request.getContextPath()+"/product/product.jsp").forward(request, response);
 				}
 			}
 			request.setAttribute("error","已售出!");
-			request.getRequestDispatcher("/product/product.jsp").forward(request, response);
+			request.getRequestDispatcher(request.getContextPath()+"/product/product.jsp").forward(request, response);
 		}
 		
 		if(action.equalsIgnoreCase("bid")){
@@ -78,22 +78,22 @@ public class BidServlet extends HttpServlet {
 						bidService.toggleThread(itemId);
 						request.setAttribute("bean",result);
 						request.setAttribute("message","下標成功");
-						request.getRequestDispatcher("/product/product.jsp").forward(request,response);
+						request.getRequestDispatcher(request.getContextPath()+"/product/product.jsp").forward(request,response);
 					}else{
 						bidService.toggleThread(itemId);
 						request.setAttribute("error","錯誤!出價請高於最高下標價");
-						request.getRequestDispatcher("/product/product.jsp").forward(request,response);
+						request.getRequestDispatcher(request.getContextPath()+"/product/product.jsp").forward(request,response);
 					}
 				} else{
 					bidService.toggleThread(itemId);
 					request.setAttribute("error","下標失敗!");
-					request.getRequestDispatcher("/product/product.jsp").forward(request,response);
+					request.getRequestDispatcher(request.getContextPath()+"/product/product.jsp").forward(request,response);
 				}
 				
 			}
 			else{
 				request.setAttribute("error","錯誤!其他會員下標中或拍賣已結束");
-				request.getRequestDispatcher("/product/product.jsp").forward(request,response);
+				request.getRequestDispatcher(request.getContextPath()+"/product/product.jsp").forward(request,response);
 			}
 			
 			
