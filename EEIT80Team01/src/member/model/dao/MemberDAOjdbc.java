@@ -178,7 +178,7 @@ public class MemberDAOjdbc implements MemberDAO {
 	}
 	
 	private static final String ChangePassWord =
-			"update member password? where username=?";
+			"update member set passwd=? where username=?";
 	public boolean update(String username, String password) {
 		try(Connection conn = ds.getConnection();
 			PreparedStatement stmt = conn.prepareStatement(ChangePassWord);) {

@@ -38,13 +38,14 @@ public class ResetPasswordServlet extends HttpServlet {
 		String username = request.getParameter("username").toLowerCase();
 		MemberBean bean = service.findMemberData(username);		
 		String password = request.getParameter("password");
+		boolean result = false;
 		if(password!=null && password.length() >= 5){
-			bean.setPassword(password);
+			result = service.changePassword(username, password);
 		}
 		
-		service.changeMemberData(bean);
 		
-		if(bean!=null){
+		
+		if(result){
 			RequestDispatcher rd = request.getRequestDispatcher("/member/finished.jsp");
 			request.setAttribute("message", "密碼變更完成");
 			rd.forward(request,response);
