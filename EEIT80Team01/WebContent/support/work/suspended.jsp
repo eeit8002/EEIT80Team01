@@ -41,7 +41,7 @@ font-size:0.8em;
 <a href="${pageContext.request.contextPath}/support/login/logout.jsp">登出</a><br>
 <a href="${pageContext.request.contextPath}/support/work/forciblySnatch.jsp">強制下架商品</a><br>
 <a href="${pageContext.request.contextPath}/support/work/suspended.jsp">停權</a><br>
-<form method="post" action="send">
+<form method="post" action="SuspendedServlet">
 	<table id="Suspended_table">
 		<thead>
 			<tr>
@@ -57,7 +57,7 @@ font-size:0.8em;
 			<c:forEach items="${reportListName}" var="item">
 				<tr>
 					<td>${item.legal}</td>
-					<td>${item.prosecutor}</td>
+					<td>${item.prosecutor}</td>                                                                                                                                                                                                                                    
 					<td>${item.username}</td>
 					<td>${item.url}</td>
 					<td>${item.reason}</td>
