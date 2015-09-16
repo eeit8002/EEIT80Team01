@@ -16,7 +16,7 @@ import support.model.ReportService;
 /**
  * Servlet implementation class SuspendedServlet
  */
-@WebServlet("/support/SuspendedServlet")
+@WebServlet("/support/work/SuspendedServlet")
 public class SuspendedServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
