@@ -1,4 +1,4 @@
-package bidLog.model;
+package item.bid.model;
 
 import java.util.List;
 
@@ -12,4 +12,6 @@ public interface BidLogDAO {
 	public int insert(BidLogBean bean);
 	public int update(BidLogBean bean);
 	public int delete(int itemId,String buyer);
+	public BidLogBean getTopPrice();
+	//public BidLogBean getTopTime();
 }

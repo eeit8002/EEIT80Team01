@@ -1,8 +1,8 @@
-package bidLog.model;
+package item.bid.model;
 
 import java.util.List;
 
-import bidLog.model.dao.BidLogDAOJdbc;
+import item.bid.model.dao.BidLogDAOJdbc;
 
 public class BidLogDAOService {
 	public BidLogDAOService(){
@@ -11,6 +11,9 @@ public class BidLogDAOService {
 	private BidLogDAO dao = null;
 	private BidLogBean bean = null;
 	
+	public BidLogBean getTopPrice(){
+		return dao.getTopPrice();
+	}
 	public List<BidLogBean> getAll(){
 		return dao.getAll();
 	}
@@ -29,24 +32,14 @@ public class BidLogDAOService {
 	public List<BidLogBean> getByItem(int itemId){
 		return dao.getByItem(itemId);
 	}
-	public BidLogBean insert(int itemId,double bidPrice,java.sql.Date bidTime,String buyer){
-		bean = new BidLogBean();
-		bean.setItemId(itemId);
-		bean.setBidPrice(bidPrice);
-		bean.setBidTime(bidTime);
-		bean.setBuyer(buyer);
+	public BidLogBean insert(BidLogBean bean){
 		int i = dao.insert(bean);
 		if(i==1){
 			return bean;
 		}
 		return null;
 	}
-	public BidLogBean update(int itemId,double bidPrice,java.sql.Date bidTime,String buyer){
-		bean = new BidLogBean();
-		bean.setItemId(itemId);
-		bean.setBidPrice(bidPrice);
-		bean.setBidTime(bidTime);
-		bean.setBuyer(buyer);
+	public BidLogBean update(BidLogBean bean){
 		int i = dao.update(bean);
 		if(i==1){
 			return bean;
@@ -56,4 +49,5 @@ public class BidLogDAOService {
 	public void delete(int itemId,String buyer){
 		dao.delete(itemId, buyer);
 	}
+	
 }

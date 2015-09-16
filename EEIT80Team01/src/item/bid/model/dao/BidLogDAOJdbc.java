@@ -1,4 +1,4 @@
-package bidLog.model.dao;
+package item.bid.model.dao;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -13,8 +13,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import bidLog.model.BidLogBean;
-import bidLog.model.BidLogDAO;
+import item.bid.model.BidLogBean;
+import item.bid.model.BidLogDAO;
 
 public class BidLogDAOJdbc implements BidLogDAO {
 
@@ -33,6 +33,89 @@ public class BidLogDAOJdbc implements BidLogDAO {
 	private ResultSet rs = null;
 	private List<BidLogBean> beans = null;
 	private BidLogBean bean = null;
+	
+	private String getTopPrice = "select top 1 * from bidlog order by bid_price desc";
+	@Override
+	public BidLogBean getTopPrice(){
+		try {
+			conn = ds.getConnection();
+			ptmt = conn.prepareStatement(getTopPrice);
+			rs = ptmt.executeQuery();
+			if(rs.next()){
+				bean = new BidLogBean();
+				bean.setItemId(rs.getInt(1));
+				bean.setBuyer(rs.getString(2));
+				bean.setBidPrice(rs.getDouble(3));
+				bean.setBidTime(rs.getDate(4));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			if(rs!=null){
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(ptmt!=null){
+				try {
+					ptmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(conn!=null){
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return bean;
+	}
+	private String getTopTime = "select top 1 * from bidlog order by bid_time desc";
+//	@Override
+//	public BidLogBean getTopTime(){
+//		try {
+//			conn = ds.getConnection();
+//			ptmt = conn.prepareStatement(getTopTime);
+//			rs = ptmt.executeQuery();
+//			if(rs.next()){
+//				bean = new BidLogBean();
+//				bean.setItemId(rs.getInt(1));
+//				bean.setBuyer(rs.getString(2));
+//				bean.setBidPrice(rs.getDouble(3));
+//				bean.setBidTime(rs.getDate(4));
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally{
+//			if(rs!=null){
+//				try {
+//					rs.close();
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//			if(ptmt!=null){
+//				try {
+//					ptmt.close();
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//			if(conn!=null){
+//				try {
+//					conn.close();
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		}
+//		return bean;
+//	}
 	
 	private String getAll = "select * from bidlog";
 	@Override
