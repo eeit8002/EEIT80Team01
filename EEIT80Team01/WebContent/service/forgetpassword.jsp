@@ -15,15 +15,14 @@
 </style>
 </head>
 <body>
-	<header>
-		<%@include file="/include/header" %>
-	</header>
+
 	<c:set var="funcName" value="LOG" scope="session"/>
 	
-	<c:if test="${!empty message }">
+	<c:if test="${!empty message }">	
 	<div class="alert alert-success alert-dismissible text-center" role="alert">
 	  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	  <strong>${message}</strong>
+	  <c:remove var="message" scope="session" />
 	</div>
 	</c:if>
 	<div class="container-fluid">
@@ -48,9 +47,12 @@
 				</form>
 			</div>
 		</div>
+		</div>
 		<div class="row">
 			<div class="col-md-12 text-center">
-				<a href="${pageContext.request.contextPath}/register/register.jsp">立即創建帳號</a>
+				<a href="${pageContext.request.contextPath}/login/login.jsp">登入</a><br><br>
+				<a href="${pageContext.request.contextPath}/register/register.jsp">立即創建帳號</a><br><br>
+				<a href="${pageContext.request.contextPath}">回到首頁</a>
 			</div>
 		</div>
 	</div>

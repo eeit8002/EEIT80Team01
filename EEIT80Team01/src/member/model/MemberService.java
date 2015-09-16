@@ -45,7 +45,7 @@ public class MemberService {
 	
 	public MemberBean changeMemberData(MemberBean bean){
 		MemberDAO dao = new MemberDAOjdbc();
-		bean.setPassword(GlobalService.getMD5Encoding(bean.getPassword()));
+
 		bean = dao.update(bean);
 			
 		return bean;
@@ -53,6 +53,7 @@ public class MemberService {
 	
 	public boolean changePassword(String username, String password){
 		MemberDAO dao = new MemberDAOjdbc();
+		password = GlobalService.getMD5Encoding(password);
 		boolean result = dao.update(username, password);		
 		return result;
 	}

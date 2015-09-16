@@ -22,6 +22,7 @@
 		          <ul class="nav nav-pills nav-stacked">
 		          	<li><br/></li>
 		            <li role="presentation"><a href="#" class="btn disabled lead"><span class="lead"><b>會員帳戶</b></span></a></li>
+		            <li role="presentation" class="" id="sectionItem2"><a href="${pageContext.request.contextPath}/member/default.jsp" class="btn"><span class="">會員中心</span></a></li>
 		            <li role="presentation" class="" id="sectionItem1"><a href="${pageContext.request.contextPath}/member/changeData.jsp" class="btn"><span class="">修改基本資料</span></a></li>
 		            <li role="presentation" class="" id="sectionItem2"><a href="${pageContext.request.contextPath}/member/changePassword.jsp" class="btn"><span class="">修改密碼</span></a></li>
 		            <li><hr /><li>
