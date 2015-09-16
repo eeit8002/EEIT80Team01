@@ -4,10 +4,10 @@
 <script type="text/javascript">
 function goToPage(num) {
 	var url=new Array();
-	url[0]="send";
-	url[1]="receive";
+	url[0]="send.jsp";
+	url[1]="receive.jsp";
 	url[2]="sendmessage.jsp";
-	window.location=url[num];``
+	window.location=url[num];
 };
 
 </script>
