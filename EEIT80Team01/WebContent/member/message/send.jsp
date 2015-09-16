@@ -6,7 +6,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>已發出信件</title>
+<title>收件夾</title>
+
 <%@include file="/include/include" %>
 <%@include file="/include/datatables.file" %>
 <%@page import="javax.servlet.http.*,global.GlobalService,member.model.*,java.util.List" %>
@@ -17,15 +18,26 @@
 	List<MessageBean> list = service.findBySender(sender);
 	pageContext.setAttribute("list",list);
 %>
+<style>
+.navbar{ 
+ 	margin-bottom: 0px;
+}
+body { padding-top: 50px; }
+#contentPart { padding-top: 50px; }
+</style>
 </head>
 <body>
 	<header>
 		<%@include file="/include/header" %>
 	</header>
-	<%@include file="head/link.file" %>
+	<article>
+	<div class="container-fluid">
+	      <div class="row">
+			<%@include file="/include/navPart" %>
+			 <div class="col-md-7 main" id="contentPart">
 <form method="post" action="senddelete">
 	<fieldset>
-		<legend>已發出信件</legend>
+		<legend>收件夾</legend>
 		<table id="table" class="display" cellspacing="0" width="100%">
 			<thead>
 				<tr>
@@ -60,6 +72,10 @@
 		window.location="msg.jsp?t="+num;
 	}
 </script>
-
+	</div>
+		<%@include file="/include/blockPart" %>
+	</div>
+	</div>
+</article>
 </body>
 </html>

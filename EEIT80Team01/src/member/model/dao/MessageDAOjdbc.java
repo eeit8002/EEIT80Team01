@@ -1,17 +1,21 @@
 package member.model.dao;
 
 import global.GlobalService;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+
 import member.model.MessageBean;
 import member.model.MessageDAO;
 
@@ -47,7 +51,7 @@ public class MessageDAOjdbc implements MessageDAO {
 				bean.setReceiver(rset.getString("receiver"));
 				bean.setMessageTitle(rset.getString("msg_title"));
 				bean.setMessageBody(rset.getString("msg_body"));
-				bean.setMessageTime(new Date(rset.getDate("msg_time").getTime()));
+				bean.setMessageTime(rset.getTimestamp("msg_time"));
 				bean.setMessageNumber(rset.getLong("msgno"));
 				bean.setVisibility(rset.getInt("visibility"));
 			}
@@ -81,7 +85,7 @@ public class MessageDAOjdbc implements MessageDAO {
 				bean.setReceiver(rset.getString("receiver"));
 				bean.setMessageTitle(rset.getString("msg_title"));
 				bean.setMessageBody(rset.getString("msg_body"));
-				bean.setMessageTime(new Date(rset.getDate("msg_time").getTime()));
+				bean.setMessageTime(rset.getTimestamp("msg_time"));
 				bean.setMessageNumber(rset.getLong("msgno"));
 				bean.setVisibility(rset.getInt("visibility"));
 				result.add(bean);
@@ -116,7 +120,7 @@ public class MessageDAOjdbc implements MessageDAO {
 				bean.setReceiver(rset.getString("receiver"));
 				bean.setMessageTitle(rset.getString("msg_title"));
 				bean.setMessageBody(rset.getString("msg_body"));
-				bean.setMessageTime(new Date(rset.getDate("msg_time").getTime()));
+				bean.setMessageTime(rset.getTimestamp("msg_time"));
 				bean.setMessageNumber(rset.getLong("msgno"));
 				bean.setVisibility(rset.getInt("visibility"));
 				result.add(bean);
@@ -147,13 +151,7 @@ public class MessageDAOjdbc implements MessageDAO {
 						stmt.setString(2, bean.getReceiver());
 						stmt.setString(3, bean.getMessageTitle());
 						stmt.setString(4, bean.getMessageBody());
-						java.util.Date messageTime = bean.getMessageTime();
-						if(messageTime!=null) {
-							long time = messageTime.getTime();
-							stmt.setDate(5, new java.sql.Date(time));
-						} else {
-							stmt.setDate(5, null);				
-						}
+						stmt.setTimestamp(5, bean.getMessageTime());
 						stmt.setInt(6, 0);
 						int i = stmt.executeUpdate();
 						if(i==1) {
@@ -177,13 +175,7 @@ public class MessageDAOjdbc implements MessageDAO {
 			stmt.setString(2, bean.getReceiver());
 			stmt.setString(3, bean.getMessageTitle());
 			stmt.setString(4, bean.getMessageBody());
-			java.util.Date messageTime = bean.getMessageTime();
-			if(messageTime!=null) {
-				long time = messageTime.getTime();
-				stmt.setDate(5, new java.sql.Date(time));
-			} else {
-				stmt.setDate(5, null);				
-			}
+			stmt.setTimestamp(5, bean.getMessageTime());
 			stmt.setLong(6, bean.getMessageNumber());
 			int i = stmt.executeUpdate();
 			if(i==1) {

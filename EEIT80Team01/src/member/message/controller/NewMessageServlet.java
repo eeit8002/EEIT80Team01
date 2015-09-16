@@ -4,6 +4,7 @@ import global.GlobalService;
 import global.XSSValidate;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -80,7 +81,7 @@ public class NewMessageServlet extends HttpServlet {
 				rd.forward(request, response);
 				return;
 			}
-			Date date = new Date();
+			Timestamp date = new Timestamp(new Date().getTime());
 			mb.setMessageTime(date);
 			mb.setVisibility(0);
 			MessageService service = new MessageService();
