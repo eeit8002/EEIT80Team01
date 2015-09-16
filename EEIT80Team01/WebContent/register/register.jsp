@@ -131,7 +131,7 @@ body { padding-top: 50px; }
 
 	</footer>
 	<%@include file="/include/modal" %>
-<script src="${pageContext.request.contextPath}/scripts/register.js">
+<script src="register.js">
 </script>
 </body>
 </html>
