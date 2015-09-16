@@ -16,11 +16,10 @@
 </style>
 </head>
 <body>
-	<c:if test="${!empty LoginOK }">
-		<c:set var="memberName" value="${ LoginOK.userName }" />
+	<c:if test="${!empty Logout }">
+		<c:set var="memberName" value="${ Logout.userName }" />
 
-		<c:remove var="LoginOK" scope="session" />
-		<c:remove var="ShoppingCart" scope="session" />
+		<c:remove var="Logout" scope="session" />
 		
 		<c:set var="funcName" value="OUT" scope="session"/>
 		<c:set var="logoutMessage" scope="request" />
