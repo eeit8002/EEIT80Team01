@@ -1,6 +1,7 @@
 package item.bid.model;
 
-import item.bid.model.dao.BidLogDAOJdbc;
+import java.sql.Timestamp;
+
 import items.model.ItemsBean;
 import items.model.ItemsDAO;
 import items.model.dao.ItemsDAOjdbc;
@@ -53,7 +54,7 @@ public class BidService {
 		}
 		return false;
 	}
-	public boolean validateBidTime(java.sql.Date bidTime,int itemId){
+	public boolean validateBidTime(Timestamp bidTime,int itemId){
 		itemsBean = itemsDao.selectId(itemId);
 		if(itemsBean!=null){
 			long endTime = itemsBean.getEndTime().getTime();
@@ -89,7 +90,7 @@ public class BidService {
 		}
 		return result;
 	}
-	public boolean changeItemStatus(int itemId){
+	public boolean changeItemStatusToTwo(int itemId){
 		ItemsBean result = null;
 		itemsBean = itemsDao.selectId(itemId);
 		if(itemsBean!=null && itemsBean.getItemStatus()==0){
@@ -101,7 +102,19 @@ public class BidService {
 		}
 		return false;
 	}
-	public BidLogBean insertDirectBuyer(int itemId,java.sql.Date bidTime,String buyer){
+	public boolean changeItemStatusToZero(int itemId){
+		ItemsBean result = null;
+		itemsBean = itemsDao.selectId(itemId);
+		if(itemsBean!=null && itemsBean.getItemStatus()==2){
+			itemsBean.setItemStatus(0);
+			result = itemsDao.update(itemsBean);
+			if(result!=null){
+				return true;
+			}
+		}
+		return false;
+	}
+	public BidLogBean insertDirectBuyer(int itemId,Timestamp bidTime,String buyer){
 		itemsBean = itemsDao.selectId(itemId);
 		if(itemsBean!=null){
 			double directPrice = itemsBean.getDirectPrice();

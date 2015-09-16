@@ -1,10 +1,10 @@
 package item.bid.model.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +47,7 @@ public class BidLogDAOJdbc implements BidLogDAO {
 				bean.setItemId(rs.getInt(1));
 				bean.setBuyer(rs.getString(2));
 				bean.setBidPrice(rs.getDouble(3));
-				bean.setBidTime(rs.getDate(4));
+				bean.setBidTime(rs.getTimestamp(4));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -131,7 +131,7 @@ public class BidLogDAOJdbc implements BidLogDAO {
 				bean.setItemId(rs.getInt(1));
 				bean.setBuyer(rs.getString(2));
 				bean.setBidPrice(rs.getDouble(3));
-				bean.setBidTime(rs.getDate(4));
+				bean.setBidTime(rs.getTimestamp(4));
 				beans.add(bean);
 			}
 		} catch (SQLException e) {
@@ -176,7 +176,7 @@ public class BidLogDAOJdbc implements BidLogDAO {
 				bean.setItemId(rs.getInt(1));
 				bean.setBuyer(rs.getString(2));
 				bean.setBidPrice(rs.getDouble(3));
-				bean.setBidTime(rs.getDate(4));
+				bean.setBidTime(rs.getTimestamp(4));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -220,7 +220,7 @@ public class BidLogDAOJdbc implements BidLogDAO {
 				bean.setItemId(rs.getInt(1));
 				bean.setBuyer(rs.getString(2));
 				bean.setBidPrice(rs.getDouble(3));
-				bean.setBidTime(rs.getDate(4));
+				bean.setBidTime(rs.getTimestamp(4));
 				beans.add(bean);
 			}
 		} catch (SQLException e) {
@@ -265,7 +265,7 @@ public class BidLogDAOJdbc implements BidLogDAO {
 				bean.setItemId(rs.getInt(1));
 				bean.setBuyer(rs.getString(2));
 				bean.setBidPrice(rs.getDouble(3));
-				bean.setBidTime(rs.getDate(4));
+				bean.setBidTime(rs.getTimestamp(4));
 				beans.add(bean);
 			}
 		} catch (SQLException e) {
@@ -298,11 +298,11 @@ public class BidLogDAOJdbc implements BidLogDAO {
 	
 	private String getByBidTime = "select * from bidlog where bid_time=?";
 	@Override
-	public List<BidLogBean> getByBidTime(Date bidTime) {
+	public List<BidLogBean> getByBidTime(Timestamp bidTime) {
 		try {
 			conn = ds.getConnection();
 			ptmt = conn.prepareStatement(getByBidTime);
-			ptmt.setDate(1,bidTime);
+			ptmt.setTimestamp(1,bidTime);
 			rs = ptmt.executeQuery();
 			beans = new ArrayList<BidLogBean>();
 			while(rs.next()){
@@ -310,7 +310,7 @@ public class BidLogDAOJdbc implements BidLogDAO {
 				bean.setItemId(rs.getInt(1));
 				bean.setBuyer(rs.getString(2));
 				bean.setBidPrice(rs.getDouble(3));
-				bean.setBidTime(rs.getDate(4));
+				bean.setBidTime(rs.getTimestamp(4));
 				beans.add(bean);
 			}
 		} catch (SQLException e) {
@@ -355,7 +355,7 @@ public class BidLogDAOJdbc implements BidLogDAO {
 				bean.setItemId(rs.getInt(1));
 				bean.setBuyer(rs.getString(2));
 				bean.setBidPrice(rs.getDouble(3));
-				bean.setBidTime(rs.getDate(4));
+				bean.setBidTime(rs.getTimestamp(4));
 				beans.add(bean);
 			}
 		} catch (SQLException e) {
@@ -398,7 +398,7 @@ public class BidLogDAOJdbc implements BidLogDAO {
 			ptmt.setInt(1,bean.getItemId());
 			ptmt.setString(2,bean.getBuyer());
 			ptmt.setDouble(3,bean.getBidPrice());
-			ptmt.setDate(4,bean.getBidTime());
+			ptmt.setTimestamp(4,bean.getBidTime());
 			result = ptmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -430,7 +430,7 @@ public class BidLogDAOJdbc implements BidLogDAO {
 			conn = ds.getConnection();
 			ptmt = conn.prepareStatement(update);
 			ptmt.setDouble(1,bean.getBidPrice());
-			ptmt.setDate(2,bean.getBidTime());
+			ptmt.setTimestamp(2,bean.getBidTime());
 			ptmt.setInt(3,bean.getItemId());
 			ptmt.setString(4,bean.getBuyer());
 			result = ptmt.executeUpdate();
