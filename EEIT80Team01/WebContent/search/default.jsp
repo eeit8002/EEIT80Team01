@@ -1,4 +1,14 @@
 ﻿<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page import="item.category.model.*"  %>
+<%@ page import="java.util.List" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<%
+ItemCategoryService service = new ItemCategoryService();
+List<ItemCategoryBean> list = service.selectCategory(null);//<ItemCategoryBean>
+pageContext.setAttribute("list",list);
+%>
+
 <html>
 <head>
 <link rel='stylesheet' href='../css/styles.css'  type="text/css" />
@@ -20,7 +30,7 @@
 <body BGCOLOR="white">
 <jsp:include page="commons/header.jsp" />
 
-<h2 align="center">Ch04 MVC架構與存取資料庫</h2>
+<!-- <h2 align="center">Ch04 MVC架構與存取資料庫</h2> --><br>
 <div align="center">
 
 <Form Action="queryAllMembers.do" method="GET" name="myData">
@@ -31,12 +41,16 @@
 <!-- autocom搬過來的 -->
 分類<select name ="option">
 <!-- <optgroup label="商品分類" > -->
-<option ></option>
-<option value="1">3c商品</option>
-<option value="2">鞋子</option>
-<option value="3">衣服</option>
-<option value="4">汽車</option>
-</select>
+<!-- <option ></option> -->
+<!-- <option value="1">3c商品</option> -->
+<!-- <option value="2">鞋子</option> -->
+<!-- <option value="3">衣服</option> -->
+<!-- <option value="4">汽車</option> -->
+<!-- </select> -->
+
+<c:forEach var="item" items="${list}">
+<option value="${item.itemCategory}">${item.categoryName}</option>
+</c:forEach>
 <input type="text" id="txtSearch" name="keyword" autocomplete="off" > <div id="div1"></div>
    <input type="submit" value="查詢" id="submit" >
  
