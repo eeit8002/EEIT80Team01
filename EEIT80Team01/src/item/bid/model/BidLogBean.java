@@ -1,5 +1,7 @@
 package item.bid.model;
 
+import java.sql.Timestamp;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -7,7 +9,7 @@ public class BidLogBean {
 	private int itemId;
     private String buyer;
     private double bidPrice;
-    private java.sql.Date bidTime;
+    private Timestamp bidTime;
     
     public boolean equals(Object obj) {
     	   if (obj == null) { return false; }
@@ -46,10 +48,10 @@ public class BidLogBean {
 	public void setBidPrice(double bidPrice) {
 		this.bidPrice = bidPrice;
 	}
-	public java.sql.Date getBidTime() {
+	public Timestamp getBidTime() {
 		return bidTime;
 	}
-	public void setBidTime(java.sql.Date bidTime) {
+	public void setBidTime(Timestamp bidTime) {
 		this.bidTime = bidTime;
 	}
     

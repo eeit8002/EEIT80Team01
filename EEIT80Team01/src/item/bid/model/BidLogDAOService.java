@@ -1,5 +1,6 @@
 package item.bid.model;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import item.bid.model.dao.BidLogDAOJdbc;
@@ -9,7 +10,6 @@ public class BidLogDAOService {
 		dao = new BidLogDAOJdbc();
 	}
 	private BidLogDAO dao = null;
-	private BidLogBean bean = null;
 	
 	public BidLogBean getTopPrice(int itemId){
 		return dao.getTopPrice(itemId);
@@ -23,7 +23,7 @@ public class BidLogDAOService {
 	public List<BidLogBean> getByBidPrice(double bidPrice){
 		return dao.getByBidPrice(bidPrice);
 	}
-	public List<BidLogBean> getByBidTime(java.sql.Date bidTime){
+	public List<BidLogBean> getByBidTime(Timestamp bidTime){
 		return dao.getByBidTime(bidTime);
 	}
 	public List<BidLogBean> getByBuyer(String buyer){
