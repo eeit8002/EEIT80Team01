@@ -11,8 +11,8 @@ public class BidLogDAOService {
 	private BidLogDAO dao = null;
 	private BidLogBean bean = null;
 	
-	public BidLogBean getTopPrice(){
-		return dao.getTopPrice();
+	public BidLogBean getTopPrice(int itemId){
+		return dao.getTopPrice(itemId);
 	}
 	public List<BidLogBean> getAll(){
 		return dao.getAll();

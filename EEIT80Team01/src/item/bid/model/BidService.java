@@ -15,18 +15,27 @@ public class BidService {
 		bidLogDao = new BidLogDAOService();
 		itemsDao = new ItemsDAOjdbc();
 	}
-	public BidLogBean compareTopPrice(BidLogBean newBean){
-		bidLogBean = bidLogDao.getTopPrice();
+	public BidLogBean compareTopPrice(BidLogBean newBean,int itemId){
+		BidLogBean result = null;
+		bidLogBean = bidLogDao.getTopPrice(itemId);
 		if(bidLogBean!=null && newBean!=null){
 			double bidPrice = newBean.getBidPrice();
 			double topPrice = bidLogBean.getBidPrice();
 			if(bidPrice>topPrice){
-				BidLogBean result = bidLogDao.insert(newBean);
+				result = bidLogDao.insert(newBean);
 				if(result!=null){
 					System.out.println("新增成功!");
-					return newBean;
+					return result;
 				} 
 				return null;
+			}
+			return null;
+		}
+		if(bidLogBean==null){
+			System.out.println("the column of this itemId in table bidLog is empty");
+			result = bidLogDao.insert(newBean);
+			if(result!=null){
+				return result;
 			}
 			return null;
 		}

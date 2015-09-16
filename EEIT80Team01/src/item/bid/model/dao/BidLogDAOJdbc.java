@@ -34,12 +34,13 @@ public class BidLogDAOJdbc implements BidLogDAO {
 	private List<BidLogBean> beans = null;
 	private BidLogBean bean = null;
 	
-	private String getTopPrice = "select top 1 * from bidlog order by bid_price desc";
+	private String getTopPrice = "select top 1 * from bidlog where item_id=? order by bid_price desc";
 	@Override
-	public BidLogBean getTopPrice(){
+	public BidLogBean getTopPrice(int itemId){
 		try {
 			conn = ds.getConnection();
 			ptmt = conn.prepareStatement(getTopPrice);
+			ptmt.setInt(1,itemId);
 			rs = ptmt.executeQuery();
 			if(rs.next()){
 				bean = new BidLogBean();
@@ -75,7 +76,7 @@ public class BidLogDAOJdbc implements BidLogDAO {
 		}
 		return bean;
 	}
-	private String getTopTime = "select top 1 * from bidlog order by bid_time desc";
+//	private String getTopTime = "select top 1 * from bidlog order by bid_time desc";
 //	@Override
 //	public BidLogBean getTopTime(){
 //		try {
