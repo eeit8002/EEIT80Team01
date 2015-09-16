@@ -12,6 +12,6 @@ public interface BidLogDAO {
 	public int insert(BidLogBean bean);
 	public int update(BidLogBean bean);
 	public int delete(int itemId,String buyer);
-	public BidLogBean getTopPrice();
+	public BidLogBean getTopPrice(int itemId);
 	//public BidLogBean getTopTime();
 }
