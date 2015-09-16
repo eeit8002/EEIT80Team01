@@ -221,7 +221,7 @@ public class SupportDAOJdbc implements SupportDAO {
 		return beans;
 	}
 
-	private static final String INSERT_SUPPORTER = "INSERT INTO SUPPORTERS SUPPORTERNAME,PASSWD,EMPLOYEE_ID,FIRST_NAME,LAST_NAME VALUES (?,?,?,?,?)";
+	private static final String INSERT_SUPPORTER = "INSERT INTO SUPPORTERS (SUPPORTERNAME,PASSWD,EMPLOYEE_ID,FIRST_NAME,LAST_NAME) VALUES (?,?,?,?,?)";
 
 	@Override
 	public SupportBean insert(SupportBean bean) {

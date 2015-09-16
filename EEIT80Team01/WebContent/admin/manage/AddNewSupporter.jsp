@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<%@include file="/css/cssforvalidate.file"%>
+<%@include file="/include/include"%>
 <title>Add New Support Account</title>
 <style>
 fieldset {

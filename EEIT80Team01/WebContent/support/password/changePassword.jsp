@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<%@include file="/css/cssforvalidate.file" %>
+<%@include file="/include/include" %>
 <title>修改客服密碼</title>
 	<style>
 		fieldset{
