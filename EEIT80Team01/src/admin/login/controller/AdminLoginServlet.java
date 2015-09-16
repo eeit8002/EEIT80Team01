@@ -40,6 +40,13 @@ public class AdminLoginServlet extends HttpServlet {
 		String adminname = request.getParameter("username");
 		String password = request.getParameter("password");
 		String requestURI = (String) session.getAttribute("requestURI");
+
+		// String[] forbidden = { "\"", "\'", "(", ")", "?","=" };
+		// for (int i = 0; i < forbidden.length; i++) {
+		// adminname.replace(forbidden[i], "");
+		// password.replace(forbidden[i], "");
+		// }
+
 		if (adminname == null || adminname.trim().length() == 0) {
 			errorMsgMap.put("AccountEmptyError", "帳號為必填欄位");
 		}
