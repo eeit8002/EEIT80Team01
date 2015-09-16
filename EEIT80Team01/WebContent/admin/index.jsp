@@ -27,24 +27,43 @@ body {
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-3">
-				<div class="panel panel-default">
+				<div class="panel panel-default" style="margin-top: 20px">
 					<div class="panel-heading">
 						<h3 class="panel-title">系統管理員</h3>
 					</div>
 					<div class="panel-body">
-					<a href="">客服人員列表</a><br><br>
-					<a href="">新增客服帳號</a><br><br>
-					<c:if test="${empty LoginAdmin }">
-					<a href="">登入</a><br><br>
-					</c:if>
-					<c:if test="${!empty LoginAdmin }">
-					<A href="">登出</A>
-					</c:if>
+						<c:if test="${empty LoginAdmin }">
+							<a
+								href="${pageContext.request.contextPath}/admin/login/login.jsp">登入</a>
+							<br>
+							<br>
+						</c:if>
+						<c:if test="${!empty LoginAdmin }">
+							<a
+								href="${pageContext.request.contextPath}/admin/manage/AddNewSupporter.jsp">新增客服帳號</a>
+							<br>
+							<br>
+							<a
+								href="${pageContext.request.contextPath}/admin/manage/listSupporters.jsp">客服人員列表</a>
+							<br>
+							<br>
+							<a
+								href="${pageContext.request.contextPath}/admin/password/changePassword.jsp">修改系統管理員密碼</a>
+							<br>
+							<br>
+							<a
+								href="${pageContext.request.contextPath}/admin/login/logout.jsp">登出</a>
+						</c:if>
 					</div>
 				</div>
 			</div>
-			<div class="col-md-9"></div>
-
+			<div class="col-md-9">
+				<c:if test="${empty LoginAdmin }">
+				<div style="align:center"><h1>登入</h1></div>
+				</c:if>
+				<c:if test="${!empty LoginAdmin }">
+				</c:if>
+			</div>
 		</div>
 	</div>
 	</article>
