@@ -51,6 +51,12 @@ public class MemberService {
 		return bean;
 	}
 	
+	public boolean changePassword(String username, String password){
+		MemberDAO dao = new MemberDAOjdbc();
+		boolean result = dao.update(username, password);		
+		return result;
+	}
+	
 	public MemberBean findMemberData(String username){
 		MemberDAO dao = new MemberDAOjdbc();
 		MemberBean bean = dao.select(username);

@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.catalina.SessionEvent;
+
 import member.model.MemberBean;
 import member.model.MemberService;
 
@@ -44,26 +46,27 @@ public class ChangePasswordServlet extends HttpServlet {
 		String oldPassword = request.getParameter("oldPassword");
 		MemberBean mb = service.checkPasswordWithUsername(username, oldPassword);
 		if(mb==null){
-			RequestDispatcher rd = request.getRequestDispatcher("/member/changePassword.jsp");
-			request.setAttribute("loginFalure", "密碼錯誤，無法更改密碼");
-			rd.forward(request,response);
+			session.setAttribute("ChangeFailure", "修改失敗");
+			response.sendRedirect(request.getContextPath()+"/member/changePassword.jsp");
+			return;
 		}
+		boolean result=false;
 		
 		String password = request.getParameter("password");
 		if(password!=null && password.length() >= 5){
-			bean.setPassword(password);
+			result = service.changePassword(username, password);
 		}
 		
-		service.changeMemberData(bean);
 		
-		if(bean!=null){
-			RequestDispatcher rd = request.getRequestDispatcher("/member/finished.jsp");
-			session.removeAttribute(GlobalService.LOGIN_TOKEN);
-			session.setAttribute(GlobalService.LOGIN_TOKEN, bean);
-			rd.forward(request,response);
+		
+		if(result){	
+			session.setAttribute("ChangeSuccess", "修改成功");
+			response.sendRedirect(request.getContextPath()+"/member/changePassword.jsp");
+			return;
 		} else {
-			RequestDispatcher rd = request.getRequestDispatcher("/member/changeMemberData.jsp");
-			rd.forward(request,response);
+			session.setAttribute("ChangeFailure", "修改失敗");
+			response.sendRedirect(request.getContextPath()+"/member/changePassword.jsp");
+			return;
 		}
 		
 	}

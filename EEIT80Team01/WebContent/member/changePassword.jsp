@@ -21,11 +21,26 @@ body { padding-top: 50px; }
 		<%@include file="/include/header" %>
 	</header>
 	<article>
+	<c:if test="${!empty ChangeSuccess}">
+		<c:remove var="ChangeSuccess" scope="session" />
+		<div id="alertBar"class="alert alert-success alert-dismissible text-center" role="alert">
+		  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		  <strong>密碼修改成功!</strong>回<a href="${pageContext.request.contextPath}/index.jsp">首頁</a>繼續您的購物,或是進入您的<a href="#">拍賣小店</a>。
+		</div>
+	</c:if>
+	<c:if test="${!empty ChangeFailure}">
+		<c:remove var="ChangeFailure" scope="session" />
+				<div id="alertBar"class="alert alert-danger alert-dismissible text-center" role="alert">
+		  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		  <strong>密碼修改失敗!</strong>
+		</div>
+	</c:if>
+	
 		<div class="container-fluid">
 	      <div class="row">
 			<%@include file="/include/navPart" %>
 	        <div class="col-md-7 main" id="contentPart">
-	        	<form method="post" class="form-horizontal cmxform" id="form" action="changeData">
+	        	<form method="post" class="form-horizontal cmxform" id="form" action="changePassword">
 				  <div class="form-group" >
 				    <label for="username" class="col-sm-3 control-label">帳號：</label>
 				    <div class="col-sm-7">

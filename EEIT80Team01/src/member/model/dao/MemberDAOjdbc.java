@@ -146,28 +146,27 @@ public class MemberDAOjdbc implements MemberDAO {
 
 	
 	private static final String UPDATE =
-			"update member set passwd=?, id=?, fname=?, lname=?, email=?, gender=?, birthday=?, access=?, certified=? where username=?";
+			"update member set id=?, fname=?, lname=?, email=?, gender=?, birthday=?, access=?, certified=? where username=?";
 	@Override
 	public MemberBean update(MemberBean bean) {
 		MemberBean result = null;
 		try(Connection conn = ds.getConnection();
 			PreparedStatement stmt = conn.prepareStatement(UPDATE);) {
-			stmt.setString(1, bean.getPassword());
-			stmt.setString(2, bean.getId());
-			stmt.setString(3, bean.getFirstName());
-			stmt.setString(4, bean.getLastName());
-			stmt.setString(5, bean.getEmail());
-			stmt.setInt(6, bean.getGender());
+			stmt.setString(1, bean.getId());
+			stmt.setString(2, bean.getFirstName());
+			stmt.setString(3, bean.getLastName());
+			stmt.setString(4, bean.getEmail());
+			stmt.setInt(5, bean.getGender());
 			java.util.Date birthday = bean.getBirthDay();
 			if(birthday!=null) {
 				long time = birthday.getTime();
-				stmt.setDate(7, new java.sql.Date(time));
+				stmt.setDate(6, new java.sql.Date(time));
 			} else {
-				stmt.setDate(7, null);				
+				stmt.setDate(6, null);				
 			}
-			stmt.setInt(8, bean.getAccess());
-			stmt.setInt(9, bean.getCertified());	
-			stmt.setString(10, bean.getUserName());
+			stmt.setInt(7, bean.getAccess());
+			stmt.setInt(8, bean.getCertified());	
+			stmt.setString(9, bean.getUserName());
 			int i = stmt.executeUpdate();
 			if(i==1) {
 				result = bean;
@@ -177,6 +176,25 @@ public class MemberDAOjdbc implements MemberDAO {
 		}		
 		return result;
 	}
+	
+	private static final String ChangePassWord =
+			"update member password? where username=?";
+	public boolean update(String username, String password) {
+		try(Connection conn = ds.getConnection();
+			PreparedStatement stmt = conn.prepareStatement(ChangePassWord);) {
+			stmt.setString(1, password);
+			stmt.setString(2, username);			
+			int i = stmt.executeUpdate();
+			if(i==1) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}		
+		return false;
+	}
+	
+	
 	
 	private static final String DELETE =
 			"delete from member where username=?";
