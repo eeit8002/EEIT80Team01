@@ -4,17 +4,20 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <%@include file="/include/include"%>
 <title>修改系統管理員密碼</title>
 <style>
-fieldset {
-	width: 500px;
+.navbar {
+	margin-bottom: 0px;
 }
 
-.tag {
-	display: inline-block;
-	width: 100px;
-	text-align: right;
+#carousel1 {
+	margin-bottom: 20px;
+}
+
+body {
+	padding-top: 50px;
 }
 </style>
 
@@ -23,7 +26,6 @@ fieldset {
 	<div id="main">
 		<form method="post" class="cmxform" id="form"
 			action="adminChangePassword.do">
-			<fieldset>
 				<legend>修改管理員密碼</legend>
 				<p>
 					<label class="tag" for="oldpassword">舊密碼：</label> <input
@@ -40,7 +42,6 @@ fieldset {
 				</p>
 				<label class="tag"></label> <input type="submit" id="submit"
 					value="送出"> <input type="reset" id="reset" value="還原">
-			</fieldset>
 		</form>
 		<a href="${pageContext.request.contextPath}/admin/index.jsp">回管理首頁</a>
 	</div>

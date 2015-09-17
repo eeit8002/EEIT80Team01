@@ -1,55 +1,105 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>管理員登入</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<link rel="stylesheet"
-	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/scripts/jquery.form.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/scripts/jquery.validate.min.js"></script>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<%@include file="/include/include"%>
 <style>
-fieldset {
-	width: 500px;
+.navbar {
+	margin-bottom: 0px;
 }
 
-.tag {
-	display: inline-block;
-	width: 100px;
-	text-align: right;
+#carousel1 {
+	margin-bottom: 20px;
+}
+
+body {
+	padding-top: 50px;
 }
 </style>
 
 </head>
 <body>
-	<c:set var="funcName" value="LOG" scope="session" />
-	<div id="main">
-		<form method="post" class="cmxform" id="form" action="login.do">
-			<fieldset>
-				<legend>管理員登入</legend>
-				<p>
-					<label class="tag" for="user">帳號：</label>
-					<input type="text" id="username" name="username" title="請輸入帳號">
-				</p>
-				<p>
-					<label class="tag" for="password">密碼：</label>
-					<input type="password" id="password" name="password" title="請輸入密碼">
-				</p>
-				<label class="tag"></label> <input type="submit" id="submit"
-					value="送出"> <input type="reset" id="reset" value="清除">
-			</fieldset>
-		</form>
-		<Font color='red' size="-1">${ErrorMsgKey.LoginError}&nbsp;</Font>
-	</div>
-	<script type="text/javascript" src="login.js"></script>
+	<header><%@include file="/include/header-admin"%></header>
+	<article>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-3">
+					<div class="panel panel-default" style="margin-top: 20px">
+						<div class="panel-heading">
+							<h3 class="panel-title">系統管理員</h3>
+						</div>
+						<div class="panel-body">
+							<c:if test="${empty LoginAdmin }">
+								<a
+									href="${pageContext.request.contextPath}/admin/login/login.jsp">登入</a>
+								<br>
+								<br>
+							</c:if>
+							<c:if test="${!empty LoginAdmin }">
+								<a
+									href="${pageContext.request.contextPath}/admin/manage/AddNewSupporter.jsp">新增客服帳號</a>
+								<br>
+								<br>
+								<a
+									href="${pageContext.request.contextPath}/admin/manage/listSupporters.jsp">客服人員列表</a>
+								<br>
+								<br>
+								<a
+									href="${pageContext.request.contextPath}/admin/password/changePassword.jsp">修改系統管理員密碼</a>
+								<br>
+								<br>
+								<a
+									href="${pageContext.request.contextPath}/admin/login/logout.jsp">登出</a>
+							</c:if>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-9">
+					<c:if test="${empty LoginAdmin }">
+						<c:set var="funcName" value="LOG" scope="session" />
+						<div class="panel panel-default"
+							style="margin: auto; margin-top: 20px; width: 40%">
+							<div class="panel-heading">
+								<h3 class="panel-title">系統管理員登入</h3>
+							</div>
+							<div class="panel-body">
+								<form method="post" action="login.do">
+									<div class="form-group">
+										<label for="username">帳號：</label> <input type="text"
+											id="username" name="username" title="請輸入帳號"
+											class="form-control">
+									</div>
+									<div class="form-group">
+										<label for="password">密碼：</label> <input type="password"
+											id="password" name="password" title="請輸入密碼"
+											class="form-control">
+									</div>
+									<input class="btn btn-default" type="submit" id="submit"
+										value="登入"> <input class="btn btn-danger" type="reset"
+										id="reset" value="清除">
+								</form>
+								<font color="red" size="-1">${ErrorMsgKey.LoginError}&nbsp;</font>
+							</div>
+						</div>
+						<script type="text/javascript" src="login.js"></script>
+					</c:if>
+
+
+					<c:if test="${!empty LoginAdmin }">
+						<script>
+							location.href = ('${pageContext.request.contextPath}/admin/manage/listSupporters.jsp');
+						</script>
+					</c:if>
+
+
+				</div>
+			</div>
+		</div>
+	</article>
+	<footer> </footer>
+	<%@include file="/include/modal"%>
 </body>
 </html>
