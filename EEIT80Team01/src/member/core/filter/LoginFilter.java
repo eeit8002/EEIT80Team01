@@ -47,6 +47,10 @@ public class LoginFilter implements Filter {
 			servletPath = req.getServletPath();  
 			contextPath = req.getContextPath();
 			requestURI  = req.getRequestURI();
+			String queryString = req.getQueryString();
+			if(queryString!=null){
+				requestURI = requestURI+"?"+queryString;
+			}
 			isRequestedSessionIdValid = req.isRequestedSessionIdValid();
 			
 			
