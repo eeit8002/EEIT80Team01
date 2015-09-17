@@ -88,7 +88,7 @@ body { padding-top: 50px; }
 	        		</form>	        
 	        		</c:if>
 	        		<c:if test="${empty LoginOK}">
-	        			<a href="${pageContext.request.contextPath}/login/login.jsp">若要購買此商品請先登入</a><br>
+	        			<a href="${pageContext.request.contextPath}/member/login.do?itemid=${item.itemId}">若要購買此商品請先登入</a><br>
 	        		</c:if>	        				
 	        		<h4>商品內容描述：</h4>
 	        		${item.itemDescribe}
