@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.naming.Context;
@@ -30,20 +31,21 @@ public class QuestionDAOJdbc {
 
 	/* SUPPOTER AREA */
 	// supporter list unanswered questions
-	private static final String UNREPLY_QUESTIONS = "SELECT QNO,MEMBER,TITLE,MSG from QUESTION WHERE SUPPORTER IS NULL";
+	private static final String UNANSWERED_QUESTIONS = "SELECT QNO,MEMBER,TITLE,QMSG,QT from QUESTION WHERE SUPPORTER IS NULL";
 
 	public List<QuestionBean> getUnAnsweredQuestions() {
 		List<QuestionBean> qbl = null;
 		try (Connection connection = ds.getConnection();
-				PreparedStatement pstmt = connection.prepareStatement(UNREPLY_QUESTIONS);) {
+				PreparedStatement pstmt = connection.prepareStatement(UNANSWERED_QUESTIONS);) {
 			ResultSet rs = pstmt.executeQuery();
 			qbl = new ArrayList<QuestionBean>();
 			while (rs.next()) {
 				QuestionBean qb = new QuestionBean();
-				qb.setQno(rs.getString("QNO"));
+				qb.setQno(rs.getInt("QNO"));
 				qb.setMember(rs.getString("MEMBER"));
 				qb.setTitle(rs.getString("TITLE"));
-				qb.setMsg(rs.getString("MSG"));
+				qb.setQmsg(rs.getString("QMSG"));
+				qb.setQt(rs.getLong("QT"));
 				qbl.add(qb);
 			}
 		} catch (SQLException e) {
@@ -53,15 +55,17 @@ public class QuestionDAOJdbc {
 	}
 
 	// supporter answer question
-	private static final String SUPPORT_REPLY_QUESTION = "UPDATE SUPPORT_QUESTION SET SUPPORTER=?,MSG=? WHERE QNO=?";
+	private static final String SUPPORT_ANSWER_QUESTION = "UPDATE QUESTIONS SET SUPPORTER=?,AMSG=?,AT=? WHERE QNO=?";
 
-	public boolean supporterAnswerQuestion(int qno, String supporter, String msg) {
+	public boolean supporterAnswerQuestion(int qno, String supporter, String amsg) {
 		boolean result = false;
+		long at = new Date().getTime();
 		try (Connection connection = ds.getConnection();
-				PreparedStatement pstmt = connection.prepareStatement(SUPPORT_REPLY_QUESTION);) {
+				PreparedStatement pstmt = connection.prepareStatement(SUPPORT_ANSWER_QUESTION);) {
 			pstmt.setString(1, supporter);
-			pstmt.setString(2, msg);
-			pstmt.setInt(3, qno);
+			pstmt.setString(2, amsg);
+			pstmt.setLong(3, at);
+			pstmt.setInt(4, qno);
 			result = pstmt.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -69,7 +73,8 @@ public class QuestionDAOJdbc {
 		return result;
 	}
 
-	private static final String QUESTION_DETAIL = "SELECT MEMBER,TITLE,MSG WHERE QNO=?";
+	// supporter watch question detail
+	private static final String QUESTION_DETAIL = "SELECT QNO,MEMBER,TITLE,QMSG,QT WHERE QNO=?";
 
 	public QuestionBean supporterQuestionDetail(int qno) {
 		QuestionBean result = null;
@@ -79,9 +84,11 @@ public class QuestionDAOJdbc {
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
 				result = new QuestionBean();
+				result.setQno(rs.getInt("QNO"));
 				result.setMember(rs.getString("MEMBER"));
 				result.setTitle(rs.getString("TITLE"));
-				result.setMsg(rs.getString("MSG"));
+				result.setQmsg(rs.getString("QMSG"));
+				result.setQt(rs.getLong("QT"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -93,16 +100,18 @@ public class QuestionDAOJdbc {
 
 	/* MEMBER AREA */
 	// member ask question
-	private static final String MEMBER_NEW_QUESTION = "INSERT INTO SUPPORT_QUESTION SET MEMBER=?,TITLE=?,MSG=?";
+	private static final String MEMBER_NEW_QUESTION = "INSERT INTO QUESTIONS SET MEMBER=?,TITLE=?,QMSG=?,QT=?";
 
-	public boolean memberAskQuestion(String member, String title, String msg) {
+	public boolean memberAskQuestion(String member, String title, String qmsg) {
 		boolean result = false;
+		long qt = new Date().getTime();
 		try {
 			Connection connection = ds.getConnection();
 			PreparedStatement pstmt = connection.prepareStatement(MEMBER_NEW_QUESTION);
 			pstmt.setString(1, member);
 			pstmt.setString(2, title);
-			pstmt.setString(3, msg);
+			pstmt.setString(3, qmsg);
+			pstmt.setLong(4, qt);
 			result = pstmt.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -111,7 +120,7 @@ public class QuestionDAOJdbc {
 	}
 
 	// member list answered questions
-	private static final String MEMBER_LIST_ANSWERED_QUESTIONS = "SELECT QNO,SUPPORTER,TITLE,MSG FROM SUPPORT_QUESTION WHERE MEMBER=? AND SUPPORTER IS NOT NULL AND ORDER BY QNO DESC";
+	private static final String MEMBER_LIST_ANSWERED_QUESTIONS = "SELECT QNO,MEMBER,TITLE,QMSG,QT,SUPPORTER,AMSG,AT FROM QUESTIONS WHERE MEMBER=? AND SUPPORTER IS NOT NULL AND ORDER BY QNO DESC";
 
 	public List<QuestionBean> memberListAnsweredQuestions(String member) {
 		List<QuestionBean> qbl = new ArrayList<QuestionBean>();
@@ -121,10 +130,14 @@ public class QuestionDAOJdbc {
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				QuestionBean qb = new QuestionBean();
-				qb.setQno(rs.getString("QNO"));
-				qb.setSupporter(rs.getString("SUPPORTER"));
+				qb.setQno(rs.getInt("QNO"));
+				qb.setMember(rs.getString("MEMBER"));
 				qb.setTitle(rs.getString("TITLE"));
-				qb.setMsg(rs.getString("MSG"));
+				qb.setQmsg(rs.getString("QMSG"));
+				qb.setQt(rs.getLong("QT"));
+				qb.setSupporter(rs.getString("SUPPORTER"));
+				qb.setAmsg(rs.getString("AMSG"));
+				qb.setAt(rs.getLong("AT"));
 				qbl.add(qb);
 			}
 		} catch (SQLException e) {
@@ -134,7 +147,7 @@ public class QuestionDAOJdbc {
 	}
 
 	// member list unanswered questions
-	private static final String MEMBER_LIST_UNANSWERED_QUESTIONS = "SELECT QNO,TITLE,MSG FROM SUPPORT_QUESTION WHERE MEMBER=? AND SUPPORTER IS NULL AND ORDER BY QNO DESC";
+	private static final String MEMBER_LIST_UNANSWERED_QUESTIONS = "SELECT QNO,MEMBER,TITLE,QMSG,QT FROM QUESTIONS WHERE MEMBER=? AND SUPPORTER IS NULL AND ORDER BY QNO DESC";
 
 	public List<QuestionBean> memberListUnAnsweredQuestions(String member) {
 		List<QuestionBean> qbl = new ArrayList<QuestionBean>();
@@ -144,9 +157,11 @@ public class QuestionDAOJdbc {
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				QuestionBean qb = new QuestionBean();
-				qb.setQno(rs.getString("QNO"));
+				qb.setQno(rs.getInt("QNO"));
+				qb.setMember(rs.getString("MEMBER"));
 				qb.setTitle(rs.getString("TITLE"));
-				qb.setMsg(rs.getString("MSG"));
+				qb.setQmsg(rs.getString("QMSG"));
+				qb.setQt(rs.getLong("QT"));
 				qbl.add(qb);
 			}
 		} catch (SQLException e) {

@@ -33,7 +33,7 @@ public class SupporterQuestionDetailServlet extends HttpServlet {
 		int qno = Integer.parseInt(request.getParameter("qno"));
 		QuestionService service = new QuestionService();
 		QuestionBean qb = service.supporterQuestionDetail(qno);
-		if (qb.getMsg() != null || qb.getMsg().trim().length() != 0) {
+		if (qb.getQmsg() != null || qb.getQmsg().trim().length() != 0) {
 			request.setAttribute("questionDetail", qb);
 			RequestDispatcher rd = request.getRequestDispatcher("supporterQuestionDetail.jsp");
 			rd.forward(request, response);

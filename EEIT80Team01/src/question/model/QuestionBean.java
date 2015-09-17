@@ -1,49 +1,60 @@
 package question.model;
 
 public class QuestionBean {
-	private String qno;
+	private int qno;
 	private String member;
-	private String supporter;
 	private String title;
-	private String msg;
-
-	public String getQno() {
+	private String qmsg;
+	private long qt;
+	private String amsg;
+	private long at;
+	private String supporter;
+	public int getQno() {
 		return qno;
 	}
-
-	public void setQno(String qno) {
+	public void setQno(int qno) {
 		this.qno = qno;
 	}
-
 	public String getMember() {
 		return member;
 	}
-
 	public void setMember(String member) {
 		this.member = member;
 	}
-
-	public String getSupporter() {
-		return supporter;
-	}
-
-	public void setSupporter(String supporter) {
-		this.supporter = supporter;
-	}
-
 	public String getTitle() {
 		return title;
 	}
-
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
-	public String getMsg() {
-		return msg;
+	public String getQmsg() {
+		return qmsg;
 	}
-
-	public void setMsg(String msg) {
-		this.msg = msg;
+	public void setQmsg(String qmsg) {
+		this.qmsg = qmsg;
+	}
+	public long getQt() {
+		return qt;
+	}
+	public void setQt(long qt) {
+		this.qt = qt;
+	}
+	public String getAmsg() {
+		return amsg;
+	}
+	public void setAmsg(String amsg) {
+		this.amsg = amsg;
+	}
+	public long getAt() {
+		return at;
+	}
+	public void setAt(long at) {
+		this.at = at;
+	}
+	public String getSupporter() {
+		return supporter;
+	}
+	public void setSupporter(String supporter) {
+		this.supporter = supporter;
 	}
 }
