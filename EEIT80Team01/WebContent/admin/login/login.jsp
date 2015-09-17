@@ -73,7 +73,7 @@ body {
 											class="form-control">
 									</div>
 									<div class="form-group">
-										<label for="password">密碼：</label> <input type="text"
+										<label for="password">密碼：</label> <input type="password"
 											id="password" name="password" title="請輸入密碼"
 											class="form-control">
 									</div>
