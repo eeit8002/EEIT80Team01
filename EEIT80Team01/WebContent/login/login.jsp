@@ -61,7 +61,8 @@
 		<div class="row">
 			<div class="col-md-12 text-center">
 				<a href="${pageContext.request.contextPath}/service/forgetpassword.jsp">忘記密碼</a><br><br>
-				<a href="${pageContext.request.contextPath}/register/register.jsp">立即創建帳號</a>
+				<a href="${pageContext.request.contextPath}/register/register.jsp">立即創建帳號</a><br><br>
+				<a href="${pageContext.request.contextPath}">回到首頁</a>
 			</div>
 		</div>
 	</div>

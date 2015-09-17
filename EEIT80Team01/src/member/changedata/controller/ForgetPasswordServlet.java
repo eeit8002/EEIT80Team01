@@ -8,6 +8,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import member.model.FindPwBean;
 import member.model.FindPwService;
 import member.model.MemberBean;
@@ -34,6 +36,7 @@ public class ForgetPasswordServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		response.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
 		String username = request.getParameter("username").toLowerCase();
 		String email = request.getParameter("email");
 		if(username!=null && email!=null){
@@ -45,16 +48,14 @@ public class ForgetPasswordServlet extends HttpServlet {
 				FindPwBean fb = fs.writeLog(username);
 				String url = fs.bulidUrl(request, fb);//將url以信件送出
 				fs.sendEmail(email, url);			
-				RequestDispatcher rd = request.getRequestDispatcher("/service/forgetpassword.jsp");
-				request.setAttribute("message", "您的重設信件已送出，請置電子郵件信箱查看");
-				rd.forward(request,response);
+				session.setAttribute("message", "您的重設信件已送出，請置電子郵件信箱查看");
+				response.sendRedirect(request.getContextPath()+"/service/forgetpassword.jsp");
 				return;
-								
 			}
 		}
-			RequestDispatcher rd = request.getRequestDispatcher("/service/forgetpassword.jsp");
-			request.setAttribute("message", "信件無法送出，請確認您的帳號以及電子郵件信箱");
-			rd.forward(request,response);
+		
+			session.setAttribute("message", "信件無法送出，請確認您的帳號以及電子郵件信箱");
+			response.sendRedirect(request.getContextPath()+"/service/forgetpassword.jsp");
 		
 	}
 

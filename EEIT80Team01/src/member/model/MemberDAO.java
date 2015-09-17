@@ -13,6 +13,8 @@ public interface MemberDAO {
 
 	public abstract MemberBean update(MemberBean bean);
 
+	public abstract boolean update(String username, String password);
+	
 	public abstract boolean delete(String userName);
 
 }

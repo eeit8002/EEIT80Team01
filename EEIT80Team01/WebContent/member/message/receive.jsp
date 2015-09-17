@@ -55,8 +55,7 @@ body { padding-top: 50px; }
 						<td onclick="tdUrl(${item.messageNumber})">${item.receiver}</td>
 						<td onclick="tdUrl(${item.messageNumber})">${item.messageTitle}</td>
 						<fmt:formatDate value="${item.messageTime}" var="formattedDate" pattern="yyyy年MM月dd日HH時mm分" />				
-						<td onclick="tdUrl(${item.messageNumber})">${formattedDate}</td>
-									
+						<td onclick="tdUrl(${item.messageNumber})">${formattedDate}</td>									
 					</tr>						
 				</c:forEach>
 			</tbody>

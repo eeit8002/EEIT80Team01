@@ -61,7 +61,7 @@
 	            <li><a href="${pageContext.request.contextPath}/store/store.jsp"><span class="glyphicon glyphicon-usd">&nbsp;我的拍賣小店</span></a></li>
 	            <li role="separator" class="divider"></li>
 	            <c:if test="${!empty LoginOK}">
-	            <li><a href="${pageContext.request.contextPath}/member/changeData.jsp"><span class="glyphicon glyphicon-cog">&nbsp;會員中心</span></a></li>
+	            <li><a href="${pageContext.request.contextPath}/member/default.jsp"><span class="glyphicon glyphicon-cog">&nbsp;會員中心</span></a></li>
 	            <li><a href="${pageContext.request.contextPath}/customerService/customerService.jsp"><span class="glyphicon glyphicon-wrench">&nbsp;客服中心</span></a></li>
 	            </c:if>
 	            <li><a href="${pageContext.request.contextPath}/tutorial/tutorial.jsp"><span class="glyphicon glyphicon-education">&nbsp;新手指南</span></a></li>
