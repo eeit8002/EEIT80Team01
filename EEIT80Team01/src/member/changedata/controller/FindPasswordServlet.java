@@ -35,17 +35,13 @@ public class FindPasswordServlet extends HttpServlet {
 				HttpSession session = request.getSession();
 				session.setAttribute("EmailChecked", username);
 				service.deleteLog(username);			
-				RequestDispatcher rd = request.getRequestDispatcher("changePassword.jsp");
-				rd.forward(request, response);
-				
+				response.sendRedirect(request.getContextPath()+"/service/changePassword.jsp");				
 			}else{
-				RequestDispatcher rd = request.getRequestDispatcher("illeagallink.jsp");
-				service.deleteLog(username);
-				rd.forward(request, response);				
+				service.deleteLog(username);	
+				response.sendRedirect(request.getContextPath()+"/service/illeagallink.jsp");
 			}
 		} else{
-			RequestDispatcher rd = request.getRequestDispatcher("illeagallink.jsp");
-			rd.forward(request, response);
+			response.sendRedirect(request.getContextPath()+"/service/illeagallink.jsp");
 		}
 		
 	}
