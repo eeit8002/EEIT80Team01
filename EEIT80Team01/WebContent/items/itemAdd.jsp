@@ -1,17 +1,26 @@
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="item.category.model.*"%>
+<%@ page import="java.util.List" %>
+
+<%
+ItemCategoryService service = new ItemCategoryService();
+List<ItemCategoryBean> list = service.selectCategory(null);
+pageContext.setAttribute("list", list);
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css"/>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>商品上架</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/scripts/jquery.form.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/scripts/jquery.validate.min.js"></script>
+<%@include file="/include/include" %>
+
+<link href="jquery-ui-timepicker-addon.css" rel="stylesheet"></link>
+<script src="jquery-ui-timepicker-addon.js" type="text/javascript"></script>
+<script src="jquery-ui-sliderAccess.js" type="text/javascript"></script>
+
 <style type="text/css"></style>
 <script type="text/javascript">
 function clearForm(){
@@ -28,18 +37,18 @@ function clearForm(){
 <body>
 <h3>商品頁面</h3>
 <form action="${pageContext.request.contextPath }/items/itemAdd.controller" method="post" > 
-<!-- 	<select> -->
-<!-- 		<option></option> -->
-<!-- 	</select> -->
 	<table>
 		<tr>
+			<td>商品分類</td>
 			<td>
-				<select>
-				<c:forEach var="list" items="${service.all }]">
-					<option value="${list.itemCategory}" ${(list.deptno==list.deptno)?'selected':'' }>${list.categoryName}
+				<select name="itemCategory">
+				<option selected="selected" value="">請選擇商品分類
+				<c:forEach var="list" items="${list }">
+					<option value="${list.itemCategory}">${list.categoryName}
 				</c:forEach>
 				</select>
 			</td>
+			<td><font color="red" size="-1"><span class="error">${error.itemCategoryError }</span></font></td>
 		</tr>
 		<tr>
 			<td>商品名稱</td>
@@ -63,10 +72,28 @@ function clearForm(){
 		</tr>
 		<tr>
 			<td>結標時間</td>
-			<td><input type="text" name="endTime" value="${param.endTime }"></td>
+			<td><input id="dateTime" type="text" name="endTime" value="${param.endTime }" readonly="readonly"></td>
 			<td><font color="red" size="-1"><span class="error">${error.endTimeError }</span></font></td>
 		</tr>
 	</table>
+	<script>
+    $(document).ready(function(){ 
+    	var opt={dateFormat: 'yy-mm-dd',
+    			timeFormat: 'HH:mm',
+                showSecond: false,
+                showMinute: false,
+                showTime:	false,
+                showButtonPanel: false,
+                hourText:"請選擇幾點結標",
+                controlType:"select" ,
+                prevText:"上月",
+                nextText:"下月",
+                dayNamesMin:["日","一","二","三","四","五","六"],
+                monthNames:["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"]
+                };
+      	$('#dateTime').datetimepicker(opt);
+      	});
+  </script>
 	<div>
 		<p>商品描述</p>
 		<textarea name="itemDescribe" cols="50" rows="5"></textarea>
