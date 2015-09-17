@@ -46,11 +46,11 @@ public class ResetPasswordServlet extends HttpServlet {
 		
 		
 		if(result){
-			RequestDispatcher rd = request.getRequestDispatcher("/member/finished.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/service/finished.jsp");
 			request.setAttribute("message", "密碼變更完成");
 			rd.forward(request,response);
 		} else {
-			RequestDispatcher rd = request.getRequestDispatcher("/member/finished.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/service/finished.jsp");
 			request.setAttribute("message", "密碼變更失敗");
 			rd.forward(request,response);
 		}
