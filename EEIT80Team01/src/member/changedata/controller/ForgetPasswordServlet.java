@@ -23,7 +23,6 @@ public class ForgetPasswordServlet extends HttpServlet {
 
     public ForgetPasswordServlet() {
         super();
-
     }
 
 
@@ -52,8 +51,7 @@ public class ForgetPasswordServlet extends HttpServlet {
 				response.sendRedirect(request.getContextPath()+"/service/forgetpassword.jsp");
 				return;
 			}
-		}
-		
+		}		
 			session.setAttribute("message", "信件無法送出，請確認您的帳號以及電子郵件信箱");
 			response.sendRedirect(request.getContextPath()+"/service/forgetpassword.jsp");
 		
