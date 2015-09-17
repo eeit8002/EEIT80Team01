@@ -30,18 +30,10 @@
 	        <li class="dropdown">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-inbox">&nbsp;</span><span class="caret"></span></a>
 	          <ul class="dropdown-menu ul-lg">
-	            <li><a href="${pageContext.request.contextPath}/cart/cart.jsp"><span class="glyphicon glyphicon-shopping-cart">&nbsp;我的購物車</span></a></li>
-	            <li><a href="${pageContext.request.contextPath}/myFavorite/myFavorite.jsp"><span class="glyphicon glyphicon-heart">&nbsp;我的追蹤清單</span></a></li>
-	            <li><a href="${pageContext.request.contextPath}/store/store.jsp"><span class="glyphicon glyphicon-usd">&nbsp;我的拍賣小店</span></a></li>
-	            <li role="separator" class="divider"></li>
 	            <c:if test="${!empty LoginAdmin}">
-	            <li><a href="${pageContext.request.contextPath}/member/changeData.jsp"><span class="glyphicon glyphicon-cog">&nbsp;會員中心</span></a></li>
-	            <li><a href="${pageContext.request.contextPath}/customerService/customerService.jsp"><span class="glyphicon glyphicon-wrench">&nbsp;客服中心</span></a></li>
-	            </c:if>
-	            <li><a href="${pageContext.request.contextPath}/tutorial/tutorial.jsp"><span class="glyphicon glyphicon-education">&nbsp;新手指南</span></a></li>
-	            <li><a href="${pageContext.request.contextPath}/register/register.jsp"><span class="glyphicon glyphicon-pencil">&nbsp;創建帳號</span></a></li>
-	            <li role="separator" class="divider"></li>
-	            <c:if test="${!empty LoginAdmin}">
+	            <li><a href="${pageContext.request.contextPath}/admin/manage/AddNewSupporter.jsp"><span class="glyphicon glyphicon glyphicon-plus">&nbsp;新增客服帳號</span></a></li>
+	            <li><a href="${pageContext.request.contextPath}/admin/manage/listSupporters.jsp"><span class="glyphicon glyphicon-menu-hamburger">&nbsp;客服人員列表</span></a></li>
+	            <li><a href="${pageContext.request.contextPath}/admin/password/changePassword.jsp"><span class="glyphicon glyphicon-pencil">&nbsp;修改系統管理員密碼</span></a></li>
 	            <li><a href="${pageContext.request.contextPath}/admin/login/logout.jsp"><span class="glyphicon glyphicon-log-out">&nbsp;系統管理員登出</span></a></li>
 	            </c:if>
 	          </ul>
