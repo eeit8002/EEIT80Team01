@@ -1,6 +1,6 @@
 package items.model.dao;
 
-import java.io.File;
+
 import java.sql.Connection;
 //import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,8 +15,6 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import global.GlobalService;
-import items.model.ImagesBean;
-import items.model.ItemPackBean;
 import items.model.ItemsBean;
 import items.model.ItemsDAO;
 
