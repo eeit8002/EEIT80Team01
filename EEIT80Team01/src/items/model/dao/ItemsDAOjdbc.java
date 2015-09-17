@@ -15,8 +15,6 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import global.GlobalService;
-import items.model.ImagesBean;
-import items.model.ItemPackBean;
 import items.model.ItemsBean;
 import items.model.ItemsDAO;
 
