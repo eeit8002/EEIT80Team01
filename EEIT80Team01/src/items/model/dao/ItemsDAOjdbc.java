@@ -1,5 +1,6 @@
 package items.model.dao;
 
+
 import java.sql.Connection;
 //import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -62,7 +63,7 @@ public class ItemsDAOjdbc implements ItemsDAO{
 				result.setStartPrice(rset.getDouble("START_PRICE"));
 				result.setDirectPrice(rset.getDouble("DIRECT_PRICE"));
 				result.setBid(rset.getInt("BID"));
-				result.setEndTime(rset.getDate("END_TIME"));
+				result.setEndTime(rset.getTimestamp("END_TIME"));
 				result.setItemDescribe(rset.getString("ITEM_DESCRIBE"));
 				result.setItemStatus(rset.getInt("ITEM_STATUS"));
 				result.setThreadLock(rset.getInt("THREAD_LOCK"));
@@ -122,7 +123,7 @@ public class ItemsDAOjdbc implements ItemsDAO{
 				result.setStartPrice(rset.getDouble("START_PRICE"));
 				result.setDirectPrice(rset.getDouble("DIRECT_PRICE"));
 				result.setBid(rset.getInt("BID"));
-				result.setEndTime(rset.getDate("END_TIME"));
+				result.setEndTime(rset.getTimestamp("END_TIME"));
 				result.setItemDescribe(rset.getString("ITEM_DESCRIBE"));
 				result.setItemStatus(rset.getInt("ITEM_STATUS"));
 				result.setThreadLock(rset.getInt("THREAD_LOCK"));
@@ -182,7 +183,7 @@ public class ItemsDAOjdbc implements ItemsDAO{
 				item.setStartPrice(rset.getDouble("START_PRICE"));
 				item.setDirectPrice(rset.getDouble("DIRECT_PRICE"));
 				item.setBid(rset.getInt("BID"));
-				item.setEndTime(rset.getDate("END_TIME"));
+				item.setEndTime(rset.getTimestamp("END_TIME"));
 				item.setItemDescribe(rset.getString("ITEM_DESCRIBE"));
 				item.setItemStatus(rset.getInt("ITEM_STATUS"));
 				item.setThreadLock(rset.getInt("THREAD_LOCK"));
@@ -219,7 +220,7 @@ public class ItemsDAOjdbc implements ItemsDAO{
 	
 	private static final String INSERT = "INSERT INTO ITEMS(SELLER, ITEM_CATEGORY, TITLE, "
 			+ "START_PRICE, DIRECT_PRICE, BID, END_TIME,ITEM_DESCRIBE, ITEM_STATUS,THREAD_LOCK) VALUES(?,?,?,?,?,?,?,?,?,?)";
-
+	private static final String INSERT_PICTURE = "INSERT INTO ITEM_IMAGES(ITEM_ID, IMAGE) VALUES(?,?)";
 	/* (non-Javadoc)
 	 * @see items.model.dao.ItemsDAO#insert(items.model.ItemsBean)
 	 */
@@ -228,9 +229,13 @@ public class ItemsDAOjdbc implements ItemsDAO{
 		ItemsBean result = null;
 		Connection conn = null;
 		PreparedStatement stmt = null;
+//		PreparedStatement stmtPic = null;
+//		ItemPackBean beanPack = new ItemPackBean();
 		try {
 //			conn = DriverManager.getConnection(URL, USER, PASSWORD);
 			conn = ds.getConnection();
+			//進行commit
+			conn.setAutoCommit(false);
 			stmt = conn.prepareStatement(INSERT);
 			if(bean!=null){
 				stmt.setString(1, bean.getSeller());
@@ -239,20 +244,32 @@ public class ItemsDAOjdbc implements ItemsDAO{
 				stmt.setDouble(4, bean.getStartPrice());
 				stmt.setDouble(5, bean.getDirectPrice());
 				stmt.setInt(6, bean.getBid());
-				java.util.Date endTime = bean.getEndTime();
-				if(endTime!=null){
-					long time = endTime.getTime();
-					stmt.setDate(7, new java.sql.Date(time));
-				}else
-					stmt.setDate(7, null);
+				stmt.setTimestamp(7, bean.getEndTime());
 				stmt.setString(8, bean.getItemDescribe());
 				stmt.setInt(9, bean.getItemStatus());
 				stmt.setInt(10, bean.getThreadLock());
 				int i = stmt.executeUpdate();
 				if(i == 1){
-					result = bean;
+//					result = beanPack.setItemsBean(bean);
 				}
 			}
+//			stmtPic = conn.prepareStatement(INSERT_PICTURE);
+//			ImagesBean imageBean = new ImagesBean();
+//			if(imageBean!=null){
+//				stmtPic.setInt(1, imageBean.getItemId());
+//				stmtPic.setString(2, imageBean.getImage());
+//				int i = stmtPic.executeUpdate();
+//				if(i == 1){
+//					result = beanPack.;
+//				}
+//			}
+			
+			
+//			String pic = "";
+//			File file = new File(pic);
+			
+			
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally{
@@ -294,13 +311,7 @@ public class ItemsDAOjdbc implements ItemsDAO{
 			stmt.setDouble(4, bean.getStartPrice());
 			stmt.setDouble(5, bean.getDirectPrice());
 			stmt.setInt(6, bean.getBid());
-			java.util.Date endTime = bean.getEndTime();
-			if(endTime!=null){
-				long time = endTime.getTime();
-				stmt.setDate(7, new java.sql.Date(time));
-			}else{
-				stmt.setDate(7, null);
-			}
+			stmt.setTimestamp(7, bean.getEndTime());
 			stmt.setString(8, bean.getItemDescribe());
 			stmt.setInt(9, bean.getItemStatus());
 			stmt.setInt(10, bean.getThreadLock());

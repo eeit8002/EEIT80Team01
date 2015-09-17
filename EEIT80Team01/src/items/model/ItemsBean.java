@@ -1,5 +1,6 @@
 package items.model;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class ItemsBean {
@@ -10,7 +11,7 @@ public class ItemsBean {
 	private double startPrice;
 	private double directPrice;
 	private int bid;
-	private java.util.Date endTime;
+	private Timestamp endTime;
 	private String itemDescribe;
 	private int itemStatus;
 	private int threadLock;
@@ -57,10 +58,10 @@ public class ItemsBean {
 	public void setBid(int bid) {
 		this.bid = bid;
 	}
-	public Date getEndTime() {
+	public Timestamp getEndTime() {
 		return endTime;
 	}
-	public void setEndTime(Date endTime) {
+	public void setEndTime(Timestamp endTime) {
 		this.endTime = endTime;
 	}
 	public String getItemDescribe() {
