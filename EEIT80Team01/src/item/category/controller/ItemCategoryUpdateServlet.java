@@ -33,9 +33,7 @@ public class ItemCategoryUpdateServlet extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		
 		String action = request.getParameter("action");
-		
-		if ("update".equals(action)) { // 來自itemCategoryUpdate.jsp的請求
-			
+		if ("update".equals(action)) { // 來自itemCategoryUpdate.jsp的請求	
 			Map<String, String> errors = new HashMap<String, String>();
 			request.setAttribute("error", errors);
 		

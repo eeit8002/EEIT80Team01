@@ -1,6 +1,7 @@
 package items.model;
 
 import java.io.FileInputStream;
+import java.util.List;
 
 import items.model.ImagesBean;
 
@@ -10,8 +11,10 @@ public interface ItemImagesDAO {
 
 	int update(ImagesBean bean, FileInputStream fis, long size);
 
-	boolean delete(int itemId, int itemNo);
+	boolean delete(int itemNo);
 
-	ImagesBean selectOneItem(int itemId);
+	List<ImagesBean> selectOneItem(int itemId);
+	
+	ImagesBean selectOneImage(int imageNo);
 
 }

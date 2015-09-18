@@ -5,8 +5,7 @@ import java.sql.Blob;
 public class ImagesBean {
 private int itemId;
 private Blob image;
-private int itemNo;
-
+private int imageNo;
 public int getItemId() {
 	return itemId;
 }
@@ -19,11 +18,11 @@ public Blob getImage() {
 public void setImage(Blob image) {
 	this.image = image;
 }
-public int getItemNo() {
-	return itemNo;
+public int getImageNo() {
+	return imageNo;
 }
-public void setItemNo(int itemNo) {
-	this.itemNo = itemNo;
+public void setImageNo(int imageNo) {
+	this.imageNo = imageNo;
 }
 
 }

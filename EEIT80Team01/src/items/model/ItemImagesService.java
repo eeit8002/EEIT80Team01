@@ -1,19 +1,34 @@
 package items.model;
 
+
+
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
 
 import items.model.dao.ItemImagesDAOjdbc;
 
 public class ItemImagesService {
-	public int insert(ImagesBean bean, FileInputStream fis, long size){
-	ItemImagesDAO dao = new ItemImagesDAOjdbc();
+	public int insert(ImagesBean bean, FileInputStream fis, long size) throws FileNotFoundException{
+		ItemImagesDAO dao = new ItemImagesDAOjdbc();
 			
 			int result = 0;
-			if(bean!=null && fis!=null && size!=0){
+			if(bean!=null){
 				result = dao.insert(bean, fis, size);
 			}
 			return result;
-		}
+	}
+	
+	public void findPart(Part part, HttpServletRequest request) throws IOException{
+		InputStream fis = part.getInputStream();
+		long size = part.getSize();
+	}
 	
 	public int update(ImagesBean bean, FileInputStream fis, long size){
 		ItemImagesDAO dao = new ItemImagesDAOjdbc();
@@ -25,25 +40,31 @@ public class ItemImagesService {
 		return result;
 	}
 	
-	public boolean delete(int itemId, int itemNo){
+	public boolean delete(int itemNo){
 		ItemImagesDAO dao = new ItemImagesDAOjdbc();
 		
 		boolean result =false;
-		if(itemId!=0 && itemNo!=0){
-			result = dao.delete(itemId, itemNo);
+		if(itemNo>0){
+			result = dao.delete(itemNo);
 		}
 		return result;
 	}
 	
-	public ImagesBean selectOneItem(int itemId){
+	public List<ImagesBean> selectItemImages(int itemId){
 		ItemImagesDAO dao = new ItemImagesDAOjdbc();
 		
-		ImagesBean result = null;
-		if(itemId!=0){
+		List<ImagesBean> result = null;
+		if(itemId>0){
 			result = dao.selectOneItem(itemId);
 		}
 		return result;
 	}
 	
+	public ImagesBean selectOneImage(int imageNo){
+		ItemImagesDAO dao = new ItemImagesDAOjdbc();
+		
+		ImagesBean result = dao.selectOneImage(imageNo);
+		return result;
+	}
 	
 }
