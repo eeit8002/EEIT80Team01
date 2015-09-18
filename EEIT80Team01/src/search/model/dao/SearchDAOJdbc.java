@@ -12,6 +12,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import global.GlobalService;
 import items.model.ItemsBean;
 import search.model.SearchDAO;
 
@@ -24,9 +25,10 @@ public class SearchDAOJdbc implements SearchDAO {
 	private List<ItemsBean> beans = null;
 	private ItemsBean bean = null;
 	public SearchDAOJdbc(){
+		Context ctx;
 		try {
-			Context cxt = new InitialContext();
-			ds = (DataSource)cxt.lookup("java:comp/env/jdbc/eeit80team01");
+			ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup(GlobalService.JNDI_DB_NAME);
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}

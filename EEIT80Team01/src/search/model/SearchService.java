@@ -7,7 +7,7 @@ import search.model.dao.SearchDAOJdbc;
 
 
 public class SearchService {
-	private SearchDAOJdbc dao = null;
+	private SearchDAO dao = null;
 	
 	public SearchService(){
 		dao = new SearchDAOJdbc();
