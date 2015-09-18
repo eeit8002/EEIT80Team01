@@ -15,8 +15,6 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import global.GlobalService;
-import items.model.ImagesBean;
-import items.model.ItemPackBean;
 import items.model.ItemsBean;
 import items.model.ItemsDAO;
 
@@ -237,7 +235,7 @@ public class ItemsDAOjdbc implements ItemsDAO{
 //			conn = DriverManager.getConnection(URL, USER, PASSWORD);
 			conn = ds.getConnection();
 			//進行commit
-			conn.setAutoCommit(false);
+//			conn.setAutoCommit(false);
 			stmt = conn.prepareStatement(INSERT);
 			if(bean!=null){
 				stmt.setString(1, bean.getSeller());
