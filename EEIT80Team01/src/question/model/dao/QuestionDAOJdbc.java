@@ -31,9 +31,9 @@ public class QuestionDAOJdbc {
 
 	/* SUPPOTER AREA */
 	// supporter list unanswered questions
-	private static final String UNANSWERED_QUESTIONS = "SELECT QNO,MEMBER,TITLE,QMSG,QT from QUESTION WHERE SUPPORTER IS NULL";
+	private static final String UNANSWERED_QUESTIONS = "SELECT QNO,MEMBER,TITLE,QMSG,QT FROM QUESTION WHERE SUPPORTER IS NULL";
 
-	public List<QuestionBean> getUnAnsweredQuestions() {
+	public List<QuestionBean> supporterListUnAnsweredQuestions() {
 		List<QuestionBean> qbl = null;
 		try (Connection connection = ds.getConnection();
 				PreparedStatement pstmt = connection.prepareStatement(UNANSWERED_QUESTIONS);) {
@@ -74,7 +74,7 @@ public class QuestionDAOJdbc {
 	}
 
 	// supporter watch question detail
-	private static final String QUESTION_DETAIL = "SELECT QNO,MEMBER,TITLE,QMSG,QT WHERE QNO=?";
+	private static final String QUESTION_DETAIL = "SELECT QNO,MEMBER,TITLE,QMSG,QT FROM QUESTIONS WHERE QNO=?";
 
 	public QuestionBean supporterQuestionDetail(int qno) {
 		QuestionBean result = null;
@@ -168,5 +168,56 @@ public class QuestionDAOJdbc {
 			e.printStackTrace();
 		}
 		return qbl;
+	}
+
+	// member watch unanswered question detail
+	private static final String MEMBER_WATCH_UNANSWERED_QUESTION_DETAIL = "SELECT QNO,MEMBER,TITLE,QMSG,QT FROM QUESTIONS WHERE MEMBER=? AND QNO=? AND SUPPORTER IS NULL AND ORDER BY QNO DESC";
+
+	public QuestionBean memberUnansweredQuestionDetail(String member, int qno) {
+		QuestionBean result = null;
+		try (Connection connection = ds.getConnection();
+				PreparedStatement pstmt = connection.prepareStatement(MEMBER_WATCH_UNANSWERED_QUESTION_DETAIL);) {
+			pstmt.setInt(1, qno);
+			pstmt.setString(2, member);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				result = new QuestionBean();
+				result.setQno(rs.getInt("QNO"));
+				result.setMember(rs.getString("MEMBER"));
+				result.setTitle(rs.getString("TITLE"));
+				result.setQmsg(rs.getString("QMSG"));
+				result.setQt(rs.getLong("QT"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	// member watch answered question detail
+	private static final String MEMBER_WATCH_ANSWERED_QUESTION_DETAIL = "SELECT QNO,MEMBER,TITLE,QMSG,QT,SUPPORTER,AMSG,AT FROM QUESTIONS WHERE MEMBER=? AND QNO=? AND SUPPORTER IS NOT NULL AND ORDER BY QNO DESC";
+
+	public QuestionBean memberAnsweredQuestionDetail(String member, int qno) {
+		QuestionBean result = null;
+		try (Connection connection = ds.getConnection();
+				PreparedStatement pstmt = connection.prepareStatement(MEMBER_WATCH_ANSWERED_QUESTION_DETAIL);) {
+			pstmt.setInt(1, qno);
+			pstmt.setString(2, member);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				result = new QuestionBean();
+				result.setQno(rs.getInt("QNO"));
+				result.setMember(rs.getString("MEMBER"));
+				result.setTitle(rs.getString("TITLE"));
+				result.setQmsg(rs.getString("QMSG"));
+				result.setQt(rs.getLong("QT"));
+				result.setSupporter(rs.getString("SUPPORTER"));
+				result.setAmsg(rs.getString("AMSG"));
+				result.setAt(rs.getLong("AT"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 }
