@@ -7,11 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
-
 import items.model.dao.ItemImagesDAOjdbc;
 
 public class ItemImagesService {
@@ -60,11 +57,20 @@ public class ItemImagesService {
 		return result;
 	}
 	
+	public List<Integer> selectImagesNumbers(int itemId){
+		ItemImagesDAO dao = new ItemImagesDAOjdbc();
+		List<Integer> result = dao.selectImages(itemId);
+		
+		return result;
+	}
+	
 	public ImagesBean selectOneImage(int imageNo){
 		ItemImagesDAO dao = new ItemImagesDAOjdbc();
 		
 		ImagesBean result = dao.selectOneImage(imageNo);
 		return result;
 	}
+	
+	
 	
 }

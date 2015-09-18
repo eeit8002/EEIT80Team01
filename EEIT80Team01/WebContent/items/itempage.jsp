@@ -2,13 +2,14 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page import="items.model.*,item.category.model.*,item.bid.model.*" %>
+<%@ page import="items.model.*,item.category.model.*,item.bid.model.*,java.util.List " %>
 <!DOCTYPE html>
 	<c:if test="${!empty param.itemid}">
 		<%
 			String itemid = request.getParameter("itemid");
 			ItemsBean bean=null;
 			ItemCategoryBean icb=null;
+			List<Integer> images=null;
 			double price=0;
 			try {
 				int itemId = Integer.parseInt(itemid);
@@ -19,6 +20,8 @@
 					icb = ics.getOneCategory(bean.getItemCategory());
 					BidLogDAOService bls = new BidLogDAOService();
 					BidLogBean blb = bls.getTopPrice(itemId);
+					ItemImagesService iis = new ItemImagesService();
+					images = iis.selectImagesNumbers(itemId);
 					if(blb!=null){
 						price = blb.getBidPrice();
 					} else{
@@ -31,6 +34,7 @@
 			pageContext.setAttribute("item",bean);
 			pageContext.setAttribute("itemCategory", icb);
 			pageContext.setAttribute("price", price);
+			pageContext.setAttribute("images", images);
 			%>
 	</c:if>
 <html>
@@ -44,6 +48,10 @@
 }
 body { padding-top: 50px; }
 #contentPart { padding-top: 50px; }
+.itemimg{
+	width:100px;
+	hight:100px
+}
 </style>
 <c:choose>
 	<c:when test="${!empty item}">
@@ -80,6 +88,7 @@ body { padding-top: 50px; }
 	        		最小加價：${item.bid}<br>
 	        		直購價：${directPrice}<br>
 	        		<c:if test="${!empty LoginOK}">
+	        		<c:if test="${!LoginOK.userName.equals(item.seller)}">
 	        		<form action="${pageContext.request.contextPath}/product/bid.do" method="post">
 	        			<input type="number" min="${price + item.bid}" value="${price + item.bid}" name="bidPrice">
 	        			<input type="hidden" name="itemId" value="${item.itemId}">
@@ -90,13 +99,25 @@ body { padding-top: 50px; }
 	        			<input type="hidden" name="itemId" value="${item.itemId}">
 	        			<input type="hidden" name="action" value="direct">	        			
 	        			<button type="submit" class="btn btn-primary">直購</button>
-	        		</form>	        
+	        		</form>
+	        		</c:if>
+	        		<c:if test="${LoginOK.userName.equals(item.seller)}">
+	        			你是這個商品的賣家<br>
+	        		</c:if>	        
 	        		</c:if>
 	        		<c:if test="${empty LoginOK}">
 	        			<a href="${pageContext.request.contextPath}/member/login.do?itemid=${item.itemId}">若要購買此商品請先登入</a><br>
 	        		</c:if>	        				
 	        		<h4>商品內容描述：</h4>
 	        		${item.itemDescribe}
+	        		<c:if test="${!empty images}">
+	        		<c:forEach items="${images}" var="image">
+	        			<img src="${pageContext.request.contextPath}/items/showImage?imageNo=${image}" class="itemimg">
+	        		</c:forEach>
+	        		</c:if>
+	        		<c:if test="${empty images}">
+	        			<img src="${pageContext.request.contextPath}/items/showImage" class="itemimg">
+	        		</c:if>
 				</c:when>
 				<c:otherwise>
 					<h3>查無此商品</h3>

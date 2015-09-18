@@ -221,6 +221,52 @@ public class ItemImagesDAOjdbc implements ItemImagesDAO {
 		return result;
 	}
 	
+	private static final String SELECT_IMAGENO_BY_ITEMID = "SELECT IMAGE_NO FROM ITEM_IMAGES WHERE ITEM_ID=?";
+	
+	public List<Integer> selectImages(int itemId){
+		List<Integer> result  =null;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rset = null;
+		try {
+			conn = ds.getConnection();
+			stmt = conn.prepareStatement(SELECT_IMAGENO_BY_ITEMID);
+			stmt.setInt(1, itemId);
+			rset = stmt.executeQuery();
+			 result = new ArrayList<Integer>();
+			while(rset.next()){
+				result.add(rset.getInt("IMAGE_NO"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			if(rset!=null){
+				try {
+					rset.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(stmt!=null){
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(conn!=null){
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		return result;
+	}	
+	
+	
 private static final String SELECT_PICTURE = "SELECT IMAGE FROM ITEM_IMAGES WHERE IMAGE_NO=?";
 	
 	public ImagesBean selectOneImage(int imageNo){

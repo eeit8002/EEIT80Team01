@@ -8,10 +8,10 @@
 <title>讀取圖檔</title>
 </head>
 <body>
-<form action="${pageContext.request.contextPath }/items/itemShowImage.controller" method="get" >
+<form action="${pageContext.request.contextPath }/items/showImage" method="get" >
 		<input type="text" name="imageNo" >
 		<font color="red" size="-1"><span class="error">${error.ImageError }</span></font>
-		<input type="submit" name="action" value="show">
+		<input type="submit" value="送出">
 	</form>
 </body>
 </html>

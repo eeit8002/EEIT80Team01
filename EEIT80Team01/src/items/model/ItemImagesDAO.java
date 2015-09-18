@@ -16,5 +16,7 @@ public interface ItemImagesDAO {
 	List<ImagesBean> selectOneItem(int itemId);
 	
 	ImagesBean selectOneImage(int imageNo);
+	
+	List<Integer> selectImages(int itemId);
 
 }
