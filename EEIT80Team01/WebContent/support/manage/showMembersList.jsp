@@ -34,13 +34,13 @@ body {
 						<h3 class="panel-title">客服</h3>
 					</div>
 					<div class="panel-body">
-						<c:if test="${empty LoginAdmin }">
+						<c:if test="${empty LoginSupport }">
 							<a
 								href="${pageContext.request.contextPath}/support/login/login.jsp">登入</a>
 							<br>
 							<br>
 						</c:if>
-						<c:if test="${!empty LoginAdmin }">
+						<c:if test="${!empty LoginSupport }">
 <!-- 							<a -->
 <%-- 								href="${pageContext.request.contextPath}/admin/manage/AddNewSupporter.jsp">新增客服帳號</a> --%>
 <!-- 							<br> -->
@@ -76,9 +76,9 @@ body {
 									</tr>
 								</thead>
 								<tbody>
-									<c:forEach items="${supporterlist}" var="item">
+									<c:forEach items="${memberlist}" var="item">
 										<tr>
-											<td>${item.supportername}</td>
+											<td>${item.username}</td>
 											<td>${item.employeeid}</td>
 											<td>${item.lastname}</td>
 											<td>${item.firstname}</td>

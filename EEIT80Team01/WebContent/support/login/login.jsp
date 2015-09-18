@@ -32,13 +32,13 @@ body {
 							<h3 class="panel-title">客服</h3>
 						</div>
 						<div class="panel-body">
-							<c:if test="${empty LoginAdmin }">
+							<c:if test="${empty LoginSupport }">
 								<a
 									href="${pageContext.request.contextPath}/support/login/login.jsp">登入</a>
 								<br>
 								<br>
 							</c:if>
-							<c:if test="${!empty LoginAdmin }">
+							<c:if test="${!empty LoginSupport }">
 <!-- 								<a -->
 <%-- 									href="${pageContext.request.contextPath}/admin/manage/AddNewSupporter.jsp">新增客服帳號</a> --%>
 <!-- 								<br> -->
@@ -48,7 +48,7 @@ body {
 								<br>
 								<br>
 								<a
-									href="${pageContext.request.contextPath}/support/password/changePassword.jsp">修改客服帳號密碼</a>
+									href="${pageContext.request.contextPath}/support/password/changePassword.jsp">修改客服密碼</a>
 								<br>
 								<br>
 								<a
@@ -58,7 +58,7 @@ body {
 					</div>
 				</div>
 				<div class="col-md-9">
-					<c:if test="${empty LoginAdmin }">
+					<c:if test="${empty LoinSupport }">
 						<c:set var="funcName" value="LOG" scope="session" />
 						<div class="panel panel-default"
 							style="margin: auto; margin-top: 20px; width: 40%">
@@ -88,7 +88,7 @@ body {
 					</c:if>
 
 
-					<c:if test="${!empty LoginAdmin }">
+					<c:if test="${!empty LoginSupport }">
 						<script>
  							location.href = ('${pageContext.request.contextPath}/support/manage/listMembers.jsp');
 						</script>
