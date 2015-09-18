@@ -22,18 +22,16 @@ body { padding-top: 50px; }
 		<%@include file="/include/header" %>
 	</header>
 		<article>
-		<div class="container-fluid">
-	     <div class="row">
-			<%@include file="/include/navPart" %>
-	        <div class="col-md-7 main" id="contentPart">
 		<div class="alert alert-warning alert-dismissible text-center" role="alert">
 		  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 		  <strong>${message}，請回<a href="${pageContext.request.contextPath}/index.jsp">首頁</a>。</strong>
 		</div>
+			<div class="row">
+			<div class="col-md-12 text-center">
+				<%@include file="/include/logo" %>
+			</div>
 		</div>
-		<%@include file="/include/blockPart" %>
-		</div>
-		</div>
+
 		</article>
 </body>
 </html>

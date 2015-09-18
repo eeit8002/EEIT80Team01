@@ -23,7 +23,14 @@ body { padding-top: 50px; }
 <body>
 	<div class="alert alert-warning alert-dismissible text-center" role="alert">
 	  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	  <strong>此連結已經失效，請回<a href="${pageContext.request.contextPath}/index.jsp">首頁</a>。</strong>
+	  <strong>此連結已經失效，請回<a href="${pageContext.request.contextPath}/index.jsp">首頁</a>。</strong>	  
+	</div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<%@include file="/include/logo" %>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

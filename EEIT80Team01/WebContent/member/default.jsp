@@ -45,7 +45,7 @@ body { padding-top: 50px; }
 	      <div class="row">
 			<%@include file="/include/navPart" %>
 	        <div class="col-md-7 main" id="contentPart">
-	        
+	        <div class="col-md-offset-2 col-md-8 ">
 	        	<div class="form-group">
 	         	 <form action="default.jsp" method="get">
 	         	 <div class="input-group">	
@@ -57,10 +57,10 @@ body { padding-top: 50px; }
 	         	 </div>
 	         	 </form>
 	         	 </div>
-	    		
+	    		</div>
 	        	<c:choose>
   				<c:when test="${!empty member}">
-  				
+  				<div class="col-md-12 ">
 	        	<h2>會員基本資料</h2>	        	
 				<table class="table table-bordered">
 					<tbody>
@@ -92,7 +92,8 @@ body { padding-top: 50px; }
 				</table>
 					<c:if test="${!member.userName.equals(LoginOK.userName)}">
 						<a href="message/sendmessage.jsp?id=${member.userName}">寄信給他</a>
-					</c:if>			
+					</c:if>	
+				</div>		
 				</c:when>
 				<c:otherwise>
 					<h2>查無此會員</h2>
@@ -110,4 +111,7 @@ body { padding-top: 50px; }
 
 
 </body>
+<script>
+$("#sectionItem1").addClass("active");
+</script>
 </html>
