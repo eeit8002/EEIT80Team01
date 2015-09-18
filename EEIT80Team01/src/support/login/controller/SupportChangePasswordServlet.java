@@ -56,5 +56,4 @@ public class SupportChangePasswordServlet extends HttpServlet {
 			rd.forward(request, response);
 		}
 	}
-
 }
