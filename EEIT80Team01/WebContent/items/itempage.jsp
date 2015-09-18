@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="items.model.*,item.category.model.*,item.bid.model.*" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 	<c:if test="${!empty param.itemid}">
 		<%
 			String itemid = request.getParameter("itemid");
@@ -66,7 +66,12 @@ body { padding-top: 50px; }
 	        <div class="col-md-7 main" id="contentPart">
 	        	<c:choose>
 				<c:when test="${!empty item}">
-					賣家：${item.seller}<br>
+				<c:if test="${!empty LoginOK}">
+					賣家：<a href="${pageContext.request.contextPath}/member/default.jsp?id=${item.seller}" target="_blank">${item.seller}</a><br>
+	        	</c:if>
+	        	<c:if test="${empty LoginOK}">
+	        		賣家：${item.seller}<br>
+	        	</c:if>
 	        		商品分類：${itemCategory.categoryName}<br>
 	        		商品主題：${item.title}	<br>
 	        		商品價格：${price}<br>
