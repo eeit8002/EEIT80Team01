@@ -15,8 +15,9 @@ import javax.sql.DataSource;
 
 import global.GlobalService;
 import question.model.QuestionBean;
+import question.model.QuestionDAO;
 
-public class QuestionDAOJdbc {
+public class QuestionDAOJdbc implements QuestionDAO {
 	private DataSource ds = null;
 
 	public QuestionDAOJdbc() {
@@ -33,6 +34,10 @@ public class QuestionDAOJdbc {
 	// supporter list unanswered questions
 	private static final String UNANSWERED_QUESTIONS = "SELECT QNO,MEMBER,TITLE,QMSG,QT FROM QUESTION WHERE SUPPORTER IS NULL";
 
+	/* (non-Javadoc)
+	 * @see question.model.dao.QuestionDAO#supporterListUnAnsweredQuestions()
+	 */
+	@Override
 	public List<QuestionBean> supporterListUnAnsweredQuestions() {
 		List<QuestionBean> qbl = null;
 		try (Connection connection = ds.getConnection();
@@ -57,6 +62,10 @@ public class QuestionDAOJdbc {
 	// supporter answer question
 	private static final String SUPPORT_ANSWER_QUESTION = "UPDATE QUESTIONS SET SUPPORTER=?,AMSG=?,AT=? WHERE QNO=?";
 
+	/* (non-Javadoc)
+	 * @see question.model.dao.QuestionDAO#supporterAnswerQuestion(int, java.lang.String, java.lang.String)
+	 */
+	@Override
 	public boolean supporterAnswerQuestion(int qno, String supporter, String amsg) {
 		boolean result = false;
 		long at = new Date().getTime();
@@ -76,6 +85,10 @@ public class QuestionDAOJdbc {
 	// supporter watch question detail
 	private static final String QUESTION_DETAIL = "SELECT QNO,MEMBER,TITLE,QMSG,QT FROM QUESTIONS WHERE QNO=?";
 
+	/* (non-Javadoc)
+	 * @see question.model.dao.QuestionDAO#supporterQuestionDetail(int)
+	 */
+	@Override
 	public QuestionBean supporterQuestionDetail(int qno) {
 		QuestionBean result = null;
 		try (Connection connection = ds.getConnection();
@@ -102,6 +115,10 @@ public class QuestionDAOJdbc {
 	// member ask question
 	private static final String MEMBER_NEW_QUESTION = "INSERT INTO QUESTIONS SET MEMBER=?,TITLE=?,QMSG=?,QT=?";
 
+	/* (non-Javadoc)
+	 * @see question.model.dao.QuestionDAO#memberAskQuestion(java.lang.String, java.lang.String, java.lang.String)
+	 */
+	@Override
 	public boolean memberAskQuestion(String member, String title, String qmsg) {
 		boolean result = false;
 		long qt = new Date().getTime();
@@ -122,6 +139,10 @@ public class QuestionDAOJdbc {
 	// member list answered questions
 	private static final String MEMBER_LIST_ANSWERED_QUESTIONS = "SELECT QNO,MEMBER,TITLE,QMSG,QT,SUPPORTER,AMSG,AT FROM QUESTIONS WHERE MEMBER=? AND SUPPORTER IS NOT NULL AND ORDER BY QNO DESC";
 
+	/* (non-Javadoc)
+	 * @see question.model.dao.QuestionDAO#memberListAnsweredQuestions(java.lang.String)
+	 */
+	@Override
 	public List<QuestionBean> memberListAnsweredQuestions(String member) {
 		List<QuestionBean> qbl = new ArrayList<QuestionBean>();
 		try (Connection connection = ds.getConnection();
@@ -149,6 +170,10 @@ public class QuestionDAOJdbc {
 	// member list unanswered questions
 	private static final String MEMBER_LIST_UNANSWERED_QUESTIONS = "SELECT QNO,MEMBER,TITLE,QMSG,QT FROM QUESTIONS WHERE MEMBER=? AND SUPPORTER IS NULL AND ORDER BY QNO DESC";
 
+	/* (non-Javadoc)
+	 * @see question.model.dao.QuestionDAO#memberListUnAnsweredQuestions(java.lang.String)
+	 */
+	@Override
 	public List<QuestionBean> memberListUnAnsweredQuestions(String member) {
 		List<QuestionBean> qbl = new ArrayList<QuestionBean>();
 		try (Connection connection = ds.getConnection();
@@ -173,6 +198,10 @@ public class QuestionDAOJdbc {
 	// member watch unanswered question detail
 	private static final String MEMBER_WATCH_UNANSWERED_QUESTION_DETAIL = "SELECT QNO,MEMBER,TITLE,QMSG,QT FROM QUESTIONS WHERE MEMBER=? AND QNO=? AND SUPPORTER IS NULL AND ORDER BY QNO DESC";
 
+	/* (non-Javadoc)
+	 * @see question.model.dao.QuestionDAO#memberUnansweredQuestionDetail(java.lang.String, int)
+	 */
+	@Override
 	public QuestionBean memberUnansweredQuestionDetail(String member, int qno) {
 		QuestionBean result = null;
 		try (Connection connection = ds.getConnection();
@@ -197,6 +226,10 @@ public class QuestionDAOJdbc {
 	// member watch answered question detail
 	private static final String MEMBER_WATCH_ANSWERED_QUESTION_DETAIL = "SELECT QNO,MEMBER,TITLE,QMSG,QT,SUPPORTER,AMSG,AT FROM QUESTIONS WHERE MEMBER=? AND QNO=? AND SUPPORTER IS NOT NULL AND ORDER BY QNO DESC";
 
+	/* (non-Javadoc)
+	 * @see question.model.dao.QuestionDAO#memberAnsweredQuestionDetail(java.lang.String, int)
+	 */
+	@Override
 	public QuestionBean memberAnsweredQuestionDetail(String member, int qno) {
 		QuestionBean result = null;
 		try (Connection connection = ds.getConnection();
