@@ -16,6 +16,8 @@ public interface MemberDAO {
 	public abstract boolean update(String username, String password);
 	
 	public abstract boolean delete(String userName);
+	
+	public abstract int banMember(String[] userName);
 
 }
 

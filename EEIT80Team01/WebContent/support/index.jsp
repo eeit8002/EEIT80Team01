@@ -23,12 +23,12 @@ body {
 <title>客服</title>
 </head>
 <body>
-	<c:if test="${empty LoginAdmin }">
+	<c:if test="${empty LoginSupport }">
 		<script>
 			location.href = ('${pageContext.request.contextPath}/support/login/login.jsp');
 		</script>
 	</c:if>
-	<c:if test="${!empty LoginAdmin }">
+	<c:if test="${!empty LoginSupport }">
 		<script>
 			location.href = ('${pageContext.request.contextPath}/support/manage/listMembers.jsp');
 		</script>

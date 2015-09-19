@@ -36,6 +36,9 @@
 	            <li><a href="${pageContext.request.contextPath}/admin/password/changePassword.jsp"><span class="glyphicon glyphicon-pencil">&nbsp;修改系統管理員密碼</span></a></li>
 	            <li><a href="${pageContext.request.contextPath}/admin/login/logout.jsp"><span class="glyphicon glyphicon-log-out">&nbsp;系統管理員登出</span></a></li>
 	            </c:if>
+	            <c:if test="${empty LoginAdmin}">
+	            <li><a href="${pageContext.request.contextPath}/admin/login/login.jsp"><span class="glyphicon glyphicon-log-in">&nbsp;系統管理員登入</span></a></li>
+	            </c:if>
 	          </ul>
 	        </li>
 	      </ul>

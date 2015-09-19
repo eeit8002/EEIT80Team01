@@ -22,7 +22,7 @@ body {
 
 </head>
 <body>
-	<header><%@include file="/include/header-admin"%></header>
+	<header><%@include file="/include/header-support"%></header>
 	<article>
 		<div class="container-fluid">
 			<div class="row">
@@ -39,10 +39,6 @@ body {
 								<br>
 							</c:if>
 							<c:if test="${!empty LoginSupport }">
-<!-- 								<a -->
-<%-- 									href="${pageContext.request.contextPath}/admin/manage/AddNewSupporter.jsp">新增客服帳號</a> --%>
-<!-- 								<br> -->
-<!-- 								<br> -->
 								<a
 									href="${pageContext.request.contextPath}/support/manage/listMembers.jsp">會員列表</a>
 								<br>
@@ -58,7 +54,7 @@ body {
 					</div>
 				</div>
 				<div class="col-md-9">
-					<c:if test="${empty LoinSupport }">
+					<c:if test="${empty LoinSupport}">
 						<c:set var="funcName" value="LOG" scope="session" />
 						<div class="panel panel-default"
 							style="margin: auto; margin-top: 20px; width: 40%">
@@ -86,15 +82,11 @@ body {
 						</div>
 						<script type="text/javascript" src="login.js"></script>
 					</c:if>
-
-
-					<c:if test="${!empty LoginSupport }">
+					<c:if test="${!empty LoginSupport}">
 						<script>
- 							location.href = ('${pageContext.request.contextPath}/support/manage/listMembers.jsp');
+							location.href = ('${pageContext.request.contextPath}/support/manage/listMembers.jsp');
 						</script>
 					</c:if>
-
-
 				</div>
 			</div>
 		</div>

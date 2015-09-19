@@ -213,5 +213,25 @@ public class MemberDAOjdbc implements MemberDAO {
 		return false;
 	}
 	
-
+	private static final String BAN =
+			"update member set access=? where username=?";
+	public int banMember(String[] userName){
+		int count = 0;
+		try {
+			Connection conn = ds.getConnection();
+			conn.setAutoCommit(false);
+			PreparedStatement stmt = conn.prepareStatement(BAN);
+			for (int i = 0; i < userName.length; ){
+				stmt.setString(1, userName[i]);
+				if(stmt.execute()){
+					count++;
+				}
+			}
+			conn.commit();
+			conn.setAutoCommit(true);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
 }

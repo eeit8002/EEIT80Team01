@@ -73,4 +73,9 @@ public class MemberService {
 		return list;
 	}
 	
+	public int banMember(String[] userName) {
+		MemberDAO dao = new MemberDAOjdbc();
+		return dao.banMember(userName);
+	}
+	
 }

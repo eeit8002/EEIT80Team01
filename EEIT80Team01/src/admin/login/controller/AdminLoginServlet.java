@@ -41,12 +41,6 @@ public class AdminLoginServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		String requestURI = (String) session.getAttribute("requestURI");
 
-		// String[] forbidden = { "\"", "\'", "(", ")", "?","=" };
-		// for (int i = 0; i < forbidden.length; i++) {
-		// adminname.replace(forbidden[i], "");
-		// password.replace(forbidden[i], "");
-		// }
-
 		if (adminname == null || adminname.trim().length() == 0) {
 			errorMsgMap.put("AccountEmptyError", "帳號為必填欄位");
 		}
@@ -75,6 +69,7 @@ public class AdminLoginServlet extends HttpServlet {
 				response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/admin/index.jsp"));
 			}
 		} else {
+			request.setAttribute("ErrorMsgMap", errorMsgMap);
 			RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
 			rd.forward(request, response);
 			return;
