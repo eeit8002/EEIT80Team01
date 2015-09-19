@@ -34,10 +34,16 @@ body { padding-top: 50px; }
 	      <div class="row">
 			<%@include file="/include/navPart" %>
 				<div class="col-md-7 main" id="contentPart">
-	<label class="tag">收件者帳號：</label><span>${Message.sender}</span><br>
-	<label class="tag">寄件者帳號：</label><span>${Message.receiver}</span><br>
-	<label class="tag">信件主旨：</label><span>${Message.messageTitle}</span><br>
-	<label class="tag">信件內容：</label><br>
+				<dl class="dl-horizontal">
+ 					<dt>收件者：</dt>
+  					<dd>${Message.sender}</dd>
+  					<dt>寄件者：</dt>
+  					<dd>${Message.receiver}</dd>
+  					<dt>信件主旨：</dt>
+  					<dd>${Message.messageTitle}</dd>
+  					<dt>信件內容：</dt>
+				</dl>
+	<br>
 	<div class="msgBody">${Message.messageBody}</div>
 		</div>
 		<%@include file="/include/blockPart" %>
