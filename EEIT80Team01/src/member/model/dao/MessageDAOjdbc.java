@@ -70,7 +70,7 @@ public class MessageDAOjdbc implements MessageDAO {
 	}
 
 	private static final String SELECT_BY_SENDER =
-			"select * from MSG where SENDER=? and visibility&2=0";
+			"select sender,receiver,msg_title,msg_body,msg_time,msgno from MSG where SENDER=? and visibility&2=0";
 
 	public List<MessageBean> findBySender(String sender) {
 		List<MessageBean> result = new ArrayList<MessageBean>();
@@ -87,7 +87,6 @@ public class MessageDAOjdbc implements MessageDAO {
 				bean.setMessageBody(rset.getString("msg_body"));
 				bean.setMessageTime(rset.getTimestamp("msg_time"));
 				bean.setMessageNumber(rset.getLong("msgno"));
-				bean.setVisibility(rset.getInt("visibility"));
 				result.add(bean);
 			}
 		} catch (SQLException e) {
@@ -105,7 +104,7 @@ public class MessageDAOjdbc implements MessageDAO {
 	}
 
 	private static final String SELECT_BY_RECEIVER =
-			"select * from MSG where RECEIVER=? and visibility&1=0";
+			"select sender,receiver,msg_title,msg_body,msg_time,msgno from MSG where RECEIVER=? and visibility&1=0";
 	
 	public List<MessageBean> findByReceiver(String receiver) {
 		List<MessageBean> result = new ArrayList<MessageBean>();
@@ -122,7 +121,6 @@ public class MessageDAOjdbc implements MessageDAO {
 				bean.setMessageBody(rset.getString("msg_body"));
 				bean.setMessageTime(rset.getTimestamp("msg_time"));
 				bean.setMessageNumber(rset.getLong("msgno"));
-				bean.setVisibility(rset.getInt("visibility"));
 				result.add(bean);
 			}
 		} catch (SQLException e) {

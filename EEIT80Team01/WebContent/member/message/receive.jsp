@@ -12,9 +12,9 @@
 <%@page import="javax.servlet.http.*,global.GlobalService,member.model.*,java.util.List" %>
 <%	
 	MemberBean mb = (MemberBean)session.getAttribute(GlobalService.LOGIN_TOKEN);
-	String sender = mb.getUserName();
+	String receiver = mb.getUserName();
 	MessageService service = new MessageService();
-	List<MessageBean> list = service.findBySender(sender);
+	List<MessageBean> list = service.findByReceiver(receiver);
 	pageContext.setAttribute("list",list);
 %>
 <style>
