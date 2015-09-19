@@ -104,10 +104,10 @@ body {
 	</div>
 	</article>
 	<script>
-		var url = "listSupporters.jsp";
-		function goToPage() {
-			window.location = url;
-		}
-	</script>
+  		var url = "listSupporters.jsp";
+  		function goToPage() {
+  			window.location = url;
+  		}
+  	</script>
 </body>
 </html>

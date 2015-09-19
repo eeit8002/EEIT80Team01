@@ -84,6 +84,6 @@ body { padding-top: 50px; }
 	<%@include file="/include/modal" %>
 </body>
 <script>
-$("#sectionItem2").addClass("active");
+$("#sectionItem3").addClass("active");
 </script>
 </html>

@@ -235,7 +235,7 @@ public class ItemsDAOjdbc implements ItemsDAO{
 //			conn = DriverManager.getConnection(URL, USER, PASSWORD);
 			conn = ds.getConnection();
 			//進行commit
-			conn.setAutoCommit(false);
+//			conn.setAutoCommit(false);
 			stmt = conn.prepareStatement(INSERT);
 			if(bean!=null){
 				stmt.setString(1, bean.getSeller());

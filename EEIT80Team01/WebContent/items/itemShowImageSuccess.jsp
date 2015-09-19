@@ -4,9 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>圖片讀取成功</title>
 </head>
 <body>
-
+<h1>圖片讀取成功</h1>
+<img height="200" width="200" border="1" src="${pageContext.request.contextPath }/items/itemShowImage.controller?imageNo=${imageNo}"></img>
 </body>
 </html>

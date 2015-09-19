@@ -53,7 +53,7 @@ public class ItemCategoryAddServlet extends HttpServlet {
 		if(categoryName == null || categoryName.trim().length()==0){
 			errors.put("categoryNameError", "請輸入商品分類名稱");
 		}
-		if(errors!=null && !errors.isEmpty()){
+		if(!errors.isEmpty()){
 			RequestDispatcher rd = request.getRequestDispatcher("/support/manage/itemCategory/itemCategoryAdd.jsp");
 			rd.forward(request, response);
 			return;

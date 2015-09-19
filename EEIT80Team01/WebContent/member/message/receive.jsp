@@ -12,9 +12,9 @@
 <%@page import="javax.servlet.http.*,global.GlobalService,member.model.*,java.util.List" %>
 <%	
 	MemberBean mb = (MemberBean)session.getAttribute(GlobalService.LOGIN_TOKEN);
-	String sender = mb.getUserName();
+	String receiver = mb.getUserName();
 	MessageService service = new MessageService();
-	List<MessageBean> list = service.findBySender(sender);
+	List<MessageBean> list = service.findByReceiver(receiver);
 	pageContext.setAttribute("list",list);
 %>
 <style>
@@ -36,7 +36,7 @@ body { padding-top: 50px; }
 			 <div class="col-md-7 main" id="contentPart">
 <form method="post" action="receivedelete">
 	<fieldset>
-		<legend>寄件備份</legend>
+		<legend>收件夾</legend>
 		<table id="table" class="display" cellspacing="0" width="100%">
 			<thead>
 				<tr>
@@ -76,4 +76,7 @@ body { padding-top: 50px; }
 	</div>
 </article>
 </body>
+<script>
+$("#sectionItem6").addClass("active");
+</script>
 </html>

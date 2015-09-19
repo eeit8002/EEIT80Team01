@@ -50,7 +50,7 @@
 	        <li><a href="${pageContext.request.contextPath}/login/login.jsp"><span class="glyphicon glyphicon-log-in">&nbsp;登入</a></li>
 	        </c:if>
 	      	<c:if test="${!empty LoginOK }">
-	        <li><a href="${pageContext.request.contextPath}/member/changeData.jsp"><span class="glyphicon glyphicon-user"></a></li>
+	        <li><a href="${pageContext.request.contextPath}/member/default.jsp"><span class="glyphicon glyphicon-user"></a></li>
 	        </c:if>
 	        <li><a href="#" data-toggle="modal" data-target=".login" ><span class="glyphicon glyphicon-envelope"></span></a></li>
 	        <li class="dropdown">

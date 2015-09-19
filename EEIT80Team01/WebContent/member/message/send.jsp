@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>收件夾</title>
+<title>寄件備份</title>
 
 <%@include file="/include/include" %>
 <%@include file="/include/datatables.file" %>
@@ -37,7 +37,7 @@ body { padding-top: 50px; }
 			 <div class="col-md-7 main" id="contentPart">
 <form method="post" action="senddelete">
 	<fieldset>
-		<legend>收件夾</legend>
+		<legend>寄件備份</legend>
 		<table id="table" class="display" cellspacing="0" width="100%">
 			<thead>
 				<tr>
@@ -78,4 +78,7 @@ body { padding-top: 50px; }
 	</div>
 </article>
 </body>
+<script>
+$("#sectionItem7").addClass("active");
+</script>
 </html>
