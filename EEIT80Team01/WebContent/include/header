@@ -1,7 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-    	
+<%@ page import="item.category.model.*"  %>
+<%@ page import="java.util.List" %>    	
+
+<%
+ItemCategoryService service = new ItemCategoryService();
+List<ItemCategoryBean> list = service.selectCategory(null);//<ItemCategoryBean>
+pageContext.setAttribute("list",list);
+%>    	
 	<nav class="navbar navbar-inverse navbar-fixed-top" style="background-color:#0088A8;border-bottom:#0088A8">
 	  <div class="container-fluid">
 	    <!-- Brand and toggle get grouped for better mobile display -->
@@ -21,24 +28,20 @@
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="home-navar">
 	      
-	      <form class="navbar-form navbar-left" role="search">
+	      <form class="navbar-form navbar-left" role="search" action="/search/searchItems.do" method="get">
 	        <div class="form-group">
 	          <div class="input-group">	
-		          <span class="input-group-btn">
-					  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">所有類別 <span class="caret"></span></button>
-			          <ul class="dropdown-menu">
-			            <li><a href="#">Action</a></li>
-			            <li><a href="#">Another action</a></li>
-			            <li><a href="#">Something else here</a></li>
-			            <li role="separator" class="divider"></li>
-			            <li><a href="${pageContext.request.contextPath}/member/default.jsp">會員中心</a></li>
-			            <li role="separator" class="divider"></li>
-			            <li><a href="#">One more separated link</a></li>
-			          </ul>
-				  </span>
-		          <input type="text" name="id" class="form-control " placeholder="Search" />
 		          <div class="input-group-btn">
-		          	<button class="btn btn-primary active" type="button" >&nbsp;<span class="glyphicon glyphicon-search"></span>&nbsp;</button>
+			          <select class="btn btn-default" name="option">
+			          	<option>所有類別</option>
+			          	<c:forEach items="${list}" var="item" >
+			           		<option value="${item.itemCategory}">${item.categoryName}</option>
+			            </c:forEach>
+			          </select>
+				  </div>
+		          <input type="text" class="form-control " name="keyword" placeholder="Search" />
+		          <div class="input-group-btn">
+		          	<button class="btn btn-primary active" type="submit" >&nbsp;<span class="glyphicon glyphicon-search"></span>&nbsp;</button>
 		          </div>
 		      </div>
 	        </div>
@@ -50,7 +53,7 @@
 	        <li><a href="${pageContext.request.contextPath}/login/login.jsp"><span class="glyphicon glyphicon-log-in">&nbsp;登入</a></li>
 	        </c:if>
 	      	<c:if test="${!empty LoginOK }">
-	        <li><a href="${pageContext.request.contextPath}/member/default.jsp"><span class="glyphicon glyphicon-user"></a></li>
+	        <li><a href="${pageContext.request.contextPath}/member/changeData.jsp"><span class="glyphicon glyphicon-user"></a></li>
 	        </c:if>
 	        <li><a href="#" data-toggle="modal" data-target=".login" ><span class="glyphicon glyphicon-envelope"></span></a></li>
 	        <li class="dropdown">
@@ -61,14 +64,14 @@
 	            <li><a href="${pageContext.request.contextPath}/store/store.jsp"><span class="glyphicon glyphicon-usd">&nbsp;我的拍賣小店</span></a></li>
 	            <li role="separator" class="divider"></li>
 	            <c:if test="${!empty LoginOK}">
-	            <li><a href="${pageContext.request.contextPath}/member/default.jsp"><span class="glyphicon glyphicon-cog">&nbsp;會員中心</span></a></li>
+	            <li><a href="${pageContext.request.contextPath}/member/changeData.jsp"><span class="glyphicon glyphicon-cog">&nbsp;會員中心</span></a></li>
 	            <li><a href="${pageContext.request.contextPath}/customerService/customerService.jsp"><span class="glyphicon glyphicon-wrench">&nbsp;客服中心</span></a></li>
 	            </c:if>
 	            <li><a href="${pageContext.request.contextPath}/tutorial/tutorial.jsp"><span class="glyphicon glyphicon-education">&nbsp;新手指南</span></a></li>
 	            <li><a href="${pageContext.request.contextPath}/register/register.jsp"><span class="glyphicon glyphicon-pencil">&nbsp;創建帳號</span></a></li>
 	            <li role="separator" class="divider"></li>
 	            <c:if test="${!empty LoginOK}">
-	            <li><a href="${pageContext.request.contextPath}/login/logout.jsp"><span class="glyphicon glyphicon-log-out">&nbsp;登出</span></a></li>
+	            <li><a href="${pageContext.request.contextPath}/login/login.jsp"><span class="glyphicon glyphicon-log-out">&nbsp;登出</span></a></li>
 	            </c:if>
 	          </ul>
 	        </li>
