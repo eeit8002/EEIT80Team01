@@ -45,11 +45,19 @@ public class ChangePasswordServlet extends HttpServlet {
 			response.sendRedirect(request.getContextPath()+"/member/changePassword.jsp");
 			return;
 		}
+		
+		
+		
 		boolean result=false;
 		
 		String password = request.getParameter("password");
-		if(password!=null && password.length() >= 5){
+		String checkpassword = request.getParameter("passwordCheck");
+		if(password!=null && password.length() >= 5 && password.equals(checkpassword)){		
 			result = service.changePassword(username, password);
+		} else{
+			session.setAttribute("ChangeFailure", "修改失敗");
+			response.sendRedirect(request.getContextPath()+"/member/changePassword.jsp");
+			return;
 		}
 		
 		
