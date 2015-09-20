@@ -12,7 +12,7 @@ public interface ItemsDAO {
 
 	List<ItemsBean> getAll();
 
-	ItemsBean insert(ItemsBean bean);
+	ItemsBean insert(ItemsBean bean, List<ImageInput> list);
 
 	ItemsBean update(ItemsBean bean);
 

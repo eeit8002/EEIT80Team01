@@ -36,7 +36,7 @@ function clearForm(){
 
 <body>
 <h3>商品頁面</h3>
-<form action="${pageContext.request.contextPath }/items/itemAdd.controller" method="post" > 
+<form action="${pageContext.request.contextPath }/items/itemAdd.controller" method="post" enctype="multipart/form-data"> 
 	<table>
 		<tr>
 			<td>商品分類</td>
@@ -74,6 +74,11 @@ function clearForm(){
 			<td>結標時間</td>
 			<td><input id="dateTime" type="text" name="endTime" value="${param.endTime }" readonly="readonly"></td>
 			<td><font color="red" size="-1"><span class="error">${error.endTimeError }</span></font></td>
+		</tr>
+		<tr>
+			<td>商品圖片</td>
+			<td><input type="file" name="image"></td>
+			<td><font color="red" size="-1"><span class="error">${error.imageError }</span></font></td>
 		</tr>
 	</table>
 	<script>

@@ -28,12 +28,12 @@ public class ItemsService {
 		return dao.selectId(itemId);
 	}
 	
-	public ItemsBean insert(ItemsBean bean){
+	public ItemsBean insert(ItemsBean bean, List<ImageInput> list){
 		ItemsDAO dao = new ItemsDAOjdbc();
 		
 		ItemsBean result = null;
 		if(bean!=null){
-			result = dao.insert(bean);
+			result = dao.insert(bean, list);
 		}
 		return result;
 	}

@@ -1,11 +1,17 @@
 package items.model.dao;
 
 
+import global.GlobalService;
+import items.model.ImageInput;
+import items.model.ItemsBean;
+import items.model.ItemsDAO;
+
 import java.sql.Connection;
 //import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,10 +19,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-
-import global.GlobalService;
-import items.model.ItemsBean;
-import items.model.ItemsDAO;
 
 
 public class ItemsDAOjdbc implements ItemsDAO{
@@ -221,22 +223,19 @@ public class ItemsDAOjdbc implements ItemsDAO{
 	private static final String INSERT = "INSERT INTO ITEMS(SELLER, ITEM_CATEGORY, TITLE, "
 			+ "START_PRICE, DIRECT_PRICE, BID, END_TIME,ITEM_DESCRIBE, ITEM_STATUS,THREAD_LOCK) VALUES(?,?,?,?,?,?,?,?,?,?)";
 	private static final String INSERT_PICTURE = "INSERT INTO ITEM_IMAGES(ITEM_ID, IMAGE) VALUES(?,?)";
-	/* (non-Javadoc)
-	 * @see items.model.dao.ItemsDAO#insert(items.model.ItemsBean)
-	 */
 	@Override
-	public ItemsBean insert(ItemsBean bean){
+	public ItemsBean insert(ItemsBean bean, List<ImageInput> list){
 		ItemsBean result = null;
 		Connection conn = null;
 		PreparedStatement stmt = null;
-//		PreparedStatement stmtPic = null;
-//		ItemPackBean beanPack = new ItemPackBean();
+
 		try {
 //			conn = DriverManager.getConnection(URL, USER, PASSWORD);
 			conn = ds.getConnection();
+			conn.setAutoCommit(false);	
 			//進行commit
 //			conn.setAutoCommit(false);
-			stmt = conn.prepareStatement(INSERT);
+			stmt = conn.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
 			if(bean!=null){
 				stmt.setString(1, bean.getSeller());
 				stmt.setInt(2, bean.getItemCategory());
@@ -249,30 +248,33 @@ public class ItemsDAOjdbc implements ItemsDAO{
 				stmt.setInt(9, bean.getItemStatus());
 				stmt.setInt(10, bean.getThreadLock());
 				int i = stmt.executeUpdate();
-				if(i == 1){
-//					result = beanPack.setItemsBean(bean);
+				
+				ResultSet rs= stmt.getGeneratedKeys();
+
+				if(rs.next()){
+					int itemId = rs.getInt(1);
+					if(list!=null && !list.isEmpty()){
+						for(ImageInput input : list){
+							stmt = conn.prepareStatement(INSERT_PICTURE);
+							stmt.setInt(1, itemId);
+							stmt.setBinaryStream(2, input.getFis(), input.getSize());	
+							i = stmt.executeUpdate();
+						}
+					}
 				}
-			}
-//			stmtPic = conn.prepareStatement(INSERT_PICTURE);
-//			ImagesBean imageBean = new ImagesBean();
-//			if(imageBean!=null){
-//				stmtPic.setInt(1, imageBean.getItemId());
-//				stmtPic.setString(2, imageBean.getImage());
-//				int i = stmtPic.executeUpdate();
-//				if(i == 1){
-//					result = beanPack.;
-//				}
-//			}
-			
-			
-//			String pic = "";
-//			File file = new File(pic);
-			
-			
-			
+								
+				if(i>0){
+					conn.commit();
+				}
+			}						
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally{
+			try {
+				conn.setAutoCommit(false);
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}	
 			if(stmt!=null){
 				try {
 					stmt.close();

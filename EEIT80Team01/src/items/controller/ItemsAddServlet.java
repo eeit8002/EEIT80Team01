@@ -1,25 +1,30 @@
 package items.controller;
 
+import items.model.ImageInput;
+import items.model.ItemsBean;
+import items.model.ItemsService;
+
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
-import global.GlobalService;
-import items.model.ItemsBean;
-import items.model.ItemsService;
-import member.model.MemberBean;
 @WebServlet("/items/itemAdd.controller")
+@MultipartConfig(maxFileSize=999999)
 public class ItemsAddServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ItemsService service;
@@ -56,8 +61,12 @@ public class ItemsAddServlet extends HttpServlet {
 		String itemDescribe = request.getParameter("itemDescribe");
 		//新增按鈕
 		String itemsButton = request.getParameter("itemsButton");
-		
-		
+		Part part = null;
+		try {
+			part = request.getPart("image");
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 		
 		// 2. 檢查使用者輸入資料
 		
@@ -93,9 +102,11 @@ public class ItemsAddServlet extends HttpServlet {
 //		else if(!endTimeStr.matches("^((19|20)?[0-9]{2}[-](0?[1-9]|1[012])[-](0?[1-9]|[12][0-9]|3[01]))*$")){
 //			errors.put("endTimeError", "請輸入正確的結標時間  (如：2015-10-10)");
 //		}
+				
 		if(itemDescribe==null || itemDescribe.trim().length()==0){
 			itemDescribe = "";
 		}
+				
 		if(errors!=null && !errors.isEmpty()){
 			RequestDispatcher rd = request.getRequestDispatcher("/items/itemAdd.jsp");
 			rd.forward(request, response);
@@ -146,9 +157,16 @@ public class ItemsAddServlet extends HttpServlet {
 		bean.setItemStatus(0);	//上架為0
 		bean.setThreadLock(0);	//預設為0
 		
+		List<ImageInput> list = new ArrayList<ImageInput>();
+		if(part != null){			
+			ImageInput input= new ImageInput();
+			input.setFis((FileInputStream) part.getInputStream());				
+			input.setSize(part.getSize());
+			list.add(input);
+		}
 		//根據Model執行結果導向View
 		if(itemsButton!=null &&itemsButton.equals("Insert")){
-			ItemsBean result = service.insert(bean);
+			ItemsBean result = service.insert(bean, list);
 			if(result==null){
 				errors.put("action", "商品上架錯誤");
 			}else{
