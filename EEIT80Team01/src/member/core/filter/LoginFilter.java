@@ -22,7 +22,7 @@ import admin.model.AdminBean;
 import member.model.MemberBean;
 
 @WebFilter(
-		urlPatterns = { "/member/*" }
+		urlPatterns = { "/member/*", "/items/*" }
 		)
 public class LoginFilter implements Filter {
 	Collection<String> url = new ArrayList<String>();

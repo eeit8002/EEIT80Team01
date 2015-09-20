@@ -86,7 +86,7 @@ body { padding-top: 50px; }
 	        		<fmt:formatDate value="${item.endTime}" var="formatDate" type="date" pattern="yyyy年MM月dd日HH時mm分" />	
 	        		結標時間：${formatDate}<br>
 	        		最小加價：${item.bid}<br>
-	        		直購價：${directPrice}<br>
+	        		直購價：${item.directPrice}<br>
 	        		<c:if test="${!empty LoginOK}">
 	        		<c:if test="${!LoginOK.userName.equals(item.seller)}">
 	        		<form action="${pageContext.request.contextPath}/product/bid.do" method="post">
@@ -112,11 +112,11 @@ body { padding-top: 50px; }
 	        		${item.itemDescribe}
 	        		<c:if test="${!empty images}">
 	        		<c:forEach items="${images}" var="image">
-	        			<img src="${pageContext.request.contextPath}/items/showImage?imageNo=${image}" class="itemimg">
+	        			<img src="${pageContext.request.contextPath}/search/showImage?imageNo=${image}" class="itemimg">
 	        		</c:forEach>
 	        		</c:if>
 	        		<c:if test="${empty images}">
-	        			<img src="${pageContext.request.contextPath}/items/showImage" class="itemimg">
+	        			<img src="${pageContext.request.contextPath}/search/showImage" class="itemimg">
 	        		</c:if>
 				</c:when>
 				<c:otherwise>

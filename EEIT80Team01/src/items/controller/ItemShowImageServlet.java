@@ -17,7 +17,7 @@ import items.model.ImagesBean;
 import items.model.ItemImagesService;
 
 
-@WebServlet("/items/showImage")
+@WebServlet("/search/showImage")
 public class ItemShowImageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

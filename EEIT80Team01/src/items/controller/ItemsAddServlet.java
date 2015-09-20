@@ -1,9 +1,5 @@
 package items.controller;
 
-import items.model.ImageInput;
-import items.model.ItemsBean;
-import items.model.ItemsService;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -21,7 +17,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+
+import global.GlobalService;
+import items.model.ImageInput;
+import items.model.ItemsBean;
+import items.model.ItemsService;
+import member.model.MemberBean;
 
 @WebServlet("/items/itemAdd.controller")
 @MultipartConfig(maxFileSize=999999)
@@ -47,9 +50,13 @@ public class ItemsAddServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		//需要進行登入在操作，不然會爆500
-//		HttpSession session = request.getSession();	//用來抓取seller資料用
-//		MemberBean memberBean = (MemberBean)session.getAttribute(GlobalService.LOGIN_TOKEN);
-//		String userName = memberBean.getUserName();
+		HttpSession session = request.getSession();	//用來抓取seller資料用
+		MemberBean memberBean = (MemberBean)session.getAttribute(GlobalService.LOGIN_TOKEN);
+		String userName=null;
+		if(memberBean!=null){
+			userName = memberBean.getUserName();
+		}
+		
 		
 		// 1. 讀取使用者輸入資料
 		String itemCategorySelect = request.getParameter("itemCategory");	//使用select方式讓會員使用
@@ -74,6 +81,10 @@ public class ItemsAddServlet extends HttpServlet {
 		// 存放錯誤訊息物件
 		Map<String, String> errors = new HashMap<String, String>();
 		request.setAttribute("error", errors);
+		
+		if(userName==null || userName.trim().length()==0){
+			errors.put("loginError", "請重新登入");
+		}
 		
 		if(itemCategorySelect==null || itemCategorySelect.length()==0){
 			errors.put("itemCategoryError", "請選擇一項商品分類");
@@ -145,8 +156,8 @@ public class ItemsAddServlet extends HttpServlet {
 		
 		//呼叫Model
 		ItemsBean bean = new ItemsBean();
-//		bean.setSeller(userName);	//可以使用session or 呼叫member
-		bean.setSeller("aaaaa");	//測試用，強制塞值
+		bean.setSeller(userName);	//可以使用session or 呼叫member
+//		bean.setSeller("aaaaa");	//測試用，強制塞值
 		bean.setItemCategory(itemCategory);	//須轉為int存入資料庫
 		bean.setTitle(title);
 		bean.setStartPrice(startPrice);
