@@ -2,6 +2,7 @@ package items.controller;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -68,9 +69,12 @@ public class ItemsAddServlet extends HttpServlet {
 		String itemDescribe = request.getParameter("itemDescribe");
 		//新增按鈕
 		String itemsButton = request.getParameter("itemsButton");
-		Part part = null;
+		Part[] parts = new Part[3];
+
 		try {
-			part = request.getPart("image");
+			parts[0] = request.getPart("image1");
+			parts[1] = request.getPart("image2");
+			parts[2] = request.getPart("image3");
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
@@ -109,11 +113,7 @@ public class ItemsAddServlet extends HttpServlet {
 		}
 		if(endTimeStr==null || endTimeStr.trim().length()==0){
 			errors.put("endTimeError", "請點擊選擇結標時間");
-		}
-//		else if(!endTimeStr.matches("^((19|20)?[0-9]{2}[-](0?[1-9]|1[012])[-](0?[1-9]|[12][0-9]|3[01]))*$")){
-//			errors.put("endTimeError", "請輸入正確的結標時間  (如：2015-10-10)");
-//		}
-				
+		}	
 		if(itemDescribe==null || itemDescribe.trim().length()==0){
 			itemDescribe = "";
 		}
@@ -168,13 +168,17 @@ public class ItemsAddServlet extends HttpServlet {
 		bean.setItemStatus(0);	//上架為0
 		bean.setThreadLock(0);	//預設為0
 		
-		List<ImageInput> list = new ArrayList<ImageInput>();
-		if(part != null){			
-			ImageInput input= new ImageInput();
-			input.setFis((FileInputStream) part.getInputStream());				
-			input.setSize(part.getSize());
-			list.add(input);
-		}
+		List<ImageInput> list = new ArrayList<ImageInput>();							
+			for(Part part: parts ){
+				try {
+					
+					ImageInput input= new ImageInput();
+					input.setFis((FileInputStream) part.getInputStream());				
+					input.setSize(part.getSize());
+					list.add(input);
+				} catch (Exception e) {
+				}
+			}
 		//根據Model執行結果導向View
 		if(itemsButton!=null &&itemsButton.equals("Insert")){
 			ItemsBean result = service.insert(bean, list);

@@ -77,8 +77,9 @@ function clearForm(){
 		</tr>
 		<tr>
 			<td>商品圖片</td>
-			<td><input type="file" name="image"></td>
-			<td><font color="red" size="-1"><span class="error">${error.imageError }</span></font></td>
+			<td><input type="file" name="image1"></td>
+			<td><input type="file" name="image2"></td>
+			<td><input type="file" name="image3"></td>
 		</tr>
 	</table>
 	<script>
@@ -106,7 +107,8 @@ function clearForm(){
 	<input type="submit" value="新增商品">
 	<input type="hidden" name="itemsButton" value="Insert">
 	<input type="button" value="Clear" onclick="clearForm()">
-<h3><font color="red" size="-1"><span class="error" >${error.action }</span></font></h3>
+	<h3><font color="red" size="-1"><span class="error" >${error.loginError }</span></font></h3>
+	<h3><font color="red" size="-1"><span class="error" >${error.action }</span></font></h3>
 
 </form>
 </body>

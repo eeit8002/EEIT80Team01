@@ -268,7 +268,11 @@ public class ItemsDAOjdbc implements ItemsDAO{
 				}
 			}						
 		} catch (SQLException e) {
-			e.printStackTrace();
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 		}finally{
 			try {
 				conn.setAutoCommit(false);

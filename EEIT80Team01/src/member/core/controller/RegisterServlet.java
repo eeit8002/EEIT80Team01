@@ -79,7 +79,7 @@ public class RegisterServlet extends HttpServlet {
 										MemberBean result = service.register(bean);
 										if(result!=null && result.getUserName().toUpperCase().equals(bean.getUserName().toUpperCase())){
 											RequestDispatcher rd = request.getRequestDispatcher("/register/register.jsp");									
-											request.setAttribute("Success", bean);
+											request.setAttribute("registerTrue", bean);
 											rd.forward(request,response);
 											return;
 										}							
@@ -91,7 +91,7 @@ public class RegisterServlet extends HttpServlet {
 				}
 				
 				RequestDispatcher rd = request.getRequestDispatcher("/register/register.jsp");
-				request.setAttribute("Error", "註冊失敗");
+				request.setAttribute("registerFalse", "註冊失敗");
 				rd.forward(request,response);
 				return;
 				

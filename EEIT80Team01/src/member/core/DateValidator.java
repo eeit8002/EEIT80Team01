@@ -7,7 +7,7 @@ public class DateValidator {
 	private Pattern pattern;
 	private Matcher matcher;
 	private static final String DATE_PATTERN = 
-		"^\\d{2}/\\d{2}/\\d{4}$";
+		"^\\d{4}/\\d{2}/\\d{2}$";
 	public DateValidator() {
 		pattern = Pattern.compile(DATE_PATTERN);
 	}

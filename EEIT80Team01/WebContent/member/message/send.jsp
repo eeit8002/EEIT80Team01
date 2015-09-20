@@ -10,14 +10,8 @@
 
 <%@include file="/include/include" %>
 <%@include file="/include/datatables.file" %>
-<%@page import="javax.servlet.http.*,global.GlobalService,member.model.*,java.util.List" %>
-<%	
-	MemberBean mb = (MemberBean)session.getAttribute(GlobalService.LOGIN_TOKEN);
-	String sender = mb.getUserName();
-	MessageService service = new MessageService();
-	List<MessageBean> list = service.findBySender(sender);
-	pageContext.setAttribute("list",list);
-%>
+<%@page import="javax.servlet.http.*,global.GlobalService,member.model.*" %>
+
 <style>
 .navbar{ 
  	margin-bottom: 0px;
@@ -30,6 +24,13 @@ body { padding-top: 50px; }
 	<header>
 		<%@include file="/include/header" %>
 	</header>
+	<%	
+	MemberBean mb = (MemberBean)session.getAttribute(GlobalService.LOGIN_TOKEN);
+	String sender = mb.getUserName();
+	MessageService serv = new MessageService();
+	List<MessageBean> mblist = serv.findBySender(sender);
+	pageContext.setAttribute("list", mblist);
+	%>
 	<article>
 	<div class="container-fluid">
 	      <div class="row">
