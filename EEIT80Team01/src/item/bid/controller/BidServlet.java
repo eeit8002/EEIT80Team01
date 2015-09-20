@@ -47,66 +47,73 @@ public class BidServlet extends HttpServlet {
 		}
 		bidTime = new java.sql.Timestamp(new java.util.Date().getTime());
 		
-		if(action.equalsIgnoreCase("direct")){
+		if(bidService.getSeller(itemId)!=buyer){
 			
-			if(bidService.changeItemStatusToTwo(itemId)){
-				bidLogBean = bidService.insertDirectBuyer(itemId,bidTime,buyer);
-				if(bidLogBean!=null){
-					request.setAttribute("message","購買成功");
-					request.getRequestDispatcher("/product/product.jsp").forward(request, response);
-				} else{
-					bidService.changeItemStatusToZero(itemId);
+			if(action.equalsIgnoreCase("direct")){
+				
+				if(bidService.changeItemStatusToTwo(itemId)){
+					bidLogBean = bidService.insertDirectBuyer(itemId,bidTime,buyer);
+					if(bidLogBean!=null){
+						request.setAttribute("message","購買成功");
+						request.getRequestDispatcher("/search/itempage.jsp").forward(request, response);
+					} else{
+						bidService.changeItemStatusToZero(itemId);
+					}
+				}
+				else{
+					request.setAttribute("errorMsg","已售出!");
+					request.getRequestDispatcher("/search/itempage.jsp").forward(request, response);
 				}
 			}
-			else{
-				request.setAttribute("error","已售出!");
-				request.getRequestDispatcher("/product/product.jsp").forward(request, response);
-			}
-		}
-		
-		if(action.equalsIgnoreCase("bid")){
-			try {
-				bidPrice = Double.parseDouble(request.getParameter("bidPrice"));
-			} catch (NumberFormatException e) {
-				System.out.println("NumberFormatException");
-				e.printStackTrace();
-			}
 			
-			if(bidService.checkStatus(itemId)){
-				bidService.toggleThread(itemId);
-				if(bidPrice>=1 && bidService.validateBidPrice(bidPrice, itemId) && 
-						bidService.validateBidTime(bidTime, itemId)){
-					bidLogBean = new BidLogBean();
-					bidLogBean.setItemId(itemId);
-					bidLogBean.setBuyer(buyer);
-					bidLogBean.setBidPrice(bidPrice);
-					bidLogBean.setBidTime(bidTime);
-					BidLogBean result = bidService.compareTopPrice(bidLogBean,itemId);
-					if(result!=null){
-						bidService.toggleThread(itemId);
-						request.setAttribute("bean",result);
-						request.setAttribute("message","下標成功");
-						request.getRequestDispatcher("/product/product.jsp").forward(request,response);
-					}else{
-						bidService.toggleThread(itemId);
-						request.setAttribute("error","錯誤!出價請高於最高下標價");
-						request.getRequestDispatcher("/product/product.jsp").forward(request,response);
-					}
-				} else{
-					bidService.toggleThread(itemId);
-					request.setAttribute("error","下標失敗!");
-					request.getRequestDispatcher("/product/product.jsp").forward(request,response);
+			if(action.equalsIgnoreCase("bid")){
+				try {
+					bidPrice = Double.parseDouble(request.getParameter("bidPrice"));
+				} catch (NumberFormatException e) {
+					System.out.println("NumberFormatException");
+					e.printStackTrace();
 				}
 				
-			}
-			else{
-				request.setAttribute("error","錯誤!其他會員下標中或拍賣已結束");
-				request.getRequestDispatcher("/product/product.jsp").forward(request,response);
+				if(bidService.checkStatus(itemId)){
+					bidService.toggleThread(itemId);
+					if(bidPrice>=1 && bidService.validateBidPrice(bidPrice, itemId) && 
+							bidService.validateBidTime(bidTime, itemId)){
+						bidLogBean = new BidLogBean();
+						bidLogBean.setItemId(itemId);
+						bidLogBean.setBuyer(buyer);
+						bidLogBean.setBidPrice(bidPrice);
+						bidLogBean.setBidTime(bidTime);
+						BidLogBean result = bidService.compareTopPrice(bidLogBean,itemId);
+						if(result!=null){
+							bidService.toggleThread(itemId);
+							request.setAttribute("bean",result);
+							request.setAttribute("message","下標成功");
+							request.getRequestDispatcher("/search/itempage.jsp").forward(request,response);
+						}else{
+							bidService.toggleThread(itemId);
+							request.setAttribute("errorMsg","錯誤!出價請高於最高下標價");
+							request.getRequestDispatcher("/search/itempage.jsp").forward(request,response);
+						}
+					} else{
+						bidService.toggleThread(itemId);
+						request.setAttribute("errorMsg","下標失敗!");
+						request.getRequestDispatcher("/search/itempage.jsp").forward(request,response);
+					}
+					
+				}
+				else{
+					request.setAttribute("errorMsg","錯誤!其他會員下標中或拍賣已結束");
+					request.getRequestDispatcher("/search/itempage.jsp").forward(request,response);
+				}
+				
+				
 			}
 			
-			
+		}//check seller!=buyer
+		else{
+			request.setAttribute("errorMsg","對不起,您是此商品的賣家!");
+			request.getRequestDispatcher("/search/itempage.jsp").forward(request, response);
 		}
-		
 		
 		
 		
